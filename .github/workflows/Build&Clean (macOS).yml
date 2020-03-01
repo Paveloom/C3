@@ -3,12 +3,12 @@ name: Build&Clean (macOS)
 on: push
 
 jobs:
-  Build-n-Clean_macOS:
+  Installing_MacPorts:
 
     runs-on: macos-10.15
 
     steps:
     - uses: actions/checkout@v2
-    - name: Установка MacPorts и gmake
+    - name: Установка MacPorts
       run: |
         bash .github/scripts/Build\&Clean\ \(macOS\,\ установка\ MacPorts\).sh

@@ -43,6 +43,9 @@ printf $RESULT
 printf "\nВыполняется установка пакета.\n\n"
 sudo installer -verbose -pkg $RESULT -target /
 
+# Перезагрузка конфигурации терминала
+source ~/.bashrc
+
 # Установка gmake
 
 printf "\nВыполняется установка gmake.\n\n"
