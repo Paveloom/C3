@@ -53,7 +53,7 @@
                   -Wreal-q-constant -Wsurprising -Wunderflow -Walign-commons \
                   -Wfunction-elimination -Wrealloc-lhs -Wrealloc-lhs-all \
                   -fbacktrace -ffree-line-length-0 -fcheck=all \
-                  -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2008
+                  -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2018
 
      ## Флаги для финальной сборки
      opt_production := -Ofast
