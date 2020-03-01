@@ -1,0 +1,14 @@
+name: Build&Clean (macOS)
+
+on: push
+
+jobs:
+  build-n-clean_linux_job:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Проверка gmake
+      run: |
+        gmake -v
