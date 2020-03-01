@@ -1,6 +1,8 @@
 
-     ## Это шаблон make-файла для компиляции программ,
+     ## Это шаблон* make-файла для компиляции программ,
      ## разработки и публикации кода на GitHub.
+
+     ## * Изменен для данного проекта.
 
      ## Репозиторий на GitHub: https://github.com/Paveloom/B1
      ## Документация: https://www.notion.so/paveloom/B1-fefcaf42ddf541d4b11cfcab63c2f018
@@ -35,7 +37,7 @@
      # Настройки компиляции программ
 
      ## Компилятор
-     comp := gfortran
+     comp := gfortran-9
 
      ## Флаг для указания директории для хранения .mod файлов
      module_flag := -J
@@ -189,9 +191,6 @@
      ## Имя пользователя на GitHub
      username := Paveloom
 
-     ## Сообщение стартового коммита
-     start_message := "Стартовый коммит."
-
      ## Правило для создания и публикации коммита
 
      git :
@@ -205,24 +204,3 @@
 	         git add -A
 	         git commit --amend
 	         git push --force-with-lease
-
-     ## Правило для подключения удалённого репозитория и
-     ## загрузки в него стартового make-файла
-
-     ifeq (git-new, $(firstword $(MAKECMDGOALS)))
-          new_rep := $(wordlist 2, 2, $(MAKECMDGOALS))
-          $(eval $(new_rep):;@#)
-     endif
-
-     git-new :
-	          $(make_name) git-clean
-	          git init
-	          git remote add origin git@github.com:$(username)/$(new_rep).git
-	          git add Makefile
-	          git commit -m $(start_message)
-	          git push -u origin master
-
-     ## Правило для удаления репозитория в текущей директории
-
-     git-clean :
-	            rm -rf .git
