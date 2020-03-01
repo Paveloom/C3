@@ -4,7 +4,8 @@
 print "\nЗапущен скрипт установки gmake.\n\n"
 
 # Обновление переменной PATH
-# export PATH=$PATH:/opt/local/bin
+export PATH=$PATH:/opt/local/bin
+echo $PATH
 
 # Установка gmake
 
