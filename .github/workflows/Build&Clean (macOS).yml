@@ -9,9 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Установка MacPorts
+    - name: Установка MacPorts и gmake
       run: |
         bash .github/scripts/Build\&Clean\ \(macOS\,\ установка\ MacPorts\).sh
-    - name: Установка gmake
-      run: |
-        bash .github/scripts/Build\&Clean\ \(macOS\,\ установка\ gmake\).sh

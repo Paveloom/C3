@@ -42,3 +42,13 @@ printf $RESULT
 
 printf "\nВыполняется установка пакета.\n\n"
 sudo installer -verbose -pkg $RESULT -target /
+
+# Установка gmake
+
+printf "\nВыполняется установка gmake.\n\n"
+sudo port install gmake
+
+# Проверка, установлен ли gmake
+
+printf "\nВыполняется вывод версии gmake.\n\n"
+gmake -v
