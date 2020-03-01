@@ -9,13 +9,15 @@ curl -O https://github.com/macports/macports-base/releases/download/v2.6.2/MacPo
 
 printf "\n Выполняется получение полного пути к файлу.\n\n"
 
+## Источник скрипта: https://stackoverflow.com/questions/1055671/how-can-i-get-the-behavior-of-gnus-readlink-f-on-a-mac
 
 TARGET_FILE="MacPorts-2.6.2-10.15-Catalina.pkg"
 
 cd `dirname $TARGET_FILE`
 TARGET_FILE=`basename $TARGET_FILE`
 
-# Iterate down a (possible) chain of symlinks
+## Продолжать итерацию по (возможной) цепочке символьных ссылок
+
 while [ -L "$TARGET_FILE" ]
 do
     TARGET_FILE=`readlink $TARGET_FILE`
@@ -23,14 +25,17 @@ do
     TARGET_FILE=`basename $TARGET_FILE`
 done
 
-# Compute the canonicalized name by finding the physical path 
-# for the directory we're in and appending the target file.
+## Получение абсолютного пути целевого файла с помощью нахождения физического 
+## пути той директории, в которой мы находимся, и присоединения к нему
+## имени целевого файла.
+
 PHYS_DIR=`pwd -P`
 RESULT=$PHYS_DIR/$TARGET_FILE
+
+printf "\nПолный путь к целевому файлу:"
 echo $RESULT
 
 # Установка пакета
 
 printf "\n Выполняется установка пакета."
-sudo installer -pkg MacPorts-2.6.2-10.15-Catalina.pkg -target /
-
+sudo installer -pkg $RESULT -target /
