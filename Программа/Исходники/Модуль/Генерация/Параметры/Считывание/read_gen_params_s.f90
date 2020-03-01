@@ -7,6 +7,9 @@ implicit none
      ! Процедура для считывания параметров
      module procedure read_gen_params
           
+          integer(IP) :: pr ! Предыдущее значение r
+          logical(LP) :: pr_eq_r ! Логическое значение pr .eq. gen_params%r  
+
           integer(SP) :: stat ! Статусная переменная
           integer(UP) :: unit ! Номер дескриптора файла
 
@@ -83,6 +86,9 @@ implicit none
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
+          ! Сохранение предыдущего значения r
+          pr = gen_params%r
+
           ! Считывание значения числа гармонических компонент
 
           read( unit = unit, fmt = *, iostat = stat ) gen_params%r
@@ -91,68 +97,222 @@ implicit none
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
-          ! Выделение памяти под массив амплитуд
+          ! Сравнение предыдущего и текущего r
 
-          allocate( gen_params%A(gen_params%r), stat = stat )
-          if ( stat .ne. 0_SP ) call log_gen_params_error('WA_A') ! Проверка на ошибку выделения памяти
+          pr_eq_r = pr .eq. gen_params%r
 
-          ! Считывание значений массива амплитуд
+          ! [ Проверка, выделена ли память под массив амплитуд ]
 
-          ! if (settings%get_do_read_alpha_2()) then
-               
-               read( unit = unit, fmt = *, iostat = stat ) gen_params%A
-               if ( stat .ne. 0_SP ) call log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
+          if ( allocated(gen_params%A) ) then
 
-          ! else
+               ! Проверка, совпадает ли новое r с предыдущим
 
-          !      ! Пропуск строки
-          !      read( unit = unit, fmt = '()' ) 
+               if ( pr_eq_r ) then
 
-          ! endif
+                    ! Считывание значений массива амплитуд
+
+                    ! if (settings%get_do_read_alpha_2()) then
+                         
+                         read( unit = unit, fmt = *, iostat = stat ) gen_params%A
+                         if ( stat .ne. 0_SP ) call log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
+
+                    ! else
+
+                    !      ! Пропуск строки
+                    !      read( unit = unit, fmt = '()' ) 
+
+                    ! endif
+
+               else
+
+                    deallocate( gen_params%A, stat = stat )
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WD_A')
+
+                    ! Выделение памяти под массив амплитуд
+
+                    allocate( gen_params%A(gen_params%r), stat = stat )
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WA_A') ! Проверка на ошибку выделения памяти
+
+                    ! Считывание значений массива амплитуд
+
+                    ! if (settings%get_do_read_alpha_2()) then
+                         
+                         read( unit = unit, fmt = *, iostat = stat ) gen_params%A
+                         if ( stat .ne. 0_SP ) call log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
+
+                    ! else
+
+                    !      ! Пропуск строки
+                    !      read( unit = unit, fmt = '()' ) 
+
+                    ! endif
+
+               endif
+
+          else
+
+               allocate( gen_params%A(gen_params%r), stat = stat )
+               if ( stat .ne. 0_SP ) call log_gen_params_error('WA_A') ! Проверка на ошибку выделения памяти
+
+               ! Считывание значений массива амплитуд
+
+               ! if (settings%get_do_read_alpha_2()) then
+                    
+                    read( unit = unit, fmt = *, iostat = stat ) gen_params%A
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
+
+               ! else
+
+               !      ! Пропуск строки
+               !      read( unit = unit, fmt = '()' ) 
+
+               ! endif
+
+          endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
-          ! Выделение памяти под массив частот
+          ! [ Проверка, выделена ли память под массив частот ]
 
-          allocate( gen_params%v(gen_params%r), stat = stat )
-          if ( stat .ne. 0_SP ) call log_gen_params_error('WA_v') ! Проверка на ошибку выделения памяти
+          if ( allocated(gen_params%v) ) then
 
-          ! Считывание значений массива частот
+               ! Проверка, совпадает ли новое r с предыдущим
 
-          ! if (settings%get_do_read_alpha_2()) then
-               
-               read( unit = unit, fmt = *, iostat = stat ) gen_params%v
-               if ( stat .ne. 0_SP ) call log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
+               if ( pr_eq_r ) then
 
-          ! else
+                    ! Считывание значений массива частот
 
-          !      ! Пропуск строки
-          !      read( unit = unit, fmt = '()' ) 
+                    ! if (settings%get_do_read_alpha_2()) then
+                         
+                         read( unit = unit, fmt = *, iostat = stat ) gen_params%v
+                         if ( stat .ne. 0_SP ) call log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
 
-          ! endif
+                    ! else
+
+                    !      ! Пропуск строки
+                    !      read( unit = unit, fmt = '()' ) 
+
+                    ! endif
+
+               else
+
+                    deallocate( gen_params%v, stat = stat )
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WD_v')
+
+                    ! Выделение памяти под массив частот
+
+                    allocate( gen_params%v(gen_params%r), stat = stat )
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WA_v') ! Проверка на ошибку выделения памяти
+
+                    ! Считывание значений массива частот
+
+                    ! if (settings%get_do_read_alpha_2()) then
+                         
+                         read( unit = unit, fmt = *, iostat = stat ) gen_params%v
+                         if ( stat .ne. 0_SP ) call log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
+
+                    ! else
+
+                    !      ! Пропуск строки
+                    !      read( unit = unit, fmt = '()' ) 
+
+                    ! endif
+
+               endif
+
+          else
+
+               allocate( gen_params%v(gen_params%r), stat = stat )
+               if ( stat .ne. 0_SP ) call log_gen_params_error('WA_v') ! Проверка на ошибку выделения памяти
+
+               ! Считывание значений массива частот
+
+               ! if (settings%get_do_read_alpha_2()) then
+                    
+                    read( unit = unit, fmt = *, iostat = stat ) gen_params%v
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
+
+               ! else
+
+               !      ! Пропуск строки
+               !      read( unit = unit, fmt = '()' ) 
+
+               ! endif
+
+          endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
-          ! Выделение памяти под массив фазовых сдвигов
+          ! [ Проверка, выделена ли память под массив фазовых сдвигов ]
 
-          allocate( gen_params%phi(gen_params%r), stat = stat )
-          if ( stat .ne. 0_SP ) call log_gen_params_error('WA_phi') ! Проверка на ошибку выделения памяти
+          if ( allocated(gen_params%phi) ) then
 
-          ! Считывание значений массива фазовых сдвигов
+               ! Проверка, совпадает ли новое r с предыдущим
 
-          ! if (settings%get_do_read_alpha_2()) then
-               
-               read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
-               if ( stat .ne. 0_SP ) call log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
+               if ( pr_eq_r ) then
 
-          ! else
+                    ! Считывание значений массива фазовых сдвигов
 
-          !      ! Пропуск строки
-          !      read( unit = unit, fmt = '()' ) 
+                    ! if (settings%get_do_read_alpha_2()) then
+                         
+                         read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
+                         if ( stat .ne. 0_SP ) call log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
 
-          ! endif
+                    ! else
+
+                    !      ! Пропуск строки
+                    !      read( unit = unit, fmt = '()' ) 
+
+                    ! endif
+
+               else
+
+                    deallocate( gen_params%phi, stat = stat )
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WD_phi')
+
+                    ! Выделение памяти под массив фазовых сдвигов
+
+                    allocate( gen_params%phi(gen_params%r), stat = stat )
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WA_phi') ! Проверка на ошибку выделения памяти
+
+                    ! Считывание значений массива фазовых сдвигов
+
+                    ! if (settings%get_do_read_alpha_2()) then
+                         
+                         read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
+                         if ( stat .ne. 0_SP ) call log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
+
+                    ! else
+
+                    !      ! Пропуск строки
+                    !      read( unit = unit, fmt = '()' ) 
+
+                    ! endif
+
+               endif
+
+          else
+
+               allocate( gen_params%phi(gen_params%r), stat = stat )
+               if ( stat .ne. 0_SP ) call log_gen_params_error('WA_phi') ! Проверка на ошибку выделения памяти
+
+               ! Считывание значений массива фазовых сдвигов
+
+               ! if (settings%get_do_read_alpha_2()) then
+                    
+                    read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
+                    if ( stat .ne. 0_SP ) call log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
+
+               ! else
+
+               !      ! Пропуск строки
+               !      read( unit = unit, fmt = '()' ) 
+
+               ! endif
+
+          endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )

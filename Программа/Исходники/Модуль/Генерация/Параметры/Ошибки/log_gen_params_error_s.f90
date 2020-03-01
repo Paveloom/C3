@@ -50,6 +50,13 @@ implicit none
                                                                                & введенных данных.'
                     stop
 
+               case ('WR_r') ! Встречается в read_gen_params_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_gen_params_error:', 'Не удалось считать значение числа гармонических компонент в&
+                                                                               & файле '//file//'. Проверьте правильность&
+                                                                               & введенных данных.'
+                    stop
+
                case ('WA_A') ! Встречается в read_gen_params_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_input_error:', 'Не удалось выделить память под массив амплитуд&
@@ -122,7 +129,7 @@ implicit none
 
                case default
 
-                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_gen_params_error:', 'Неизвестный код ошибки.'
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_gen_params_error:', 'Неизвестный код ошибки ('//error_code//').'
 
           end select
 
