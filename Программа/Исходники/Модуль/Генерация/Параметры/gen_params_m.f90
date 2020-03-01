@@ -32,6 +32,7 @@ implicit none
           contains
 
           procedure :: read => read_gen_params ! Процедура для считывания параметров для генерации временного ряда
+          procedure :: deallocate => deallocate_gen_params ! Процедура для освобождения памяти из-под параметров
           
      end type gen_params_type
 
@@ -54,6 +55,14 @@ implicit none
                character(*), intent(in), optional :: file ! Имя файла для считывания
 
           end subroutine log_gen_params_error
+
+          ! Процедура для освобождения памяти из-под параметров
+          module impure subroutine deallocate_gen_params(gen_params)
+          implicit none
+               
+               class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
+
+          end subroutine deallocate_gen_params
      
      end interface
      

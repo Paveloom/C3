@@ -63,6 +63,12 @@ implicit none
                                                                                & введенных данных.'
                     stop
 
+               case ('WD_A') ! Встречается в deallocate_gen_params_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось освободить память из-под&
+                                                                           & массива амплитуд объекта&
+                                                                           & типа gen_params_type.'
+
                case ('WA_v') ! Встречается в read_gen_params_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_input_error:', 'Не удалось выделить память под массив частот&
@@ -76,6 +82,12 @@ implicit none
                                                                                & введенных данных.'
                     stop
 
+               case ('WD_v') ! Встречается в deallocate_gen_params_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось освободить память из-под&
+                                                                           & массива частот объекта&
+                                                                           & типа gen_params_type.'
+
                case ('WA_phi') ! Встречается в read_gen_params_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'log_input_error:', 'Не удалось выделить память под массив фазовых сдвигов&
@@ -88,6 +100,12 @@ implicit none
                                                                                & файле '//file//'. Проверьте правильность&
                                                                                & введенных данных.'
                     stop
+
+               case ('WD_phi') ! Встречается в deallocate_gen_params_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'log_result_error:', 'Не удалось освободить память из-под&
+                                                                           & массива фазовых сдвигов объекта&
+                                                                           & типа gen_params_type.'
 
                case ('WR_gamma') ! Встречается в read_gen_params_s
 
