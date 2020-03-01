@@ -8,7 +8,7 @@ curl -O https://github.com/macports/macports-base/releases/download/v2.6.2/MacPo
 # Получение полного пути к файлу
 
 printf "\n Выполняется получение полного пути к файлу.\n\n"
-realpath MacPorts-2.6.2-10.15-Catalina.pkg
+readlink MacPorts-2.6.2-10.15-Catalina.pkg
 
 # Установка пакета
 
