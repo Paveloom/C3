@@ -1,4 +1,4 @@
-name: Build-n-Clean (Linux)
+name: Build&Clean (Linux)
 
 on: [push]
 
@@ -11,4 +11,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Запуск скрипта для проверки сборки
       run: |
-        bash .github/scripts/Build-n-Clean\ \(Linux\).sh
+        bash .github/scripts/Build\&Clean\ \(Linux\).sh
