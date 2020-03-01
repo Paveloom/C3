@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Вывод названия скрипта
-print "\nЗапущен скрипт установки MacPorts.\n\n"
+printf "\nЗапущен скрипт установки MacPorts.\n\n"
 
 # Скачивание пакета MacPorts 2.6 для macOS 10.15 Catalina
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Вывод названия скрипта
-print "\nЗапущен скрипт установки gmake.\n\n"
+printf "\nЗапущен скрипт установки gmake.\n\n"
 
 # Обновление переменной PATH
 export PATH=$PATH:/opt/local/bin

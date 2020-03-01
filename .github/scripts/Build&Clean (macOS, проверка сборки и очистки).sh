@@ -11,7 +11,7 @@ export PATH=$PATH:/opt/local/bin
 function check_if_succeeded {
 
     # Вывод информации о запущенной программе
-    printf "\nПроверяется команда $@.\n\n"
+    printf "\nПроверяется команда $@.\n"
 
     # Выполнение указанной команды
     $@
