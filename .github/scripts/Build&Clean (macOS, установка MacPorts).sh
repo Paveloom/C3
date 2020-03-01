@@ -44,4 +44,4 @@ printf "\n\nВыполняется установка пакета.\n\n"
 sudo installer -verbose -pkg $RESULT -target /
 
 # Обновление содержимого переменной PATH
-echo '/opt/local/bin' >> /etc/paths
+sudo echo '/opt/local/bin' >> /etc/paths
