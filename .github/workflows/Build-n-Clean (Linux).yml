@@ -11,4 +11,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Запуск скрипта для проверки сборки
       run: |
-        bash .github/scripts/Build-n-Clean.sh
+        bash .github/scripts/Build-n-Clean\ \(Linux\).sh
