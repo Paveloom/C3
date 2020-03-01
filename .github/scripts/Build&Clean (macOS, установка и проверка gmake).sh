@@ -3,7 +3,7 @@
 # Скачивание пакета MacPorts 2.6 для macOS 10.15 Catalina
 
 printf "\n Выполняется скачивание пакета.\n\n"
-curl -O https://github.com/macports/macports-base/releases/download/v2.6.2/MacPorts-2.6.2-10.15-Catalina.pkg
+curl -JOL 'https://github.com/macports/macports-base/releases/download/v2.6.2/MacPorts-2.6.2-10.15-Catalina.pkg'
 
 # Получение полного пути к файлу
 
@@ -32,10 +32,10 @@ done
 PHYS_DIR=`pwd -P`
 RESULT=$PHYS_DIR/$TARGET_FILE
 
-printf "\nПолный путь к целевому файлу:"
-echo $RESULT
+printf "\nПолный путь к целевому файлу:\n"
+printf $RESULT
 
 # Установка пакета
 
 printf "\n Выполняется установка пакета."
-sudo installer -pkg $RESULT -target /
+sudo installer -verbose -pkg $RESULT -target /
