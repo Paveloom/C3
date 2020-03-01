@@ -5,6 +5,11 @@
 printf "\n Выполняется скачивание пакета.\n\n"
 curl -O https://github.com/macports/macports-base/releases/download/v2.6.2/MacPorts-2.6.2-10.15-Catalina.pkg
 
+# Получение полного пути к файлу
+
+printf "\n Выполняется получение полного пути к файлу.\n\n"
+readlink -f MacPorts-2.6.2-10.15-Catalina.pkg
+
 # Установка пакета
 
 printf "\n Выполняется установка пакета."
