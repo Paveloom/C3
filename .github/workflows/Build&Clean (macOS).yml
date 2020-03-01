@@ -5,10 +5,15 @@ on: push
 jobs:
   Installing_MacPorts:
 
+    name: Build&Clean Job
     runs-on: macos-10.15
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Установка MacPorts
-      run: |
-        bash .github/scripts/Build\&Clean\ \(macOS\,\ установка\ MacPorts\).sh
+      run: bash .github/scripts/Build\&Clean\ \(macOS\,\ установка\ MacPorts\).sh
+
+    - name: Установка gmake
+      run: bash .github/scripts/Build\&Clean\ \(macOS\,\ установка\ gmake\).sh
+  
