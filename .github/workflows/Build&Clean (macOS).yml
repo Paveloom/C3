@@ -17,3 +17,5 @@ jobs:
     - name: Установка gmake
       run: bash .github/scripts/Build\&Clean\ \(macOS\,\ установка\ gmake\).sh
   
+    - name: Запуск скрипта для проверки сборки
+      run: bash .github/scripts/Build\&Clean\ \(macOS\,\ проверка\ сборки\ и\ очистки\).sh

@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Запуск скрипта для проверки сборки
-      run: bash .github/scripts/Build\&Clean\ \(Linux\).sh
+      run: bash .github/scripts/Build\&Clean\ \(Linux\,\ проверка\ сборки\ и\ очистки\).sh
