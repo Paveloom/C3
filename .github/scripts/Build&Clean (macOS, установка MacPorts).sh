@@ -49,7 +49,7 @@ source ~/.bashrc
 # Установка gmake
 
 printf "\nВыполняется установка gmake.\n\n"
-sudo port install gmake
+sudo /opt/local/bin/port install gmake
 
 # Проверка, установлен ли gmake
 
