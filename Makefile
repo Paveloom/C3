@@ -56,3 +56,5 @@
 
      archive :
 	          cd Программа/ && find . -path '*/.*' -prune -o -type f -print | zip ../Архивы/Программа.zip -FS -q -@
+	          cd Make-файлы/ && find . -path '*/.*' -prune -o -type f -print | zip ../Архивы/Make-файлы.zip -FS -q -@
+	          cd Mind-карта/ && find . -path '*/.*' -prune -o -type f -print | zip ../Архивы/Mind-карта.zip -FS -q -@
