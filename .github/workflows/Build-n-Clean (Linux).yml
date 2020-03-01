@@ -1,0 +1,14 @@
+name: Build-n-Clean (Linux)
+
+on: [push]
+
+jobs:
+  build-n-clean_linux_job:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Запуск скрипта для проверки сборки
+      run: |
+        bash .github/scripts/Build-n-Clean.sh
