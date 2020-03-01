@@ -42,3 +42,6 @@ printf $RESULT
 
 printf "\n\nВыполняется установка пакета.\n\n"
 sudo installer -verbose -pkg $RESULT -target /
+
+# Обновление содержимого переменной PATH
+printf '\nexport PATH=$PATH:/opt/local/bin\n' >> ~/.bashrc
