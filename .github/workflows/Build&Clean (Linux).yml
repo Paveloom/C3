@@ -3,7 +3,7 @@ name: Build&Clean (Linux)
 on: push
 
 jobs:
-  build-n-clean_linux_job:
+  Build-n-Clean_Linux:
 
     runs-on: ubuntu-latest
 
