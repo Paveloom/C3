@@ -31,7 +31,7 @@
               git, git-am, git-new, git-clean
 
      ## Правило, выполняющееся при вызове координатора без аргументов
-     ALL : result-r
+     ALL : result
 
      # Настройки компиляции программ
 
@@ -42,7 +42,7 @@
      module_flag := -J
 
      ## Расширение исходных файлов
-     pattern := f95
+     pattern := f90
 
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
      debugging := true
@@ -65,7 +65,7 @@
      use_input := false
 
      ## Использовать output файл?
-     use_output := true
+     use_output := false
 
      ## Сохранять собранную программу при очистке?
      save_main := false
@@ -74,14 +74,12 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
-     subs := sub_1/ sub_1/sub_2/ sub_1/sub_2/sub_3/
+     subs := 
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
      obj_path := Объектники/
 
      ## Правила-зависимости (при необходимости)
-     $(obj_path)$(main_name).o : $(obj_path)module_a.o $(obj_path)module_b.o $(obj_path)module_c.o
-     $(obj_path)module_b.o : $(obj_path)module_c.o
 
      # Определение флагов компилятора
 
