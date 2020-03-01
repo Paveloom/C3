@@ -50,8 +50,8 @@
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -Warray-temporaries -Wcharacter-truncation -Wconversion-extra \
                   -Wimplicit-interface -Wimplicit-procedure -Wintrinsics-std \
-                  -Wreal-q-constant -Wsurprising -Wunderflow -Wuse-without-only -Walign-commons \
-                  -Wfunction-elimination -Wrealloc-lhs -Wrealloc-lhs-all -Werror \
+                  -Wreal-q-constant -Wsurprising -Wunderflow -Walign-commons \
+                  -Wfunction-elimination -Wrealloc-lhs -Wrealloc-lhs-all \
                   -fbacktrace -ffree-line-length-0 -fcheck=all \
                   -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2008
 
@@ -73,13 +73,26 @@
      ## Директория с исходными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
      source_path := Исходники/
 
-     ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
-     subs :=
+     ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
+     module_subs := Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/
+
+     ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
+
+     subs := Модуль/ $(addprefix Модуль/, $(module_subs))
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
      obj_path := Объектники/
 
      ## Правила-зависимости (при необходимости)
+     
+     $(obj_path)$(main_name).o : $(obj_path)scats.o
+
+          $(obj_path)scats.o : $(obj_path)gen_params_m.o
+
+               $(obj_path)gen_params_m.o : $(obj_path)prec_m.o
+
+                    $(obj_path)read_gen_params_s.o : $(obj_path)gen_params_m.o
+                    $(obj_path)log_gen_params_error_s.o : $(obj_path)gen_params_m.o
 
      # Определение флагов компилятора
 
@@ -170,7 +183,7 @@
 
      clean :
 	        if [ "true" = "$(save_main)" ]; then\
-	             rm -f $(obj_main) $(obj_mod) $(mod);\
+	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod);\
 	        else\
-	             rm -f $(obj_main) $(obj_mod) $(mod) $(main_name);\
+	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod) $(main_name);\
 	        fi
