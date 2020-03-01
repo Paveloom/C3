@@ -40,16 +40,16 @@ printf $RESULT
 
 # Установка пакета
 
-printf "\nВыполняется установка пакета.\n\n"
+printf "\n\nВыполняется установка пакета.\n\n"
 sudo installer -verbose -pkg $RESULT -target /
 
-# Перезагрузка конфигурации терминала
-source ~/.bashrc
+# Обновление переменной PATH
+export PATH=$PATH:/opt/local/bin
 
 # Установка gmake
 
 printf "\nВыполняется установка gmake.\n\n"
-sudo /opt/local/bin/port install gmake
+sudo port install gmake
 
 # Проверка, установлен ли gmake
 
