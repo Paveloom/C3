@@ -85,9 +85,9 @@
 
      ## Правила-зависимости (при необходимости)
      
-     $(obj_path)$(main_name).o : $(obj_path)SCATS.o
+     $(obj_path)$(main_name).o : $(obj_path)scats.o
 
-          $(obj_path)SCATS.o : $(obj_path)gen_params_m.o
+          $(obj_path)scats.o : $(obj_path)gen_params_m.o
 
                $(obj_path)gen_params_m.o : $(obj_path)prec_m.o
 
