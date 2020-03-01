@@ -183,7 +183,7 @@
 
      clean :
 	        if [ "true" = "$(save_main)" ]; then\
-	             rm -f $(obj_main) $(obj_mod) $(mod);\
+	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod);\
 	        else\
-	             rm -f $(obj_main) $(obj_mod) $(mod) $(main_name);\
+	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod) $(main_name);\
 	        fi
