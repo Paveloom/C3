@@ -42,7 +42,7 @@
      module_flag := -J
 
      ## Расширение исходных файлов
-     pattern := f95
+     pattern := f90
 
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
      debugging := true

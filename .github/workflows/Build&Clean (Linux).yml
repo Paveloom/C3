@@ -1,6 +1,6 @@
 name: Build&Clean (Linux)
 
-on: [push]
+on: push
 
 jobs:
   build-n-clean_linux_job:
