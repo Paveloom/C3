@@ -1,6 +1,6 @@
 module SCATS ! Модуль, содержащий API алгоритма СКАВР
-use gen_params_m, only : gen_params_type ! Тип, определяющий параметры 
-                                         ! для генерации временного ряда
+use gen_params_m, only : gen_type ! Тип, содержащий типы параметров, их настроек и
+                                  ! включающий в себя процедуру генерации данных
 implicit none
      
      private
@@ -8,7 +8,7 @@ implicit none
      
      type SCATS_API
 
-          type( gen_params_type ) gen ! Параметры для генерации временного ряда
+          type( gen_type ) gen ! Экземпляр API генератора
 
      end type SCATS_API
      

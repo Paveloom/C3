@@ -5,8 +5,8 @@ implicit none
      
      type( SCATS_API ) s ! Определение экземпляра для использования API
 
-     call s%gen%read("gen_params") ! Считывание параметров для генерации временного ряда
+     call s%gen%params%read("gen_params") ! Считывание параметров для генерации временного ряда
 
-     call s%gen%deallocate() ! Освобождение памяти из-под параметров
+     call s%gen%params%deallocate() ! Освобождение памяти из-под параметров
      
 end program main
