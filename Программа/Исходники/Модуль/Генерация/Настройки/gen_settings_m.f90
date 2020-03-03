@@ -14,15 +14,16 @@ implicit none
           
           private
 
-          logical(LP) :: read_delta_t ! Считывать шаг выборки?
-          logical(LP) :: read_q ! Считывать уровень значимости?
-          logical(LP) :: read_alpha, read_beta ! Считывать параметры линейного тренда?
+          logical(LP) :: read_delta_t = .true. ! Считывать шаг выборки?
+          logical(LP) :: read_q = .true.       ! Считывать уровень значимости?
+          logical(LP) :: read_alpha = .true.   ! Считывать параметр \alpha линейного тренда?
+          logical(LP) :: read_beta = .true.    ! Считывать параметр \beta линейного тренда?
           
-          logical(LP) :: read_A ! Считывать массив амплитуд?
-          logical(LP) :: read_v ! Считывать массив частот?
-          logical(LP) :: read_phi ! Считывать массив фазовых сдвигов?
+          logical(LP) :: read_A = .true.   ! Считывать массив амплитуд?
+          logical(LP) :: read_v = .true.   ! Считывать массив частот?
+          logical(LP) :: read_phi = .true. ! Считывать массив фазовых сдвигов?
 
-          logical(LP) :: read_gamma ! Считывать отношение «сигнал к шуму»?
+          logical(LP) :: read_gamma = .true. ! Считывать отношение «сигнал к шуму»?
 
           contains
 
