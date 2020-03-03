@@ -1,10 +1,10 @@
-submodule ( gen_params_m ) log_gen_params_error_s ! Процедура для вывода ошибок для других процедур,
-                                                  ! связанных с параметрами для генерации временного ряда
+submodule ( gen_params_m ) log_gen_params_error_s
 implicit none
 
      contains
 
-     ! Процедура для вывода ошибок для других процедур, связанных с входными данными
+     ! Процедура для вывода ошибок для других процедур,
+     ! связанных с параметрами для генерации временного ряда
      module procedure log_gen_params_error
           
           select case (error_code) ! Проверка кода ошибки
