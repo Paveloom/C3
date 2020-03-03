@@ -1,12 +1,12 @@
-module gen_params_m ! Модуль, содержащий тип, определяющий параметры, 
-                    ! и процедуры, связанные с ним
+module scats_gen_params_m ! Модуль, содержащий тип, определяющий параметры, 
+                          ! и процедуры, связанные с ним
 use prec_m, only : RP, & ! Точность вещественных чисел, используемых в программе
                  & IP, & ! Точность целых чисел, используемых в программе
                  & SP, & ! Точность целого числа статусной переменной
                  & UP, & ! Точность целого числа номера дескриптора файла
                  & LP    ! Число байт для хранения логической переменной
-use gen_settings_m, only : gen_settings_type ! Тип, определяющий настройки считывания
-                                             ! параметров генератора
+use scats_gen_settings_m, only : gen_settings_type ! Тип, определяющий настройки считывания
+                                                   ! параметров генератора
 implicit none
      
      private
@@ -36,39 +36,39 @@ implicit none
 
           contains
 
-          procedure :: read => read_gen_params ! Процедура для считывания параметров для генерации временного ряда
-          procedure :: deallocate => deallocate_gen_params ! Процедура для освобождения памяти из-под параметров
+          procedure :: read => scats_read_gen_params ! Процедура для считывания параметров для генерации временного ряда
+          procedure :: deallocate => scats_deallocate_gen_params ! Процедура для освобождения памяти из-под параметров
           
      end type gen_params_type
 
      interface
      
           ! Процедура для считывания параметров для генерации временного ряда
-          module impure subroutine read_gen_params(gen_params, file)
+          module impure subroutine scats_read_gen_params(gen_params, file)
           implicit none
           
                class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
                character(*), intent(in) :: file ! Имя файла для считывания
           
-          end subroutine read_gen_params
+          end subroutine scats_read_gen_params
 
           ! Процедура для вывода ошибок для других процедур, связанных с параметрами для генерации временного ряда
-          module impure subroutine log_gen_params_error(error_code, file)
+          module impure subroutine scats_log_gen_params_error(error_code, file)
           implicit none
                
                character(*), intent(in) :: error_code     ! Код ошибки
                character(*), intent(in), optional :: file ! Имя файла для считывания
 
-          end subroutine log_gen_params_error
+          end subroutine scats_log_gen_params_error
 
           ! Процедура для освобождения памяти из-под параметров
-          module impure subroutine deallocate_gen_params(gen_params)
+          module impure subroutine scats_deallocate_gen_params(gen_params)
           implicit none
                
                class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
 
-          end subroutine deallocate_gen_params
+          end subroutine scats_deallocate_gen_params
      
      end interface
      
-end module gen_params_m
+end module scats_gen_params_m

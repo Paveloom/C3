@@ -1,6 +1,6 @@
-module gen_m ! Модуль, содержащий тип, содержащий тип
-             ! параметров и процедуру генерации данных
-use gen_params_m, only : gen_params_type ! Тип, определяющий параметры генератора
+module scats_gen_m ! Модуль, содержащий тип, содержащий тип
+                   ! параметров и процедуру генерации данных
+use scats_gen_params_m, only : gen_params_type ! Тип, определяющий параметры генератора
 implicit none
      
      private
@@ -15,4 +15,4 @@ implicit none
 
      end type gen_type
      
-end module gen_m
+end module scats_gen_m
