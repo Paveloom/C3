@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Запуск скрипта для проверки директории объектных файлов
-      run: bash .github/scripts/Build\&Clean\ \(Linux\,\ проверка\ сборки\ и\ очистки\).sh
+      run: bash .github/scripts/NoObjects.sh
