@@ -22,25 +22,34 @@ implicit none
 
           ! Считывание значения размера выборки
 
-          read( unit = unit, fmt = * , iostat = stat ) gen_params%N
-          if ( stat .ne. 0_SP ) call log_gen_params_error('WR_N', file) ! Проверка на ошибку считывания
+          if (gen_params%settings%get_read_N_pt()) then
+
+               read( unit = unit, fmt = * , iostat = stat ) gen_params%N
+               if ( stat .ne. 0_SP ) call log_gen_params_error('WR_N', file) ! Проверка на ошибку считывания
+
+          else
+
+               ! Пропуск строки
+               read( unit = unit, fmt = '()' ) 
+
+          endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
           ! Считывание значения шага выборки
 
-          ! if (settings%get_do_read_r()) then
+          if (gen_params%settings%get_read_delta_t_pt()) then
                
                read( unit = unit, fmt = *, iostat = stat ) gen_params%delta_t
                if ( stat .ne. 0_SP ) call log_gen_params_error('WR_delta_t', file) ! Проверка на ошибку считывания
 
-          ! else
+          else
 
-          !      ! Пропуск строки
-          !      read( unit = unit, fmt = '()' ) 
+               ! Пропуск строки
+               read( unit = unit, fmt = '()' ) 
 
-          ! endif
+          endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
@@ -54,34 +63,34 @@ implicit none
 
           ! Считывание значения параметра \alpha
 
-          ! if (settings%get_do_read_alpha_1()) then
+          if (gen_params%settings%get_read_alpha_pt()) then
                
                read( unit = unit, fmt = *, iostat = stat ) gen_params%alpha
                if ( stat .ne. 0_SP ) call log_gen_params_error('WR_alpha', file) ! Проверка на ошибку считывания
 
-          ! else
+          else
 
-          !      ! Пропуск строки
-          !      read( unit = unit, fmt = '()' ) 
+               ! Пропуск строки
+               read( unit = unit, fmt = '()' ) 
 
-          ! endif
+          endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
           ! Считывание значения параметра \beta
 
-          ! if (settings%get_do_read_beta_1()) then
+          if (gen_params%settings%get_read_beta_pt()) then
                
                read( unit = unit, fmt = *, iostat = stat ) gen_params%beta
                if ( stat .ne. 0_SP ) call log_gen_params_error('WR_beta', file) ! Проверка на ошибку считывания
 
-          ! else
+          else
 
-          !      ! Пропуск строки
-          !      read( unit = unit, fmt = '()' ) 
+               ! Пропуск строки
+               read( unit = unit, fmt = '()' ) 
 
-          ! endif
+          endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
@@ -91,8 +100,17 @@ implicit none
 
           ! Считывание значения числа гармонических компонент
 
-          read( unit = unit, fmt = *, iostat = stat ) gen_params%r
-          if ( stat .ne. 0_SP ) call log_gen_params_error('WR_r', file) ! Проверка на ошибку считывания
+          if (gen_params%settings%get_read_r_pt()) then
+
+               read( unit = unit, fmt = *, iostat = stat ) gen_params%r
+               if ( stat .ne. 0_SP ) call log_gen_params_error('WR_r', file) ! Проверка на ошибку считывания
+
+          else
+
+               ! Пропуск строки
+               read( unit = unit, fmt = '()' ) 
+
+          endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
@@ -111,17 +129,17 @@ implicit none
 
                     ! Считывание значений массива амплитуд
 
-                    ! if (settings%get_do_read_alpha_2()) then
+                    if (gen_params%settings%get_read_A_pt()) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%A
                          if ( stat .ne. 0_SP ) call log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
 
-                    ! else
+                    else
 
-                    !      ! Пропуск строки
-                    !      read( unit = unit, fmt = '()' ) 
+                         ! Пропуск строки
+                         read( unit = unit, fmt = '()' ) 
 
-                    ! endif
+                    endif
 
                else
 
@@ -135,17 +153,17 @@ implicit none
 
                     ! Считывание значений массива амплитуд
 
-                    ! if (settings%get_do_read_alpha_2()) then
+                    if (gen_params%settings%get_read_A_pt()) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%A
                          if ( stat .ne. 0_SP ) call log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
 
-                    ! else
+                    else
 
-                    !      ! Пропуск строки
-                    !      read( unit = unit, fmt = '()' ) 
+                         ! Пропуск строки
+                         read( unit = unit, fmt = '()' ) 
 
-                    ! endif
+                    endif
 
                endif
 
@@ -156,17 +174,17 @@ implicit none
 
                ! Считывание значений массива амплитуд
 
-               ! if (settings%get_do_read_alpha_2()) then
+               if (gen_params%settings%get_read_A_pt()) then
                     
                     read( unit = unit, fmt = *, iostat = stat ) gen_params%A
                     if ( stat .ne. 0_SP ) call log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
 
-               ! else
+               else
 
-               !      ! Пропуск строки
-               !      read( unit = unit, fmt = '()' ) 
+                    ! Пропуск строки
+                    read( unit = unit, fmt = '()' ) 
 
-               ! endif
+               endif
 
           endif
 
@@ -183,17 +201,17 @@ implicit none
 
                     ! Считывание значений массива частот
 
-                    ! if (settings%get_do_read_alpha_2()) then
+                    if (gen_params%settings%get_read_v_pt()) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%v
                          if ( stat .ne. 0_SP ) call log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
 
-                    ! else
+                    else
 
-                    !      ! Пропуск строки
-                    !      read( unit = unit, fmt = '()' ) 
+                         ! Пропуск строки
+                         read( unit = unit, fmt = '()' ) 
 
-                    ! endif
+                    endif
 
                else
 
@@ -207,17 +225,17 @@ implicit none
 
                     ! Считывание значений массива частот
 
-                    ! if (settings%get_do_read_alpha_2()) then
+                    if (gen_params%settings%get_read_v_pt()) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%v
                          if ( stat .ne. 0_SP ) call log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
 
-                    ! else
+                    else
 
-                    !      ! Пропуск строки
-                    !      read( unit = unit, fmt = '()' ) 
+                         ! Пропуск строки
+                         read( unit = unit, fmt = '()' ) 
 
-                    ! endif
+                    endif
 
                endif
 
@@ -228,17 +246,17 @@ implicit none
 
                ! Считывание значений массива частот
 
-               ! if (settings%get_do_read_alpha_2()) then
+               if (gen_params%settings%get_read_v_pt()) then
                     
                     read( unit = unit, fmt = *, iostat = stat ) gen_params%v
                     if ( stat .ne. 0_SP ) call log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
 
-               ! else
+               else
 
-               !      ! Пропуск строки
-               !      read( unit = unit, fmt = '()' ) 
+                    ! Пропуск строки
+                    read( unit = unit, fmt = '()' ) 
 
-               ! endif
+               endif
 
           endif
 
@@ -255,17 +273,17 @@ implicit none
 
                     ! Считывание значений массива фазовых сдвигов
 
-                    ! if (settings%get_do_read_alpha_2()) then
+                    if (gen_params%settings%get_read_phi_pt()) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
                          if ( stat .ne. 0_SP ) call log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
 
-                    ! else
+                    else
 
-                    !      ! Пропуск строки
-                    !      read( unit = unit, fmt = '()' ) 
+                         ! Пропуск строки
+                         read( unit = unit, fmt = '()' ) 
 
-                    ! endif
+                    endif
 
                else
 
@@ -279,17 +297,17 @@ implicit none
 
                     ! Считывание значений массива фазовых сдвигов
 
-                    ! if (settings%get_do_read_alpha_2()) then
+                    if (gen_params%settings%get_read_phi_pt()) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
                          if ( stat .ne. 0_SP ) call log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
 
-                    ! else
+                    else
 
-                    !      ! Пропуск строки
-                    !      read( unit = unit, fmt = '()' ) 
+                         ! Пропуск строки
+                         read( unit = unit, fmt = '()' ) 
 
-                    ! endif
+                    endif
 
                endif
 
@@ -300,17 +318,17 @@ implicit none
 
                ! Считывание значений массива фазовых сдвигов
 
-               ! if (settings%get_do_read_alpha_2()) then
+               if (gen_params%settings%get_read_phi_pt()) then
                     
                     read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
                     if ( stat .ne. 0_SP ) call log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
 
-               ! else
+               else
 
-               !      ! Пропуск строки
-               !      read( unit = unit, fmt = '()' ) 
+                    ! Пропуск строки
+                    read( unit = unit, fmt = '()' ) 
 
-               ! endif
+               endif
 
           endif
 
@@ -319,17 +337,17 @@ implicit none
 
           ! Считывание значения отношения «сигнал к шуму»
 
-          ! if (settings%get_do_read_beta_2()) then
+          if (gen_params%settings%get_read_gamma_pt()) then
                
                read( unit = unit, fmt = *, iostat = stat ) gen_params%gamma
                if ( stat .ne. 0_SP ) call log_gen_params_error('WR_gamma', file) ! Проверка на ошибку считывания
 
-          ! else
+          else
 
-          !      ! Пропуск строки
-          !      read( unit = unit, fmt = '()' ) 
+               ! Пропуск строки
+               read( unit = unit, fmt = '()' ) 
 
-          ! endif
+          endif
 
           ! Закрытие файла
           close( unit = unit, iostat = stat )

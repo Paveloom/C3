@@ -14,11 +14,15 @@ implicit none
           
           private
 
+          logical(LP) :: read_N = .true. ! Считывать размер выборки?
+
           logical(LP) :: read_delta_t = .true. ! Считывать шаг выборки?
           logical(LP) :: read_q = .true.       ! Считывать уровень значимости?
           logical(LP) :: read_alpha = .true.   ! Считывать параметр \alpha линейного тренда?
           logical(LP) :: read_beta = .true.    ! Считывать параметр \beta линейного тренда?
           
+          logical(LP) :: read_r = .true. ! Считывать число гармонических компонент?
+
           logical(LP) :: read_A = .true.   ! Считывать массив амплитуд?
           logical(LP) :: read_v = .true.   ! Считывать массив частот?
           logical(LP) :: read_phi = .true. ! Считывать массив фазовых сдвигов?
@@ -29,10 +33,14 @@ implicit none
 
           procedure :: read => read_gen_settings ! Процедура для считывания настроек считывания параметров
 
+          procedure :: get_read_N_pt ! Функция для получения указателя на значение переменной read_N
+
           procedure :: get_read_delta_t_pt ! Функция для получения указателя на значение переменной read_delta_t
           procedure :: get_read_q_pt       ! Функция для получения указателя на значение переменной read_q
           procedure :: get_read_alpha_pt   ! Функция для получения указателя на значение переменной read_alpha
           procedure :: get_read_beta_pt    ! Функция для получения указателя на значение переменной read_beta
+
+          procedure :: get_read_r_pt ! Функция для получения указателя на значение переменной read_r
 
           procedure :: get_read_A_pt   ! Функция для получения указателя на значение переменной read_A
           procedure :: get_read_v_pt   ! Функция для получения указателя на значение переменной read_v
@@ -62,6 +70,15 @@ implicit none
                character(*), intent(in), optional :: file ! Имя файла для считывания
 
           end subroutine log_gen_settings_error
+
+          ! Функция для получения указателя на значение переменной read_N
+          module impure function get_read_N_pt(gen_settings) result(read_N_pt)
+          implicit none
+               
+               class ( gen_settings_type ), target, intent(in) :: gen_settings ! Входные данные
+               logical(LP), pointer :: read_N_pt ! Указатель на значение переменной read_N
+               
+          end function get_read_N_pt
 
           ! Функция для получения указателя на значение переменной read_delta_t
           module impure function get_read_delta_t_pt(gen_settings) result(read_delta_t_pt)
@@ -98,6 +115,15 @@ implicit none
                logical(LP), pointer :: read_beta_pt ! Указатель на значение переменной read_beta
                
           end function get_read_beta_pt
+
+          ! Функция для получения указателя на значение переменной read_r
+          module impure function get_read_r_pt(gen_settings) result(read_r_pt)
+          implicit none
+               
+               class ( gen_settings_type ), target, intent(in) :: gen_settings ! Входные данные
+               logical(LP), pointer :: read_r_pt ! Указатель на значение переменной read_r
+               
+          end function get_read_r_pt
 
           ! Функция для получения указателя на значение переменной read_A
           module impure function get_read_A_pt(gen_settings) result(read_A_pt)

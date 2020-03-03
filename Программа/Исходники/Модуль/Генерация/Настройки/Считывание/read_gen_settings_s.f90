@@ -16,6 +16,14 @@ implicit none
           ! Пропуск строки
           read( unit = unit, fmt = '()' )
 
+          ! Считывание ответа на вопрос о считывании размера выборки
+
+          read( unit = unit, fmt = * , iostat = stat ) gen_settings%read_N
+          if ( stat .ne. 0_SP ) call log_gen_settings_error('WR_read_delta_t', file) ! Проверка на ошибку считывания
+
+          ! Пропуск двух строк
+          read( unit = unit, fmt = '(/)' )
+
           ! Считывание ответа на вопрос о считывании шага выборки
 
           read( unit = unit, fmt = * , iostat = stat ) gen_settings%read_delta_t
@@ -44,6 +52,14 @@ implicit none
 
           read( unit = unit, fmt = * , iostat = stat ) gen_settings%read_beta
           if ( stat .ne. 0_SP ) call log_gen_settings_error('WR_read_beta', file) ! Проверка на ошибку считывания
+
+          ! Пропуск двух строк
+          read( unit = unit, fmt = '(/)' )
+
+          ! Считывание ответа на вопрос о считывании числа гармонических компонент
+
+          read( unit = unit, fmt = * , iostat = stat ) gen_settings%read_r
+          if ( stat .ne. 0_SP ) call log_gen_settings_error('WR_read_delta_t', file) ! Проверка на ошибку считывания
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )

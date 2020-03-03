@@ -104,10 +104,14 @@
                          $(obj_path)read_gen_settings_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)log_gen_settings_error_s.o : $(obj_path)gen_settings_m.o
 
+                         $(obj_path)get_read_N_pt_s.o : $(obj_path)gen_settings_m.o
+
                          $(obj_path)get_read_delta_t_pt_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)get_read_q_pt_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)get_read_alpha_pt_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)get_read_beta_pt_s.o : $(obj_path)gen_settings_m.o
+
+                         $(obj_path)get_read_r_pt_s.o : $(obj_path)gen_settings_m.o
 
                          $(obj_path)get_read_a_pt_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)get_read_v_pt_s.o : $(obj_path)gen_settings_m.o
