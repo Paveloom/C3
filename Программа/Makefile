@@ -91,9 +91,9 @@
 
           $(obj_path)scats.o : $(obj_path)gen_m.o
 
-               $(obj_path)gen_m.o : $(obj_path)gen_params_m.o $(obj_path)gen_settings_m.o
+               $(obj_path)gen_m.o : $(obj_path)gen_params_m.o
 
-                    $(obj_path)gen_params_m.o : $(obj_path)prec_m.o
+                    $(obj_path)gen_params_m.o : $(obj_path)prec_m.o $(obj_path)gen_settings_m.o
 
                          $(obj_path)read_gen_params_s.o : $(obj_path)gen_params_m.o
                          $(obj_path)log_gen_params_error_s.o : $(obj_path)gen_params_m.o

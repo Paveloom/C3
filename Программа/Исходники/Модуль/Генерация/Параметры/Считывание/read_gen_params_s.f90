@@ -17,10 +17,10 @@ implicit none
           open( newunit = unit, file = file, action = 'read', status = 'old', iostat = stat)
           if ( stat .ne. 0_SP ) call log_gen_params_error('WO', file) ! Проверка на ошибку открытия файла
 
-          ! Считывание значения размера выборки
-
           ! Пропуск строки
           read( unit = unit, fmt = '()' )
+
+          ! Считывание значения размера выборки
 
           read( unit = unit, fmt = * , iostat = stat ) gen_params%N
           if ( stat .ne. 0_SP ) call log_gen_params_error('WR_N', file) ! Проверка на ошибку считывания

@@ -5,6 +5,8 @@ use prec_m, only : RP, & ! Точность вещественных чисел,
                  & SP, & ! Точность целого числа статусной переменной
                  & UP, & ! Точность целого числа номера дескриптора файла
                  & LP    ! Число байт для хранения логической переменной
+use gen_settings_m, only : gen_settings_type ! Тип, определяющий настройки считывания
+                                             ! параметров генератора
 implicit none
      
      private
@@ -14,6 +16,9 @@ implicit none
      type gen_params_type
           
           private
+
+          type( gen_settings_type ), public :: settings ! Настройки считывания 
+                                                        ! параметров генератора
 
           integer(IP) :: N ! Размер выборки
 

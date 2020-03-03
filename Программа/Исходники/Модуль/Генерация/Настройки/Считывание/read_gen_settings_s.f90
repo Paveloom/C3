@@ -13,10 +13,10 @@ implicit none
           open( newunit = unit, file = file, action = 'read', status = 'old', iostat = stat)
           if ( stat .ne. 0_SP ) call log_gen_settings_error('WO', file) ! Проверка на ошибку открытия файла
 
-          ! Считывание ответа на вопрос о считывании шага выборки
-
           ! Пропуск строки
           read( unit = unit, fmt = '()' )
+
+          ! Считывание ответа на вопрос о считывании шага выборки
 
           read( unit = unit, fmt = * , iostat = stat ) gen_settings%read_delta_t
           if ( stat .ne. 0_SP ) call log_gen_settings_error('WR_read_delta_t', file) ! Проверка на ошибку считывания
