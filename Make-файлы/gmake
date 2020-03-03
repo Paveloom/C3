@@ -76,7 +76,8 @@
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
      module_subs := Генерация/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ Генерация/Параметры/Освобождение/ \
-                    Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/
+                    Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
+                    Генерация/Настройки/Получение/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := Модуль/ $(addprefix Модуль/, $(module_subs))
@@ -102,6 +103,17 @@
 
                          $(obj_path)read_gen_settings_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)log_gen_settings_error_s.o : $(obj_path)gen_settings_m.o
+
+                         $(obj_path)get_read_delta_t_pt_s.o : $(obj_path)gen_settings_m.o
+                         $(obj_path)get_read_q_pt_s.o : $(obj_path)gen_settings_m.o
+                         $(obj_path)get_read_alpha_pt_s.o : $(obj_path)gen_settings_m.o
+                         $(obj_path)get_read_beta_pt_s.o : $(obj_path)gen_settings_m.o
+
+                         $(obj_path)get_read_A_pt_s.o : $(obj_path)gen_settings_m.o
+                         $(obj_path)get_read_v_pt_s.o : $(obj_path)gen_settings_m.o
+                         $(obj_path)get_read_phi_pt_s.o : $(obj_path)gen_settings_m.o
+
+                         $(obj_path)get_read_gamma_pt_s.o : $(obj_path)gen_settings_m.o
 
      # Определение флагов компилятора
 
