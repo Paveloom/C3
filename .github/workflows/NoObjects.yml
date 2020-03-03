@@ -1,0 +1,14 @@
+name: NoObjects
+
+on: push
+
+jobs:
+  NoObjects:
+
+    name: NoObjects
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Запуск скрипта для проверки директории объектных файлов
+      run: bash .github/scripts/NoObjects.sh

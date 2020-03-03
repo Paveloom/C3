@@ -1,1 +1,1 @@
-[![](https://img.shields.io/badge/release-v0.4.0-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v0.4.0) ![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)
+[![](https://img.shields.io/badge/release-v0.4.1-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v0.4.1) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)]()
