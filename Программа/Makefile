@@ -109,7 +109,7 @@
                          $(obj_path)get_read_alpha_pt_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)get_read_beta_pt_s.o : $(obj_path)gen_settings_m.o
 
-                         $(obj_path)get_read_A_pt_s.o : $(obj_path)gen_settings_m.o
+                         $(obj_path)get_read_a_pt_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)get_read_v_pt_s.o : $(obj_path)gen_settings_m.o
                          $(obj_path)get_read_phi_pt_s.o : $(obj_path)gen_settings_m.o
 
@@ -139,7 +139,7 @@
 
      obj_path_source := $(addprefix $(obj_path), $(notdir $(source)))
 
-     ## Получение списка .mod файлов и .o файлов, связанных с модулями. Объектный
+     ## Получение списков .mod файлов и .o файлов, связанных с модулями. Объектный
      ## файл для главной программы записан в переменную obj_main для сохранения
      ## общности семантики.
 
