@@ -1,10 +1,10 @@
-submodule ( gen_params_m ) read_gen_params_s ! Процедура для считывания параметров 
-                                             ! для генерации временного ряда
+submodule ( gen_params_m ) read_gen_params_s
 implicit none
      
      contains
      
-     ! Процедура для считывания параметров
+     ! Процедура для считывания параметров 
+     ! для генерации временного ряда
      module procedure read_gen_params
           
           integer(IP) :: pr ! Предыдущее значение r

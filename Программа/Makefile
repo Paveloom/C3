@@ -74,10 +74,11 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
-     module_subs := Генерация/ Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ Генерация/Параметры/Освобождение/
+     module_subs := Генерация/ \
+                    Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ Генерация/Параметры/Освобождение/ \
+                    Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
-
      subs := Модуль/ $(addprefix Модуль/, $(module_subs))
 
      ## Директория с объектными файлами (всегда в окончании прямой слеш; точка-слеш, если хранить в текущей директории)
@@ -89,13 +90,18 @@
 
           $(obj_path)scats.o : $(obj_path)gen_m.o
 
-               $(obj_path)gen_m.o : $(obj_path)gen_params_m.o
+               $(obj_path)gen_m.o : $(obj_path)gen_params_m.o $(obj_path)gen_settings_m.o
 
                     $(obj_path)gen_params_m.o : $(obj_path)prec_m.o
 
                          $(obj_path)read_gen_params_s.o : $(obj_path)gen_params_m.o
                          $(obj_path)log_gen_params_error_s.o : $(obj_path)gen_params_m.o
                          $(obj_path)deallocate_gen_params_s.o : $(obj_path)gen_params_m.o
+
+                    $(obj_path)gen_settings_m.o : $(obj_path)prec_m.o
+
+                         $(obj_path)read_gen_settings_s.o : $(obj_path)gen_settings_m.o
+                         $(obj_path)log_gen_settings_error_s.o : $(obj_path)gen_settings_m.o
 
      # Определение флагов компилятора
 
