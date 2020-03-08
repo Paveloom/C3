@@ -18,7 +18,7 @@ MASTER_TAG="$(git describe --tags master)"
 printf "Checking if the current tag is the same as the master tag.\n\n"
 
 # Получение текущего тега
-CURRENT_TAG="$(grep -o "\-.*\-" README.md | sed 's/-//g')"
+CURRENT_TAG="$(grep -o "release\-v.*\-informational" README.md | grep -o "\-.*\-" | sed 's/-//g')"
 
 printf "Тег на master:\n"
 echo $MASTER_TAG
