@@ -1,11 +1,14 @@
-name: NoObjects
+name: NoObjects (feature)
 
-on: push
+on:
+  push:
+    branches:
+      - feature
 
 jobs:
   NoObjects:
 
-    name: NoObjects
+    name: NoObjects Job (feature)
     runs-on: ubuntu-latest
 
     steps:

@@ -1,11 +1,14 @@
-name: Build&Clean (Linux)
+name: Build&Clean (Linux) (feature)
 
-on: push
+on:
+  push:
+    branches:
+      - feature
 
 jobs:
   Build-n-Clean_Linux:
 
-    name: Build&Clean Job (Linux)
+    name: Build&Clean Job (Linux) (feature)
     runs-on: ubuntu-latest
 
     steps:
