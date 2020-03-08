@@ -19,7 +19,8 @@ function version_check_svg {
      printf "\nПроверяется версия следующего файла:\n"
      echo "$1"
 
-     if grep -oq "Версия: $CURRENT_TAG" $1; then
+     # Избегание пробелов в аргументе
+     if grep -oq "Версия: $CURRENT_TAG" "$1"; then
 
           printf "\nВерсия в этом файле совпадает с текущей.\n"
 
@@ -53,7 +54,7 @@ function version_check_zip_svg {
      # Разархивирование
      unzip -q "$1" -d $TMP_FOLDER_NAME
 
-     if grep -oq "Версия: $CURRENT_TAG" $2; then
+     if grep -oq "Версия: $CURRENT_TAG" tmp/"$2"; then
 
           printf "\nВерсия в этом файле совпадает с текущей.\n"
 
