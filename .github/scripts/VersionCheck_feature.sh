@@ -87,7 +87,7 @@ echo $MASTER_TAG
 git checkout -q $FEATURE_BRANCH_NAME
 
 # Получение текущего тега
-CURRENT_TAG="$(grep -o "\-.*\-" README.md | sed 's/-//g')"
+CURRENT_TAG="$(grep -o "release\-v.*\-informational" README.md | grep -o "\-.*\-" | sed 's/-//g')"
 
 printf "\nТекущий тег из README.md:\n"
 echo $CURRENT_TAG
