@@ -3,10 +3,10 @@ name: Build&Clean (Linux)
 on:
   push:
     tags:
-      - v[0-9].[0-9]+.[0-9]+
+      - v[0-9]+.[0-9]+.[0-9]+
 
 jobs:
-  Build-n-Clean_Linux:
+  Build-n-Clean_Linux_master:
 
     name: Build&Clean Job (Linux) (master)
     runs-on: ubuntu-latest
