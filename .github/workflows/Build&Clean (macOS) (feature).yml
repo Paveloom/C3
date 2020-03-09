@@ -2,11 +2,11 @@ name: Build&Clean (macOS) (feature)
 
 on:
   push:
-    branches:
-      - feature
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+_feature_*
 
 jobs:
-  Build-n-Clean_macOS:
+  Build-n-Clean_macOS_feature:
 
     name: Build&Clean Job (macOS) (feature)
     runs-on: macos-10.15

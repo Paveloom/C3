@@ -20,13 +20,19 @@
      ## Имя координатора
      make_name := make
 
+     ## Указание оболочки
+     SHELL := /bin/bash
+
+     ## Указание make-файлу выполнять все правила в одном вызове оболочки
+     .ONESHELL : 
+
      ## Заглушка на вывод сообщений указанными правилами
      ## (без указания имён подавляет вывод со стороны make-файла у всех правил)
 
      .SILENT :
 
      ## Правила-псевдоцели
-     .PHONY : git, git-am, git-new, git-clean
+     .PHONY : git, final, git-am, git-new, git-clean
 
      ## Правило, выполняющееся при вызове координатора без аргументов
      ALL : git
@@ -38,12 +44,93 @@
      ## Имя пользователя на GitHub
      username := Paveloom
 
+	## Имя ветки изменений
+     FEATURE_BRANCH := feature
+
      ## Правило для создания и публикации коммита
 
      git :
-	      git add -A
-	      git commit -e
-	      git push
+ 
+	      # Определение текущей ветки
+	      CURRENT_BRANCH=$$(git status | head -n 1 | cut -d " " -f 3)
+
+	      # Проверка текущей ветки
+	      if [ "$$CURRENT_BRANCH" = "${FEATURE_BRANCH}" ]; then
+
+	           # Определение последнего тега
+	           LAST_TAG=$$(git describe --tag)
+
+	           # Проверка наличия тега у предыдущего коммита
+	           if echo $$LAST_TAG | grep -qv "-"; then
+
+	                # Определение номера сгенерированного ранее тега
+	                CURRENT_NUMBER=$$(echo $$LAST_TAG | grep -o "_[0-9]\+" | sed 's/_//')
+
+	                # Проверка наличия сгенерированного ранее тега
+	                if echo $$LAST_TAG | grep -q "_"; then
+
+	                     # Прибавление к текущему номеру единицы
+	                     NEXT_NUMBER=$$(( $$CURRENT_NUMBER + 1 ))
+
+	                     # Формирование нового тега
+	                     NEXT_TAG=$$(echo $$LAST_TAG | sed "s/_$$CURRENT_NUMBER/_$$NEXT_NUMBER/")
+
+	                     git add -A
+	                     git commit -e
+	                     git tag -a $$NEXT_TAG -m "$$NEXT_TAG"
+	                     git tag -d $$LAST_TAG
+	                     git push origin :$$LAST_TAG
+	                     git push --follow-tags
+
+	                else
+
+	                     # Формирование нового тега
+	                     NEXT_TAG=$$(echo "$$LAST_TAG _${FEATURE_BRANCH}_1" | sed "s/\ //")
+
+	                     git add -A
+	                     git commit -e
+	                     git tag -a $$NEXT_TAG -m "$$NEXT_TAG"
+	                     git push --follow-tags
+
+	                fi
+
+	           else
+
+	                git add -A
+	                git commit -e
+	                git push
+  
+	           fi
+
+	      else
+
+	           git add -A
+	           git commit -e
+	           git push
+
+	      fi
+
+     # Правило для удаления последнего тега
+     # на ветке изменений локально и удаленно
+
+     final : 
+
+	        # Определение текущей ветки
+	        CURRENT_BRANCH=$$(git status | head -n 1 | cut -d " " -f 3)
+
+	        # Проверка текущей ветки
+	        if [ "$$CURRENT_BRANCH" = "${FEATURE_BRANCH}" ]; then
+
+	             # Определение последнего тега
+	             LAST_TAG=$$(git describe --tag)
+
+	             # Удаление последнего тега удаленно
+	             git push origin :$$LAST_TAG
+
+	             # Удаление последнего тега локально
+	             git tag -d $$LAST_TAG
+
+	        fi
 
      ## Правило для обновления последнего коммита до текущего состояния локального репозитория
 
