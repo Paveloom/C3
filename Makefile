@@ -77,10 +77,16 @@
 
 	                     git add -A
 	                     git commit -e
-	                     git tag -a $$NEXT_TAG -m "$$NEXT_TAG"
-	                     git tag -d $$LAST_TAG
-	                     git push origin :$$LAST_TAG
-	                     git push --follow-tags
+                     
+	                     # Проверка, был ли создан коммит
+	                     if [ $$? -eq 0 ]; then
+
+	                          git tag -a $$NEXT_TAG -m "$$NEXT_TAG"
+	                          git tag -d $$LAST_TAG
+	                          git push origin :$$LAST_TAG
+	                          git push --follow-tags
+
+	                     fi
 
 	                else
 
@@ -89,8 +95,14 @@
 
 	                     git add -A
 	                     git commit -e
-	                     git tag -a $$NEXT_TAG -m "$$NEXT_TAG"
-	                     git push --follow-tags
+
+	                     # Проверка, был ли создан коммит
+	                     if [ $$? -eq 0 ]; then
+
+	                          git tag -a $$NEXT_TAG -m "$$NEXT_TAG"
+	                          git push --follow-tags
+
+	                     fi
 
 	                fi
 
@@ -98,7 +110,11 @@
 
 	                git add -A
 	                git commit -e
-	                git push
+
+	                # Проверка, был ли создан коммит
+	                if [ $$? -eq 0 ]; then
+	                     git push
+	                fi
   
 	           fi
 
@@ -106,7 +122,11 @@
 
 	           git add -A
 	           git commit -e
-	           git push
+
+	           # Проверка, был ли создан коммит
+	           if [ $$? -eq 0 ]; then
+	                git push
+	           fi
 
 	      fi
 
