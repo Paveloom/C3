@@ -69,9 +69,9 @@ function version_check_zip_svg {
 
 function run_version_checks {
 
-     version_check_svg "Mind-карта/C3 API/C3 API.svg"
+     version_check_svg "Mind-карты/C3 API/C3 API.svg"
 
-     version_check_zip_svg "Архивы/Mind-карты.zip" "Mind-карта/C3 API/C3 API.svg"
+     version_check_zip_svg "Архивы/Mind-карты.zip" "Mind-карты/C3 API/C3 API.svg"
 
 }
 
