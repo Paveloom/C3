@@ -16,4 +16,4 @@ jobs:
     - name: Получение истории коммитов
       run: git fetch --prune --unshallow origin +refs/heads/*:refs/remotes/origin/*
     - name: Вызов скрипта для проверки версии
-      run: bash .github/scripts/VersionCheck_master.sh
+      run: bash .github/scripts/VersionCheck\ \(master\).sh
