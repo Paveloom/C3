@@ -75,7 +75,8 @@
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
      module_subs := Генерация/ \
-                    Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ Генерация/Параметры/Освобождение/ \
+                    Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
+                    Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ \
                     Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
                     Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/
 
@@ -89,16 +90,37 @@
      
      $(obj_path)$(main_name).o : $(obj_path)scats.o
 
+          # API модуля
           $(obj_path)scats.o : $(obj_path)scats_gen_m.o
 
+               # Генератор
                $(obj_path)scats_gen_m.o : $(obj_path)scats_gen_params_m.o
 
+                    # Настройки генератора
                     $(obj_path)scats_gen_params_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_settings_m.o
 
                          $(obj_path)scats_read_gen_params_s.o : $(obj_path)scats_gen_params_m.o
                          $(obj_path)scats_log_gen_params_error_s.o : $(obj_path)scats_gen_params_m.o
                          $(obj_path)scats_deallocate_gen_params_s.o : $(obj_path)scats_gen_params_m.o
 
+                         # Блок получения значения
+
+                         $(obj_path)scats_get_n_pt_s.o : $(obj_path)scats_gen_params_m.o
+
+                         $(obj_path)scats_get_delta_t_pt_s.o : $(obj_path)scats_gen_params_m.o
+                         $(obj_path)scats_get_q_pt_s.o : $(obj_path)scats_gen_params_m.o
+                         $(obj_path)scats_get_alpha_pt_s.o : $(obj_path)scats_gen_params_m.o
+                         $(obj_path)scats_get_beta_pt_s.o : $(obj_path)scats_gen_params_m.o
+
+                         $(obj_path)scats_get_r_pt_s.o : $(obj_path)scats_gen_params_m.o
+
+                         $(obj_path)scats_get_a_pt_s.o : $(obj_path)scats_gen_params_m.o
+                         $(obj_path)scats_get_v_pt_s.o : $(obj_path)scats_gen_params_m.o
+                         $(obj_path)scats_get_phi_pt_s.o : $(obj_path)scats_gen_params_m.o
+
+                         $(obj_path)scats_get_gamma_pt_s.o : $(obj_path)scats_gen_params_m.o
+
+                    # Настройки считывания настроек генератора
                     $(obj_path)scats_gen_settings_m.o : $(obj_path)prec_m.o
 
                          $(obj_path)scats_read_gen_settings_s.o : $(obj_path)scats_gen_settings_m.o
