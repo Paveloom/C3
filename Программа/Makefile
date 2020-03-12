@@ -175,7 +175,6 @@
 
                          $(obj_path)scats_turn_read_gamma_off_s.o : $(obj_path)scats_gen_settings_m.o
 
-
      # Определение флагов компилятора
 
      ifeq (true, $(debugging))
