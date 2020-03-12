@@ -164,4 +164,4 @@
      archive :
 	          find Программа/ -path '*/.*' -prune -o -type f -print | zip Архивы/Программа.zip -FS -q -@
 	          find Make-файлы/ -path '*/.*' -prune -o -type f -print | zip Архивы/Make-файлы.zip -FS -q -@
-	          find Mind-карта/ -path '*/.*' -prune -o -type f -print | zip Архивы/Mind-карта.zip -FS -q -@
+	          find Mind-карты/ -path '*/.*' -prune -o -type f -print | zip Архивы/Mind-карты.zip -FS -q -@
