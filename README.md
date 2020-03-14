@@ -1,1 +1,1 @@
-[![](https://img.shields.io/badge/release-v0.5.0-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v0.5.0) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#)
+[![](https://img.shields.io/badge/release-v0.5.0-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v0.5.0) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%206.1%2B-critical)](https://gcc.gnu.org/wiki/GFortran/News#GCC6)
