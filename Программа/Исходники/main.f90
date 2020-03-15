@@ -10,6 +10,8 @@ implicit none
 
      call s%generate() ! Генерация входных данных (во внутренний объект)
 
+     call s%input%write_to_file('input') ! Запись временного ряда в файл
+
      call s%deallocate() ! Общее освобождение памяти
 
 end program main
