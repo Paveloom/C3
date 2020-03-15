@@ -30,11 +30,10 @@ implicit none
      interface
      
           ! Процедура для вывода ошибок для процедуры генерации
-          module impure subroutine scats_log_gen_error(error_code, file)
+          module impure subroutine scats_log_gen_error(error_code)
           implicit none
                
                character(*), intent(in) :: error_code     ! Код ошибки
-               character(*), intent(in), optional :: file ! Имя файла для считывания
 
           end subroutine scats_log_gen_error
 

@@ -117,9 +117,6 @@ implicit none
           deallocate( rand, stat = stat )
           if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_rand')
           
-          deallocate(input%t)
-          deallocate(input%x)
-          
      end procedure scats_gen_generate
      
 end submodule scats_gen_generate_s

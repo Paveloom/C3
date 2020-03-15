@@ -32,6 +32,10 @@ implicit none
                                                                                      & массива случайных чисел внутри&
                                                                                      & процедуры scats_gen_generate.'
 
+               case default
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_gen_params_error:', 'Неизвестный код ошибки ('//error_code//').'
+
           end select
 
      end procedure scats_log_gen_error

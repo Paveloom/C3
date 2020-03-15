@@ -11,5 +11,7 @@ implicit none
      call s%generate() ! Генерация входных данных (во внутренний объект)
 
      call s%gen%params%deallocate() ! Освобождение памяти из-под параметров
+
+     call s%input%deallocate() ! Освобождение памяти из-под входных данных
      
 end program main
