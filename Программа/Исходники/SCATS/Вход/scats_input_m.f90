@@ -21,6 +21,9 @@ implicit none
           ! Процедура освобождения памяти из-под входных данных
           procedure :: deallocate => scats_input_deallocate
 
+          ! Процедура для считывания входных данных из файла
+          procedure :: read => scats_input_read
+
           ! Процедура для записи входных данных в файл
           procedure :: write_to_file => scats_input_write_to_file
           
@@ -44,6 +47,15 @@ implicit none
                character(*), intent(in), optional :: file ! Имя файла для записи
 
           end subroutine scats_log_input_error
+
+          ! Процедура для считывания входных данных
+          module impure subroutine scats_input_read(input, file)
+          implicit none
+               
+               class( input_type ), intent(inout) :: input ! Входные данные
+               character(*), intent(in) :: file ! Файл для записи
+
+          end subroutine scats_input_read
 
           ! Процедура для записи входных данных в файл
           module impure subroutine scats_input_write_to_file(input, file)

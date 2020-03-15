@@ -8,10 +8,24 @@ implicit none
           
           select case (error_code) ! Проверка кода ошибки
 
-               case ('WO') ! Встречается в scats_write_to_file
+               case ('WO') ! Встречается в scats_write_to_file_s и scats_input_read_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось получить доступ к файлу '//file//'&
-                                                                                & для записи.'
+                                                                                & для чтения или записи.'
+                    stop
+
+               case ('WR_t') ! Встречается в scats_input_read_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось считать значения массива времени в&
+                                                                                & файле '//file//'. Проверьте правильность&
+                                                                                & введенных данных.'
+                    stop
+
+               case ('WR_x') ! Встречается в scats_input_read_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось считать значения массива значений в&
+                                                                                & файле '//file//'. Проверьте правильность&
+                                                                                & введенных данных.'
                     stop
 
                case ('WD_t') ! Встречается в scats_input_deallocate_s
@@ -36,10 +50,10 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Массив значений не был размещен.&
                                                                                 & Запись этого массива будет пропущена.'
 
-               case ('WС') ! Встречается в scats_input_write_to_file_s
+               case ('WС') ! Встречается в scats_input_write_to_file_s и scats_input_read_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось закрыть файл '//file//'&
-                                                                                & для записи.'
+                                                                                & для чтения или записи.'
                     stop
 
                case default

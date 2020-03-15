@@ -16,7 +16,7 @@ implicit none
           if ( allocated(input%t) ) then
 
                ! Запись массива времени
-               write(unit, '(*('//RF//', 3x))') input%t
+               write(unit,'(*('//RF//', 3x))' ) input%t
 
           else
 
