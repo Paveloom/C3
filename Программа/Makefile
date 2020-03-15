@@ -74,11 +74,15 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
-     module_subs := Генерация/ \
+     module_subs := Вспомогательные/ \
+                    Генерация/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
                     Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ \
                     Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
-                    Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/
+                    Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/ \
+                    Генерация/Процедура/ \
+                    Вход/ \
+                    
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := SCATS/ $(addprefix SCATS/, $(module_subs))
@@ -91,10 +95,16 @@
      $(obj_path)$(main_name).o : $(obj_path)scats.o
 
           # API модуля
-          $(obj_path)scats.o : $(obj_path)scats_gen_m.o
+          $(obj_path)scats.o : $(obj_path)scats_gen_m.o $(obj_path)scats_input_m.o
+
+               # Вспомогательная процедура генерации
+               $(obj_path)scats_generate_s.o : $(obj_path)scats.o
 
                # Генератор
-               $(obj_path)scats_gen_m.o : $(obj_path)scats_gen_params_m.o
+               $(obj_path)scats_gen_m.o : $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
+
+                    # Процедура генерации
+                    $(obj_path)scats_gen_generate_s.o : $(obj_path)scats_gen_m.o
 
                     # Настройки генератора
                     $(obj_path)scats_gen_params_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_settings_m.o
@@ -174,6 +184,9 @@
                          $(obj_path)scats_turn_read_phi_off_s.o : $(obj_path)scats_gen_settings_m.o
 
                          $(obj_path)scats_turn_read_gamma_off_s.o : $(obj_path)scats_gen_settings_m.o
+
+               # Входные данные
+               $(obj_path)scats_input_m.o : $(obj_path)prec_m.o
 
      # Определение флагов компилятора
 
