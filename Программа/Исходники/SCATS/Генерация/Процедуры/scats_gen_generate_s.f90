@@ -24,6 +24,8 @@ implicit none
 
           real(RP), pointer :: gamma_pt ! Указатель на отношение «сигнал к шуму»
 
+          logical(LP), pointer :: ready_pt ! Указатель на флаг, отвечающий за готовность генератора
+
           ! Массив значений случайных чисел
           real(RP), allocatable, dimension(:) :: rand
 
@@ -39,7 +41,13 @@ implicit none
           integer(JP) :: r_JP ! Значение r (для индекса)
           integer(JP) :: k ! Счетчик 1
           integer(JP) :: l ! Счетчик 2
-          real(RP) :: k_RP ! Овеществление счетчика 
+          real(RP) :: k_RP ! Овеществление счетчика
+
+          ! Получение флага готовности
+          ready_pt => gen%params%get_ready_pt()
+
+          ! Проверка, активирован ли генератор
+          if (.not. ready_pt) call scats_log_gen_error('NA')
 
           ! Распаковка параметров генератора
 

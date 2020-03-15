@@ -353,6 +353,9 @@ implicit none
           close( unit = unit, iostat = stat )
           if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WC', file) ! Проверка на ошибку закрытия файла
 
+          ! Активация генератора
+          call gen_params%turn_ready()
+
      end procedure scats_read_gen_params
      
 end submodule scats_read_gen_params_s

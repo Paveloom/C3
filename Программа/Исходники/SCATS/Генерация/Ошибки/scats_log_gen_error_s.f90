@@ -31,6 +31,12 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_gen_params_error:', 'Не удалось освободить память из-под&
                                                                                      & массива случайных чисел внутри&
                                                                                      & процедуры scats_gen_generate.'
+                    stop
+
+               case ('NA') ! Встречается в scats_gen_generate_s 
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_gen_params_error:', 'Генератор не был активирован,&
+                                                                                     & генерация будет пропущена.'
 
                case default
 

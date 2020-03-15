@@ -34,11 +34,13 @@ implicit none
 
           real(RP) :: gamma ! Отношение «сигнал к шуму»
 
+          logical(LP) :: ready = .false. ! Флаг, отвечающий за готовность генератора
+
           contains
 
           procedure :: read => scats_read_gen_params ! Процедура для считывания параметров для генерации временного ряда
           procedure :: deallocate => scats_deallocate_gen_params ! Процедура для освобождения памяти из-под параметров
-
+          
           ! Блок получения значения
 
           procedure :: get_N_pt => scats_get_N_pt ! Функция для получения указателя на значение переменной N
@@ -55,7 +57,12 @@ implicit none
           procedure :: get_phi_pt => scats_get_phi_pt ! Функция для получения указателя на значение переменной phi
 
           procedure :: get_gamma_pt => scats_get_gamma_pt ! Функция для получения указателя на значение переменной gamma
+
+          procedure :: get_ready_pt => scats_get_ready_pt ! Функция для получения указателя на значение переменной ready
           
+          ! Процедура для активации флага готовности генератора
+          procedure :: turn_ready => scats_gen_params_turn_ready
+
      end type gen_params_type
 
      interface
@@ -85,6 +92,14 @@ implicit none
                class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
 
           end subroutine scats_deallocate_gen_params
+
+          ! Процедура для активации флага готовности генератора
+          module impure subroutine scats_gen_params_turn_ready(gen_params)
+          implicit none
+               
+               class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
+
+          end subroutine scats_gen_params_turn_ready
 
           ! Блок получения значения
 
@@ -177,6 +192,15 @@ implicit none
                real(RP), pointer :: gamma_pt ! Указатель на значение переменной gamma
                
           end function scats_get_gamma_pt
+
+          ! Функция для получения указателя на значение переменной ready
+          module impure function scats_get_ready_pt(gen_params) result(ready_pt)
+          implicit none
+               
+               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
+               logical(LP), pointer :: ready_pt ! Указатель на значение переменной ready
+               
+          end function scats_get_ready_pt
 
      end interface
      
