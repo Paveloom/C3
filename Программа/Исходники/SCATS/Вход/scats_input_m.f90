@@ -9,7 +9,8 @@ implicit none
      ! Тип, определяющий входные данные
      type input_type
           
-          
+          real(RP), allocatable, dimension(:) :: t ! Массив времени
+          real(RP), allocatable, dimension(:) :: x ! Массив значений
           
      end type input_type
      

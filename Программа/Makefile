@@ -56,7 +56,7 @@
                   -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2018
 
      ## Флаги для финальной сборки
-     opt_production := -Ofast
+     opt_production := -Ofast -ffree-line-length-0
 
      ## Имя главной программы
      main_name := main
@@ -80,7 +80,7 @@
                     Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ \
                     Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
                     Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/ \
-                    Генерация/Процедура/ \
+                    Генерация/Процедура/ Генерация/Ошибки/ \
                     Вход/ \
                     
 
@@ -101,7 +101,7 @@
                $(obj_path)scats_generate_s.o : $(obj_path)scats.o
 
                # Генератор
-               $(obj_path)scats_gen_m.o : $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
+               $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
 
                     # Процедура генерации
                     $(obj_path)scats_gen_generate_s.o : $(obj_path)scats_gen_m.o
