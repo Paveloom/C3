@@ -121,7 +121,7 @@ implicit none
                                                                                      & введенных данных.'
                     stop
 
-               case ('WС') ! Встречается в scats_scats_read_gen_params_s
+               case ('WС') ! Встречается в scats_read_gen_params_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_gen_params_error:', 'Не удалось закрыть файл '//file//'&
                                                                                      & для чтения.'
