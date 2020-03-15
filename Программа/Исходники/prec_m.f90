@@ -20,7 +20,7 @@ implicit none
      integer(1), parameter :: IP = kind(1_4)
 
      ! Формат вывода вещественных чисел
-     character(*), parameter :: RF = 'e21.15e2'
+     character(*), parameter :: RF = 'e22.15e2'
 
      ! Точность целого числа статусной переменной
      integer(1), parameter :: SP = kind(1_1)
