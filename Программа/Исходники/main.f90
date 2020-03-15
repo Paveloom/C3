@@ -8,6 +8,8 @@ implicit none
      call s%gen%params%read("gen_params") ! Считывание параметров для 
                                           ! генерации временного ряда
 
-     call s%gen%params%deallocate() ! Освобождение памяти из-под параметров
-     
+     call s%generate() ! Генерация входных данных (во внутренний объект)
+
+     call s%deallocate() ! Общее освобождение памяти
+
 end program main

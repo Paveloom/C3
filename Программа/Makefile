@@ -56,7 +56,7 @@
                   -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2018
 
      ## Флаги для финальной сборки
-     opt_production := -Ofast
+     opt_production := -Ofast -ffree-line-length-0
 
      ## Имя главной программы
      main_name := main
@@ -74,11 +74,13 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
-     module_subs := Генерация/ \
+     module_subs := Вспомогательные/ \
+                    Генерация/ Генерация/Процедуры/ Генерация/Ошибки/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
-                    Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ \
+                    Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ Генерация/Параметры/Готовность/ \
                     Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
-                    Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/
+                    Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/ \
+                    Вход/ Вход/Освобождение/ Вход/Ошибки/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := SCATS/ $(addprefix SCATS/, $(module_subs))
@@ -91,10 +93,25 @@
      $(obj_path)$(main_name).o : $(obj_path)scats.o
 
           # API модуля
-          $(obj_path)scats.o : $(obj_path)scats_gen_m.o
+          $(obj_path)scats.o : $(obj_path)scats_gen_m.o $(obj_path)scats_input_m.o
+
+               # Вспомогательная процедура генерации
+               $(obj_path)scats_generate_s.o : $(obj_path)scats.o
+
+               # Процедура общего освобождения памяти
+               $(obj_path)scats_deallocate_s.o : $(obj_path)scats.o
 
                # Генератор
-               $(obj_path)scats_gen_m.o : $(obj_path)scats_gen_params_m.o
+               $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
+
+                    # Процедура генерации
+                    $(obj_path)scats_gen_generate_s.o : $(obj_path)scats_gen_m.o
+
+                    # Процедура для генерации массива значений нормально распределенных случайных величин
+                    $(obj_path)scats_generate_random_array_s.o : $(obj_path)scats_gen_m.o
+
+                    # Функция для получения значения равномерно распределенного случайного числа 
+                    $(obj_path)scats_generate_random_uniform_s.o : $(obj_path)scats_gen_m.o
 
                     # Настройки генератора
                     $(obj_path)scats_gen_params_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_settings_m.o
@@ -102,6 +119,7 @@
                          $(obj_path)scats_read_gen_params_s.o : $(obj_path)scats_gen_params_m.o
                          $(obj_path)scats_log_gen_params_error_s.o : $(obj_path)scats_gen_params_m.o
                          $(obj_path)scats_deallocate_gen_params_s.o : $(obj_path)scats_gen_params_m.o
+                         $(obj_path)scats_gen_params_turn_ready_s.o : $(obj_path)scats_gen_params_m.o
 
                          # Блок получения значения
 
@@ -119,6 +137,8 @@
                          $(obj_path)scats_get_phi_pt_s.o : $(obj_path)scats_gen_params_m.o
 
                          $(obj_path)scats_get_gamma_pt_s.o : $(obj_path)scats_gen_params_m.o
+
+                         $(obj_path)scats_get_ready_pt_s.o : $(obj_path)scats_gen_params_m.o
 
                     # Настройки считывания настроек генератора
                     $(obj_path)scats_gen_settings_m.o : $(obj_path)prec_m.o
@@ -174,6 +194,12 @@
                          $(obj_path)scats_turn_read_phi_off_s.o : $(obj_path)scats_gen_settings_m.o
 
                          $(obj_path)scats_turn_read_gamma_off_s.o : $(obj_path)scats_gen_settings_m.o
+
+               # Входные данные
+               $(obj_path)scats_input_m.o : $(obj_path)prec_m.o
+
+                    $(obj_path)scats_input_deallocate_s.o : $(obj_path)scats_input_m.o
+                    $(obj_path)scats_log_input_error_s.o : $(obj_path)scats_input_m.o
 
      # Определение флагов компилятора
 
