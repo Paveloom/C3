@@ -24,12 +24,16 @@ implicit none
 
           real(RP), pointer :: gamma_pt ! Указатель на отношение «сигнал к шуму»
 
+          ! Массив значений случайных чисел
+          real(RP), allocatable, dimension(:) :: rand
+
           ! Дополнительные переменные
           real(RP) :: t ! Текущее значение времени
           real(RP) :: c ! Текущее значение суммы
-          real(RP) :: pi ! Значение числа pi
+          real(RP) :: std ! Стандартное отклонение
 
           ! Вспомогательные переменные
+          integer(JP) :: N_JP ! Значение N (для индекса)
           integer(IP) :: N_m1 ! Значение N - 1
           integer(JP) :: N_m1_JP ! Значение N - 1 (для индекса)
           integer(JP) :: r_JP ! Значение r (для индекса)
@@ -37,9 +41,6 @@ implicit none
           integer(JP) :: l ! Счетчик 2
           real(RP) :: k_RP ! Овеществление счетчика 
 
-          ! Вычисление числа pi
-          pi = 4._RP * atan(1._RP)
-          
           ! Распаковка параметров генератора
 
           N_pt => gen%params%get_N_pt()
@@ -56,11 +57,15 @@ implicit none
           phi_pt => gen%params%get_phi_pt()
 
           gamma_pt => gen%params%get_gamma_pt()
-          
+
+          ! Вычисление стандартного отклонения
+          std = sqrt(sum(A_pt) / (2._RP * gamma_pt))
+
           ! Вычисление вспомогательной переменной
           N_m1 = N_pt - 1_IP
 
           ! Конвертации для индексов
+          N_JP = int(N_pt, kind=JP)
           N_m1_JP = int(N_m1, kind=JP)
           r_JP = int(r_pt, kind=JP)
 
@@ -80,6 +85,12 @@ implicit none
 
           endif
 
+          allocate( rand(0:N_m1_JP), stat = stat )
+          if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_rand') ! Проверка на ошибку выделения памяти
+
+          ! Генерация массива случайных чисел
+          call scats_generate_random_array(N_JP, rand)
+
           ! Генерация временного ряда
 
           do k = 0_JP, N_m1_JP
@@ -93,14 +104,19 @@ implicit none
 
                do l = 1_JP, r_JP
 
-                    c = A_pt(l) * cos(2._RP * pi * v_pt(l) * t - phi_pt(l))
+                    c = c + A_pt(l) * cos(2._RP * pi * v_pt(l) * t - phi_pt(l))
 
                enddo
+
+               c = c + rand(k)
 
                input%x(k) = c
 
           enddo
 
+          deallocate( rand, stat = stat )
+          if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_rand')
+          
           deallocate(input%t)
           deallocate(input%x)
           

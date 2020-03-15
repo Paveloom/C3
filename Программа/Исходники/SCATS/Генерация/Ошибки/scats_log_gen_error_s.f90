@@ -20,6 +20,18 @@ implicit none
                                                                               & для объекта типа input_type.'
                     stop
 
+               case ('WA_rand') ! Встречается в scats_gen_generate_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_gen_error:', 'Не удалось выделить память под массив случайных&
+                                                                              & чисел внутри процедуры scats_gen_generate.'
+                    stop
+
+               case ('WD_rand') ! Встречается в scats_gen_generate_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_gen_params_error:', 'Не удалось освободить память из-под&
+                                                                                     & массива случайных чисел внутри&
+                                                                                     & процедуры scats_gen_generate.'
+
           end select
 
      end procedure scats_log_gen_error

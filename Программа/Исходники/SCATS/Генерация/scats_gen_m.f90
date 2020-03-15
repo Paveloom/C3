@@ -11,6 +11,8 @@ implicit none
      private
      public :: gen_type ! Тип, содержащий тип параметров и
                         ! процедуру генерации данных
+
+     real(RP), parameter :: pi = 4._RP * atan(1._RP) ! Число pi 
      
      ! Тип, содержащий тип параметров и
      ! процедуру генерации данных
@@ -36,7 +38,22 @@ implicit none
 
           end subroutine scats_log_gen_error
 
-          module subroutine scats_gen_generate(gen, input)
+          ! Функция для получения значения равномерно распределенного случайного числа  
+          module impure real(RP) function scats_generate_random_uniform()
+          implicit none
+
+          end function scats_generate_random_uniform
+
+          ! Процедура для генерации массива значений нормально распределенных случайных величин
+          module impure subroutine scats_generate_random_array(length, array)
+          implicit none
+               
+               integer(JP) :: length ! Длина массива значений случайных чисел
+               real(RP), dimension(0:), intent(inout) :: array ! Массив значений случайных чисел
+
+          end subroutine scats_generate_random_array
+
+          module impure subroutine scats_gen_generate(gen, input)
           implicit none
           
                class(gen_type), intent(in) :: gen ! Экземпляр API генератора
