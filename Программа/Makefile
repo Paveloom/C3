@@ -101,6 +101,9 @@
                # Вспомогательная процедура генерации
                $(obj_path)scats_generate_s.o : $(obj_path)scats.o
 
+               # Процедура общего освобождения памяти
+               $(obj_path)scats_deallocate_s.o : $(obj_path)scats.o
+
                # Генератор
                $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
 

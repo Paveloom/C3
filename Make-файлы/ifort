@@ -75,8 +75,9 @@
                     Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ \
                     Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
                     Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/ \
-                    Генерация/Процедура/ Генерация/Ошибки/ \
+                    Генерация/Процедуры/ Генерация/Ошибки/ \
                     Вход/ \
+                    Вход/Освобождение/ Вход/Ошибки/
                     
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
@@ -95,11 +96,20 @@
                # Вспомогательная процедура генерации
                $(obj_path)scats_generate_s.o : $(obj_path)scats.o
 
+               # Процедура общего освобождения памяти
+               $(obj_path)scats_deallocate_s.o : $(obj_path)scats.o
+
                # Генератор
                $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
 
                     # Процедура генерации
                     $(obj_path)scats_gen_generate_s.o : $(obj_path)scats_gen_m.o
+
+                    # Процедура для генерации массива значений нормально распределенных случайных величин
+                    $(obj_path)scats_generate_random_array_s.o : $(obj_path)scats_gen_m.o
+
+                    # Функция для получения значения равномерно распределенного случайного числа 
+                    $(obj_path)scats_generate_random_uniform_s.o : $(obj_path)scats_gen_m.o
 
                     # Настройки генератора
                     $(obj_path)scats_gen_params_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_settings_m.o
@@ -182,6 +192,9 @@
 
                # Входные данные
                $(obj_path)scats_input_m.o : $(obj_path)prec_m.o
+
+                    $(obj_path)scats_input_deallocate_s.o : $(obj_path)scats_input_m.o
+                    $(obj_path)scats_log_input_error_s.o : $(obj_path)scats_input_m.o
 
      # Определение флагов компилятора
 

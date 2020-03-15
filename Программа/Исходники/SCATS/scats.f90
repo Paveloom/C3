@@ -14,19 +14,31 @@ implicit none
 
           contains
 
+          ! Вспомогательная процедура для вызова генератора временного ряда
           procedure :: generate => scats_generate
+
+          ! Процедура для общего освобождения памяти
+          procedure :: deallocate => scats_deallocate
 
      end type SCATS_API
 
      interface
      
           ! Вспомогательная процедура для вызова генератора временного ряда
-          module subroutine scats_generate(s)
+          module impure subroutine scats_generate(s)
           implicit none
           
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
           
           end subroutine scats_generate
+
+          ! Процедура для общего освобождения памяти
+          module impure subroutine scats_deallocate(s)
+          implicit none
+          
+               class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
+          
+          end subroutine scats_deallocate
      
      end interface
 
