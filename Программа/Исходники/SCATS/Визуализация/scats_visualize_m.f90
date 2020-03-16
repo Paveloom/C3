@@ -17,11 +17,12 @@ implicit none
      interface
      
           ! Процедура для визуализации входных данных
-          module subroutine scats_visualize_input(visualize, file)
+          module subroutine scats_visualize_input(visualize, input_file, output_file)
           implicit none
           
                class( visualize_type ) :: visualize ! Экземпляр API для визуализации
-               character(*), intent(in) :: file ! Имя файла с входными данными
+               character(*), intent(in) :: input_file ! Имя файла с входными данными
+               character(*), intent(in), optional :: output_file ! Имя выходной фигуры
           
           end subroutine scats_visualize_input
      

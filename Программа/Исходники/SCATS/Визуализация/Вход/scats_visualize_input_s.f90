@@ -6,8 +6,18 @@ implicit none
      ! Процедура для визуализации входных данных
      module procedure scats_visualize_input
           
-          ! Вызов скрипта
-          call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py')
+          ! Проверка на наличие второго аргумента
+          if ( present(output_file) ) then
+
+               ! Вызов скрипта
+               call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//output_file)
+
+          else
+
+               ! Вызов скрипта
+               call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file)
+
+          endif
           
      end procedure scats_visualize_input
      
