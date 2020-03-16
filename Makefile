@@ -32,7 +32,7 @@
      .SILENT :
 
      ## Правила-псевдоцели
-     .PHONY : git, final, git-am, git-new, git-clean
+     .PHONY : git, final, new, del, git-am, archive
 
      ## Правило, выполняющееся при вызове координатора без аргументов
      ALL : git
@@ -151,6 +151,19 @@
 	             git tag -d $$LAST_TAG
 
 	        fi
+
+     ## Правило для создания ветки изменений
+
+     new :
+	      git checkout -q master
+	      git checkout -b ${FEATURE_BRANCH}
+	      git push -u origin ${FEATURE_BRANCH}
+
+	## Правило для удаления текущей ветки изменений локально
+
+     del :
+	      git checkout -q master
+	      git branch -D ${FEATURE_BRANCH}
 
      ## Правило для обновления последнего коммита до текущего состояния локального репозитория
 
