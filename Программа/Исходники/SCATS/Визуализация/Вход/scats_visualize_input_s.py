@@ -18,12 +18,18 @@ from itertools import islice
 rcP["savefig.dpi"] = 300
 rcP["figure.dpi"] = 300
 
-## Установка шрифта Computer Modern Bright
+## Включение поддержки TeX
 rcP["text.usetex"] = True
-rcP["text.latex.preamble"] = r"\usepackage{cmbright}"
+
+## Включение поддержки русского языка
+rcP["text.latex.preamble"] = [r'\usepackage[main=russian,english]{babel}',
+                              r'\usepackage{cmsrb}']
+
+## Установка семейства шрифтов для текста внутри математической моды
+rcP['mathtext.fontset'] = 'cm'
 
 ## Установка размеров шрифта
-rcP["font.size"] = 16
+rcP["font.size"] = 18
 rcP["legend.fontsize"] = 12
 
 # Считывание данных из файла
@@ -44,3 +50,24 @@ t = np.array(lines[1].split(), dtype = np.float)
 
 ## Получение значений массива значений
 x = np.array(lines[2].split(), dtype = np.float)
+
+# Создание и сохранение рисунка
+
+## Создание фигуры
+f = plt.figure()
+
+## Создание графика
+plt.plot(t, x, color="#425378")
+
+## Добавление заголовка
+plt.title(r'\textrm{Исходный временной ряд}')
+
+## Добавление названий осей
+plt.xlabel(r'\textrm{Время}')
+plt.ylabel(r'\textrm{Значения ряда}')
+
+## Показ графика
+plt.show()
+
+## Сохранение фигуры
+f.savefig("Фигуры/input.pdf", bbox_inches='tight')
