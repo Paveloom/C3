@@ -12,6 +12,8 @@ implicit none
 
      call s%input%write_to_file('input') ! Запись временного ряда в файл
 
+     call s%visualize%input('input') ! Визуализация входных данных
+
      call s%deallocate() ! Общее освобождение памяти
 
 end program main
