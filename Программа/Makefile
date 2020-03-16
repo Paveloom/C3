@@ -27,8 +27,7 @@
 
      ## Правила-псевдоцели
 
-     .PHONY : result, result-r, result-d, result-c, clean, \
-              git, git-am, git-new, git-clean
+     .PHONY : result, result-r, result-d, result-c, clean
 
      ## Правило, выполняющееся при вызове координатора без аргументов
      ALL : result
@@ -74,13 +73,14 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
-     module_subs := Вспомогательные/ \
+     module_subs := Визуализация/ Визуализация/Вход/ \
+                    Вспомогательные/ \
+                    Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ \
                     Генерация/ Генерация/Процедуры/ Генерация/Ошибки/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
                     Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ Генерация/Параметры/Готовность/ \
                     Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
                     Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/ \
-                    Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := SCATS/ $(addprefix SCATS/, $(module_subs))
@@ -93,13 +93,16 @@
      $(obj_path)$(main_name).o : $(obj_path)scats.o
 
           # API модуля
-          $(obj_path)scats.o : $(obj_path)scats_gen_m.o $(obj_path)scats_input_m.o
+          $(obj_path)scats.o : $(obj_path)scats_gen_m.o $(obj_path)scats_input_m.o $(obj_path)scats_visualize_m.o
 
                # Вспомогательная процедура генерации
                $(obj_path)scats_generate_s.o : $(obj_path)scats.o
 
                # Процедура общего освобождения памяти
                $(obj_path)scats_deallocate_s.o : $(obj_path)scats.o
+
+               # Процедура для визуализации входных данных
+               $(obj_path)scats_visualize_input_s.o : $(obj_path)scats_visualize_m.o
 
                # Генератор
                $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
