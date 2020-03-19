@@ -67,7 +67,7 @@ implicit none
           gamma_pt => gen%params%get_gamma_pt()
 
           ! Вычисление стандартного отклонения
-          std = sqrt(sum(A_pt) / (2._RP * gamma_pt))
+          std = sqrt(sum(A_pt * A_pt) / (2._RP * gamma_pt))
 
           ! Вычисление вспомогательной переменной
           N_m1 = N_pt - 1_IP
