@@ -30,6 +30,10 @@ implicit none
                write( f, '(i10)' ) size(input%t)
                write( unit, '(a, /)' ) trim(adjustl(f))
 
+               ! Запись шага выборки
+               write( unit, '(a)' ) 'Шаг выборки'
+               write( unit, '('//RF//', /)' ) input%delta_t
+
                ! Запись массива времени
                write( unit, '(a)' ) 'Массив времени'
                write( unit, '(*('//RF//', 3x))' ) input%t

@@ -60,17 +60,17 @@ lines = []
 
 ## Считывание строк с данными
 with open(input_name) as f:
-    for line in islice(f, 1, 8, 3):
+    for line in islice(f, 1, 11, 3):
         lines.append(line)
 
 ## Получение значения размера выборки
 N = np.int(lines[0])
 
 ## Получение значений массива времени
-t = np.array(lines[1].split(), dtype = np.float)
+t = np.array(lines[2].split(), dtype = np.float)
 
 ## Получение значений массива значений
-x = np.array(lines[2].split(), dtype = np.float)
+x = np.array(lines[3].split(), dtype = np.float)
 
 # Создание и сохранение фигуры
 

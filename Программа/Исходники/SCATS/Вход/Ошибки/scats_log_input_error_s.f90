@@ -21,6 +21,13 @@ implicit none
                                                                                 & введенных данных.'
                     stop
 
+               case ('WR_delta_t') ! Встречается в scats_input_read_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось считать значение шага выборки в&
+                                                                                & файле '//file//'. Проверьте правильность&
+                                                                                & введенных данных.'
+                    stop
+
                case ('WR_t') ! Встречается в scats_input_read_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось считать значения массива времени в&

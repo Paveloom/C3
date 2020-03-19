@@ -57,6 +57,7 @@ implicit none
           x_new(0:) = x_pt(0:) - ( a * t_pt(0:) + b )
 
           ! Запись результата
+          call result%put_delta_t(input%get_delta_t_pt())
           call result%put_t(t_pt(0:))
           call result%put_x(x_new(0:))
 

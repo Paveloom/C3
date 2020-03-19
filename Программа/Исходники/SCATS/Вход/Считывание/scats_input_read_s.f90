@@ -29,6 +29,13 @@ implicit none
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
+          ! Считывание шага выборки
+          read( unit = unit, fmt = *, iostat = stat ) input%delta_t
+          if ( stat .ne. 0_SP ) call scats_log_input_error('WR_delta_t', file)
+
+          ! Пропуск двух строк
+          read( unit = unit, fmt = '(/)' )
+
           ! Выполнение считывания
           
           if ( allocated(input%t) ) then

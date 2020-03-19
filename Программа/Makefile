@@ -75,7 +75,7 @@
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
      module_subs := Визуализация/ Визуализация/Вход/ Визуализация/Результат/ \
                     Вспомогательные/Освобождение/ Вспомогательные/Генерация/ Вспомогательные/Действия/Тренд/ \
-                    Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ Вход/Получение/ \
+                    Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ Вход/Получение/ Вход/Присваивание/ \
                     Генерация/ Генерация/Процедуры/ Генерация/Ошибки/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
                     Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ Генерация/Параметры/Готовность/ \
@@ -84,7 +84,8 @@
                     Результат/ Результат/Освобождение/ Результат/Ошибки/ \
                     Результат/Получение/ Результат/Присваивание/ Результат/Запись/ \
                     Действия/ Действия/Ошибки/ Действия/Ошибки/Процедура/ Действия/Проверка/ Действия/Проверка/Процедура/ \
-                    Действия/Тренд/ Действия/Тренд/Линейный/
+                    Действия/Тренд/ Действия/Тренд/Линейный/ \
+                    Действия/Периодограмма/ Действия/Процедуры/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := SCATS/ $(addprefix SCATS/, $(module_subs))
@@ -217,6 +218,9 @@
                     $(obj_path)scats_input_read_s.o : $(obj_path)scats_input_m.o
                     $(obj_path)scats_input_write_to_file_s.o : $(obj_path)scats_input_m.o
 
+                    $(obj_path)scats_input_put_delta_t_s.o : $(obj_path)scats_input_m.o
+
+                    $(obj_path)scats_input_get_delta_t_pt_s.o : $(obj_path)scats_input_m.o
                     $(obj_path)scats_input_get_t_pt_s.o : $(obj_path)scats_input_m.o
                     $(obj_path)scats_input_get_x_pt_s.o : $(obj_path)scats_input_m.o
 
@@ -227,9 +231,11 @@
                     $(obj_path)scats_result_deallocate_s.o : $(obj_path)scats_result_m.o
                     $(obj_path)scats_result_write_to_file_s.o : $(obj_path)scats_result_m.o
 
+                    $(obj_path)scats_result_get_delta_t_pt_s.o : $(obj_path)scats_result_m.o
                     $(obj_path)scats_result_get_t_pt_s.o : $(obj_path)scats_result_m.o
                     $(obj_path)scats_result_get_x_pt_s.o : $(obj_path)scats_result_m.o
 
+                    $(obj_path)scats_result_put_delta_t_s.o : $(obj_path)scats_result_m.o
                     $(obj_path)scats_result_put_t_s.o : $(obj_path)scats_result_m.o
                     $(obj_path)scats_result_put_x_s.o : $(obj_path)scats_result_m.o
 
@@ -255,6 +261,12 @@
                          $(obj_path)scats_do_trend_check_s.o : $(obj_path)scats_do_trend_m.o
 
                          $(obj_path)scats_do_trend_remove_linear_trend_s.o : $(obj_path)scats_do_trend_m.o
+
+                    # Вычисление периодограммы
+
+                    $(obj_path)scats_do_periodogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o
+
+                         $(obj_path)scats_do_periodogram_calculate_s.o : $(obj_path)scats_do_periodogram_m.o
 
      # Определение флагов компилятора
 
