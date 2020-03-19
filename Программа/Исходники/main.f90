@@ -14,6 +14,8 @@ implicit none
 
      call s%visualize%input('input') ! Визуализация входных данных
 
+     call s%remove_linear_trend() ! Удаление линейного тренда
+
      call s%deallocate() ! Общее освобождение памяти
 
 end program main
