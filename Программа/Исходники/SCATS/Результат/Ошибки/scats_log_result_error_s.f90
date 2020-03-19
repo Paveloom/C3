@@ -8,17 +8,41 @@ implicit none
           
           select case (error_code) ! Проверка кода ошибки
 
+               case ('WO') ! Встречается в scats_result_write_to_file_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось получить доступ к файлу '//file//'&
+                                                                                 & для записи.'
+                    stop
+
                case ('WD_t') ! Встречается в scats_result_deallocate_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
-                                                                                & массива времени объекта&
-                                                                                & типа result_type.'
+                                                                                 & массива времени объекта&
+                                                                                 & типа result_type.'
 
                case ('WD_x') ! Встречается в scats_result_deallocate_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
-                                                                                & массива значений объекта&
-                                                                                & типа result_type.'
+                                                                                 & массива значений объекта&
+                                                                                 & типа result_type.'
+
+               case ('NA_t') ! Встречается в scats_result_write_to_file_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Массив времени не был размещен.&
+                                                                                 & Запись невозможна.'
+                    stop
+
+               case ('NA_x') ! Встречается в scats_result_write_to_file_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Массив значений не был размещен.&
+                                                                                 & Запись невозможна.'
+                    stop
+
+               case ('WС') ! Встречается в scats_result_write_to_file_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось закрыть файл '//file//'&
+                                                                                 & после записи.'
+                    stop
 
                case default
 

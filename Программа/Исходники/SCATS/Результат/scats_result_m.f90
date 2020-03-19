@@ -1,7 +1,10 @@
 module scats_result_m ! Модуль, содержащий описание типа,
                       ! определяющего результат
 use prec_m, only : RP, & ! Точность вещественных чисел, используемых в программе
-                 & SP    ! Точность целого числа статусной переменной
+                 & RF, & ! Формат вывода вещественных чисел
+                 & SP, & ! Точность целого числа статусной переменной
+                 & UP, & ! Точность целого числа номера дескриптора файла
+                 & FP    ! Число байт для хранения вспомогательной строки
 implicit none
      
      private
@@ -17,6 +20,9 @@ implicit none
 
           ! Процедура для освобождения памяти из-под результата
           procedure :: deallocate => scats_result_deallocate
+
+          ! Процедура для записи результата в файл
+          procedure :: write => scats_result_write_to_file
 
           ! Функция для получения указателя на массив времени
           procedure :: get_t_pt => scats_result_get_t_pt
@@ -35,10 +41,11 @@ implicit none
      interface
 
           ! Процедура для вывода ошибок для других процедур, связанных с результатом
-          module impure subroutine scats_log_result_error(error_code)
+          module impure subroutine scats_log_result_error(error_code, file)
           implicit none
                
                character(*), intent(in) :: error_code ! Код ошибки
+               character(*), intent(in), optional :: file ! Файл для записи
 
           end subroutine scats_log_result_error
 
@@ -49,6 +56,15 @@ implicit none
                class( result_type ), intent(inout) :: result ! Результат
           
           end subroutine scats_result_deallocate
+
+          ! Процедура для записи результата в файл
+          module impure subroutine scats_result_write_to_file(result, file)
+          implicit none
+               
+               class( result_type ), intent(in) :: result ! Результат
+               character(*), intent(in) :: file ! Файл для записи
+
+          end subroutine scats_result_write_to_file
      
           ! Функция для получения указателя на массив времени
           module function scats_result_get_t_pt(result) result(t_pt)

@@ -28,7 +28,7 @@ implicit none
           procedure :: read => scats_input_read
 
           ! Процедура для записи входных данных в файл
-          procedure :: write_to_file => scats_input_write_to_file
+          procedure :: write => scats_input_write_to_file
 
           ! Функция для получения указателя на массив времени
           procedure :: get_t_pt => scats_input_get_t_pt

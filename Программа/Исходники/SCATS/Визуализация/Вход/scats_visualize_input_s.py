@@ -2,8 +2,11 @@
 
 # Подключение модулей
 
-## Подключения модуля numpy
+## Подключение модуля numpy
 import numpy as np
+
+## Подключение модуля для получения базовых имен файлов
+from os.path import basename
 
 ## Подключение пакетов для настройки и создания графики
 from matplotlib import rcParams as rcP
@@ -17,9 +20,11 @@ from sys import argv
 
 # Сохранение переданных аргументов
 if len(argv) == 3:
+    use_basename = False
     input_name = str(argv[1])
     output_name = str(argv[2])
 else:
+    use_basename = True
     input_name = str(argv[1])
     output_name = input_name
 
@@ -81,4 +86,7 @@ plt.ylabel(r'\textrm{Значения ряда}')
 plt.show()
 
 ## Сохранение фигуры
-f.savefig("Фигуры/" + output_name + ".pdf", bbox_inches='tight')
+if use_basename:
+    f.savefig("Фигуры/" + basename(output_name) + ".pdf", bbox_inches='tight')
+else:
+    f.savefig(output_name + ".pdf", bbox_inches='tight')
