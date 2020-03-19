@@ -7,7 +7,7 @@ implicit none
      module procedure scats_do_trend_remove_linear_trend
           
           ! Проверка на совпадение форм входных данных и результата
-          call scats_do_trend_check(input, result)
+          call scats_do_check(input, result)
           
      end procedure scats_do_trend_remove_linear_trend
      
