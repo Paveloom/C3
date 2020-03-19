@@ -9,8 +9,6 @@ implicit none
           integer(SP) :: stat ! Статусная переменная
           integer(UP) :: unit ! Номер дескриптора файла
 
-          logical(LP) :: l1, l2, l3 ! Логические переменные
-
           integer(IP) :: N ! Размер выборки
           integer(JP) :: N_m1 ! Размер выборки - 1
 
@@ -31,15 +29,11 @@ implicit none
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
-          ! Определение логических переменных
+          ! Выполнение считывания
           
-          l1 = allocated(input%t)
-          l2 = allocated(input%x)
-          if ( l1 .or. l2 ) l3 = size(input%t) .eq. N
+          if ( allocated(input%t) ) then
 
-          if (l1) then
-
-               if (l3) then
+               if ( size(input%t, kind=IP) .eq. N ) then
 
                     ! Считывание массива времени
                     read( unit = unit, fmt = *, iostat = stat ) input%t
@@ -53,7 +47,7 @@ implicit none
 
                     ! Выделение памяти под массив времени
                     allocate( input%t(0:N_m1), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_input_error('WA_t') ! Проверка на ошибку выделения памяти
+                    if ( stat .ne. 0_SP ) call scats_log_input_error('WA_t')
 
                     ! Считывание массива времени
                     read( unit = unit, fmt = *, iostat = stat ) input%t
@@ -65,7 +59,7 @@ implicit none
 
                ! Выделение памяти под массив времени
                allocate( input%t(0:N_m1), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_input_error('WA_t') ! Проверка на ошибку выделения памяти
+               if ( stat .ne. 0_SP ) call scats_log_input_error('WA_t')
 
                ! Считывание массива времени
                read( unit = unit, fmt = *, iostat = stat ) input%t
@@ -76,9 +70,9 @@ implicit none
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
-          if (l2) then
+          if ( allocated(input%x) ) then
 
-               if (l3) then
+               if ( size(input%x, kind=IP) .eq. N ) then
 
                     ! Считывание массива значений
                     read( unit = unit, fmt = *, iostat = stat ) input%x
@@ -92,7 +86,7 @@ implicit none
 
                     ! Выделение памяти под массив значений
                     allocate( input%x(0:N_m1), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_input_error('WA_x') ! Проверка на ошибку выделения памяти
+                    if ( stat .ne. 0_SP ) call scats_log_input_error('WA_x')
 
                     ! Считывание массива значений
                     read( unit = unit, fmt = *, iostat = stat ) input%x
@@ -104,7 +98,7 @@ implicit none
 
                ! Выделение памяти под массив значений
                allocate( input%x(0:N_m1), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_input_error('WA_x') ! Проверка на ошибку выделения памяти
+               if ( stat .ne. 0_SP ) call scats_log_input_error('WA_x')
 
                ! Считывание массива значений
                read( unit = unit, fmt = *, iostat = stat ) input%x

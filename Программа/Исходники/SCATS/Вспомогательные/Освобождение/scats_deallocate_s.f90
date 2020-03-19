@@ -11,6 +11,9 @@ implicit none
 
           ! Освобождение памяти из-под входных данных
           call s%input%deallocate()
+
+          ! Освобождение памяти из-под результата
+          call s%result%deallocate()
           
      end procedure scats_deallocate
      
