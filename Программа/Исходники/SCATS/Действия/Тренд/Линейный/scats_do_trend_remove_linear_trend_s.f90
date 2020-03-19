@@ -54,7 +54,7 @@ implicit none
           if ( stat .ne. 0_SP ) call scats_log_do_error('WA_Nx')
 
           ! Извлечение тренда
-          x_new(0:) = x_pt(0:) - ( a * x_pt(0:) + b )
+          x_new(0:) = x_pt(0:) - ( a * t_pt(0:) + b )
 
           ! Запись результата
           call result%put_t(t_pt(0:))
