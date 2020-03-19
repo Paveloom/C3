@@ -28,8 +28,14 @@ implicit none
           procedure :: read => scats_input_read
 
           ! Процедура для записи входных данных в файл
-          procedure :: write_to_file => scats_input_write_to_file
-          
+          procedure :: write => scats_input_write_to_file
+
+          ! Функция для получения указателя на массив времени
+          procedure :: get_t_pt => scats_input_get_t_pt
+
+          ! Функция для получения указателя на массив значений
+          procedure :: get_x_pt => scats_input_get_x_pt          
+
      end type input_type
 
      interface
@@ -68,6 +74,24 @@ implicit none
                character(*), intent(in) :: file ! Файл для записи
 
           end subroutine scats_input_write_to_file
+
+          ! Функция для получения указателя на массив времени
+          module impure function scats_input_get_t_pt(input) result(t_pt)
+          implicit none
+               
+               class( input_type ), intent(in), target :: input ! Входные данные
+               real(RP), dimension(:), pointer :: t_pt ! Указатель на массив времени
+
+          end function scats_input_get_t_pt
+
+          ! Функция для получения указателя на массив значений
+          module impure function scats_input_get_x_pt(input) result(x_pt)
+          implicit none
+               
+               class( input_type ), intent(in), target :: input ! Входные данные
+               real(RP), dimension(:), pointer :: x_pt ! Указатель на массив значений
+
+          end function scats_input_get_x_pt
 
      end interface
      

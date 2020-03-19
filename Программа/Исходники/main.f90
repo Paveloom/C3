@@ -3,17 +3,31 @@ program main ! Программа, демонстрирующая использ
 use SCATS, only: SCATS_API ! API модуля СКАВР
 implicit none
      
-     type( SCATS_API ) :: s ! Определение экземпляра для использования API модуля СКАВР
+     ! Определение экземпляра для использования API модуля СКАВР
+     type( SCATS_API ) :: s
 
-     call s%gen%params%read("gen_params") ! Считывание параметров для 
-                                          ! генерации временного ряда
+     ! Считывание параметров для генерации временного ряда
+     call s%gen%params%read("Файлы/gen_params") 
 
-     call s%generate() ! Генерация входных данных (во внутренний объект)
+     ! Генерация входных данных (во внутренний объект)
+     call s%generate()
 
-     call s%input%write_to_file('input') ! Запись временного ряда в файл
+     ! Запись временного ряда в файл
+     call s%input%write('Файлы/input')
 
-     call s%visualize%input('input') ! Визуализация входных данных
+     ! Визуализация входных данных
+     call s%visualize%input('Файлы/input')
 
-     call s%deallocate() ! Общее освобождение памяти
+     ! Удаление линейного тренда
+     call s%remove_linear_trend()
+
+     ! Запись временного ряда в файл
+     call s%result%write('Файлы/no_trend')
+
+     ! Визуализация временного ряда после извлечения тренда
+     call s%visualize%result('Файлы/no_trend', title="После извлечения тренда") 
+
+     ! Общее освобождение памяти
+     call s%deallocate()
 
 end program main

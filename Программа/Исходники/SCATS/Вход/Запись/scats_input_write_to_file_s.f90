@@ -25,7 +25,6 @@ implicit none
 
           else
 
-
                ! Запись размера выборки
                write( unit, '(a)' ) 'Размер выборки'
                write( f, '(i10)' ) size(input%t)

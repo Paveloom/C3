@@ -8,7 +8,7 @@ implicit none
           
           select case (error_code) ! Проверка кода ошибки
 
-               case ('WO') ! Встречается в scats_write_to_file_s и scats_input_read_s
+               case ('WO') ! Встречается в scats_input_write_to_file_s и scats_input_read_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось получить доступ к файлу '//file//'&
                                                                                 & для чтения или записи.'

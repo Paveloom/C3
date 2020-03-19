@@ -73,14 +73,18 @@
      source_path := Исходники/
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
-     module_subs := Визуализация/ Визуализация/Вход/ \
-                    Вспомогательные/ \
-                    Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ \
+     module_subs := Визуализация/ Визуализация/Вход/ Визуализация/Результат/ \
+                    Вспомогательные/Освобождение/ Вспомогательные/Генерация/ Вспомогательные/Действия/Тренд/ \
+                    Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ Вход/Получение/ \
                     Генерация/ Генерация/Процедуры/ Генерация/Ошибки/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
                     Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ Генерация/Параметры/Готовность/ \
                     Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
                     Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/ \
+                    Результат/ Результат/Освобождение/ Результат/Ошибки/ \
+                    Результат/Получение/ Результат/Присваивание/ Результат/Запись/ \
+                    Действия/ Действия/Ошибки/ Действия/Ошибки/Процедура/ Действия/Проверка/ Действия/Проверка/Процедура/ \
+                    Действия/Тренд/ Действия/Тренд/Линейный/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := SCATS/ $(addprefix SCATS/, $(module_subs))
@@ -93,7 +97,9 @@
      $(obj_path)$(main_name).o : $(obj_path)scats.o
 
           # API модуля
-          $(obj_path)scats.o : $(obj_path)scats_gen_m.o $(obj_path)scats_input_m.o $(obj_path)scats_visualize_m.o
+          $(obj_path)scats.o : $(obj_path)scats_gen_m.o $(obj_path)scats_input_m.o \
+                               $(obj_path)scats_visualize_m.o $(obj_path)scats_result_m.o \
+                               $(obj_path)scats_do_m.o
 
                # Вспомогательная процедура генерации
                $(obj_path)scats_generate_s.o : $(obj_path)scats.o
@@ -101,8 +107,13 @@
                # Процедура общего освобождения памяти
                $(obj_path)scats_deallocate_s.o : $(obj_path)scats.o
 
-               # Процедура для визуализации входных данных
-               $(obj_path)scats_visualize_input_s.o : $(obj_path)scats_visualize_m.o
+               # Процедуры для визуализации
+               $(obj_path)scats_visualize_input_s.o : $(obj_path)scats.o
+               $(obj_path)scats_visualize_result_s.o : $(obj_path)scats.o
+
+               # Вспомогательная процедура для вызова процедуры,
+               # извлекающей линейный тренд из данных
+               $(obj_path)scats_remove_linear_trend_s.o : $(obj_path)scats.o
 
                # Генератор
                $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
@@ -205,6 +216,45 @@
                     $(obj_path)scats_log_input_error_s.o : $(obj_path)scats_input_m.o
                     $(obj_path)scats_input_read_s.o : $(obj_path)scats_input_m.o
                     $(obj_path)scats_input_write_to_file_s.o : $(obj_path)scats_input_m.o
+
+                    $(obj_path)scats_input_get_t_pt_s.o : $(obj_path)scats_input_m.o
+                    $(obj_path)scats_input_get_x_pt_s.o : $(obj_path)scats_input_m.o
+
+               # Результат
+               $(obj_path)scats_result_m.o : $(obj_path)prec_m.o
+
+                    $(obj_path)scats_log_result_error_s.o : $(obj_path)scats_result_m.o
+                    $(obj_path)scats_result_deallocate_s.o : $(obj_path)scats_result_m.o
+                    $(obj_path)scats_result_write_to_file_s.o : $(obj_path)scats_result_m.o
+
+                    $(obj_path)scats_result_get_t_pt_s.o : $(obj_path)scats_result_m.o
+                    $(obj_path)scats_result_get_x_pt_s.o : $(obj_path)scats_result_m.o
+
+                    $(obj_path)scats_result_put_t_s.o : $(obj_path)scats_result_m.o
+                    $(obj_path)scats_result_put_x_s.o : $(obj_path)scats_result_m.o
+
+               # Операции над данными
+
+               $(obj_path)scats_do_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
+                                         $(obj_path)scats_do_trend_m.o
+
+                    # Ошибки
+                    $(obj_path)scats_log_do_error_s.o : $(obj_path)scats_do_errors_m.o
+
+                    # Проверка
+                    $(obj_path)scats_do_check_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
+                                                    $(obj_path)scats_do_errors_m.o
+
+                         $(obj_path)scats_do_check_s.o : $(obj_path)scats_do_check_m.o
+
+                    # Извлечение тренда
+
+                    $(obj_path)scats_do_trend_m.o : $(obj_path)prec_m.o $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
+                                                    $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_check_m.o
+
+                         $(obj_path)scats_do_trend_check_s.o : $(obj_path)scats_do_trend_m.o
+
+                         $(obj_path)scats_do_trend_remove_linear_trend_s.o : $(obj_path)scats_do_trend_m.o
 
      # Определение флагов компилятора
 
