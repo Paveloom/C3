@@ -79,22 +79,52 @@ implicit none
 
           ! Выделение памяти под массивы
 
-          if ( .not. allocated(input%t) ) then
+          if ( allocated(input%t) ) then
 
+               if ( .not. size(input%t, kind=IP) .eq. N_pt ) then
+
+                    ! Освобождение памяти из-под массива времени
+                    deallocate( input%t, stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_t')
+
+                    ! Выделение памяти под массив времени
+                    allocate( input%t(0:N_m1_JP), stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_t')
+
+               endif
+
+          else
+
+               ! Выделение памяти под массив времени
                allocate( input%t(0:N_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_t') ! Проверка на ошибку выделения памяти
+               if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_t')
 
           endif
 
-          if ( .not. allocated(input%x) ) then
+          if ( allocated(input%x) ) then
 
+               if ( .not. size(input%x, kind=IP) .eq. N_pt ) then
+
+                    ! Освобождение памяти из-под массива значений
+                    deallocate( input%x, stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_x')
+
+                    ! Выделение памяти под массив значений
+                    allocate( input%x(0:N_m1_JP), stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_x')
+
+               endif
+
+          else
+
+               ! Выделение памяти под массив значений
                allocate( input%x(0:N_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_x') ! Проверка на ошибку выделения памяти
+               if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_x')
 
           endif
 
           allocate( rand(0:N_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_rand') ! Проверка на ошибку выделения памяти
+          if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_rand')
 
           ! Генерация массива случайных чисел
           call scats_generate_random_array(N_JP, rand)

@@ -7,7 +7,7 @@ implicit none
      module procedure scats_do_check
           
           integer(IP) :: N ! Размер выборки
-          integer(JP) :: N_JP ! Размер выборки (индекс)
+          integer(JP) :: N_m1_JP ! Размер выборки - 1 (индекс)
 
           integer(SP) :: stat ! Статусная переменная
 
@@ -20,7 +20,7 @@ implicit none
           N = size(input%t, kind=IP)
 
           ! Конвертация
-          N_JP = int(N, kind=JP)
+          N_m1_JP = int(N, kind=JP) - 1_JP
 
           if ( allocated(result%t) ) then
 
@@ -31,7 +31,7 @@ implicit none
                     if ( stat .ne. 0_SP ) call scats_log_do_error('WD_t')
 
                     ! Выделение памяти под массив времени
-                    allocate( result%t(0:N_JP), stat = stat )
+                    allocate( result%t(0:N_m1_JP), stat = stat )
                     if ( stat .ne. 0_SP ) call scats_log_do_error('WA_t')
 
                endif
@@ -39,7 +39,7 @@ implicit none
           else
 
                ! Выделение памяти под массив времени
-               allocate( result%t(0:N_JP), stat = stat )
+               allocate( result%t(0:N_m1_JP), stat = stat )
                if ( stat .ne. 0_SP ) call scats_log_do_error('WA_t')
 
           endif
@@ -53,7 +53,7 @@ implicit none
                     if ( stat .ne. 0_SP ) call scats_log_do_error('WD_x')
 
                     ! Выделение памяти под массив значений
-                    allocate( result%x(0:N_JP), stat = stat )
+                    allocate( result%x(0:N_m1_JP), stat = stat )
                     if ( stat .ne. 0_SP ) call scats_log_do_error('WA_x')
 
                endif
@@ -61,7 +61,7 @@ implicit none
           else
 
                ! Выделение памяти под массив значений
-               allocate( result%x(0:N_JP), stat = stat )
+               allocate( result%x(0:N_m1_JP), stat = stat )
                if ( stat .ne. 0_SP ) call scats_log_do_error('WA_x')
 
           endif
