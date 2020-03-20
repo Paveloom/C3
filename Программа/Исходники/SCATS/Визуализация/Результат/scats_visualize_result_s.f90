@@ -5,20 +5,36 @@ implicit none
      
      ! Процедура для визуализации входных данных
      module procedure scats_visualize_result
-          
+
+          ! Аргументы для скрипта
+          character(300) :: arg1, arg2, arg3, arg4
+
+          ! Проверка на разрешенные этапы
+          if ( .not. (stage .eq. 'no_trend' .or. stage .eq. 'periodogram') ) then
+
+               write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_visualize_result:', 'Указано недопустимый этап в переменной stage,&
+                                                                          & визуализация невозможна. Допустимые значения:&
+                                                                          & no_trend, periodogram.'
+               stop
+
+          endif
+
+          arg1 = input_file
+          arg2 = stage
+
           ! Проверка на наличие второго аргумента
           if ( present(output_file) ) then
 
                ! Проверка на наличие третьего аргумента
                if ( present(title) ) then
 
-                    ! Вызов скрипта
-                    call execute_command_line('python Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//input_file//' '//output_file//" '"//title//"'")
+                    arg3 = output_file
+                    arg4 = title
 
                else
 
-                    ! Вызов скрипта
-                    call execute_command_line('python Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//input_file//' '//output_file//' '//'-0-')
+                    arg3 = output_file
+                    arg4 = '-0-'
 
                endif
 
@@ -27,17 +43,20 @@ implicit none
                ! Проверка на наличие третьего аргумента
                if ( present(title) ) then
 
-                    ! Вызов скрипта
-                    call execute_command_line('python Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//input_file//' '//'-0-'//" '"//title//"'")
+                    arg3 = '-0-'
+                    arg4 = title                    
 
                else
 
-                    ! Вызов скрипта
-                    call execute_command_line('python Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//input_file//' '//'-0-'//' '//'-0-')
+                    arg3 = '-0-'
+                    arg4 = '-0-'
 
                endif
 
           endif
+
+          ! Вызов скрипта
+          call execute_command_line('python Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//trim(arg1)//' '//trim(arg2)//' '//trim(arg3)//" '"//trim(arg4)//"' ")
           
      end procedure scats_visualize_result
      

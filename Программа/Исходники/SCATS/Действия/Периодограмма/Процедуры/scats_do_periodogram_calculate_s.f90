@@ -18,7 +18,10 @@ implicit none
           real(RP) :: N_2_RP ! Число N_2 (вещественное)
 
           complex(RP), dimension(:), allocatable :: X ! Комплексные значения преобразования Фурье
+          real(RP) :: delta_v ! Шаг по частотам
 
+          integer(JP) :: i ! Счетчик
+          real(RP) :: i_RP ! Овеществление счетчика
           integer(SP) :: stat ! Статусная переменная
  
           ! Распаковка данных
@@ -37,7 +40,7 @@ implicit none
           N_2_m1_JP = N_2_JP - 1_JP
           N_2_RP = real(N_2_JP, kind=RP)
 
-          ! Вычисление числа N_1
+          ! Вычисление числа N_1 - 1
           N_1_JP = N_2_JP / 2_JP
 
           ! Проверка, выделена ли память под массив частот периодограммы
@@ -90,18 +93,31 @@ implicit none
           if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X')
 
           ! Копирование вещественного массива значений
-          X(0_JP:N_JP-1_JP)%re = x_pt(0_JP:)
+          X(0_JP:N_JP-1_JP)%re = x_pt(0:)
           X(N_JP:)%re = 0._RP
           X%im = 0._RP
 
           ! Выполнение быстрого преобразования Фурье
           call scats_do_periodogram_fft(X, N_2_JP, N_2_RP, N_2_log_JP)
 
+          ! Вычисление периодограммы
+          result%D(0:) = 1._RP / (N_RP * N_RP) * (X(0:N_1_JP)%re * X(0:N_1_JP)%re + X(0:N_1_JP)%im + X(0:N_1_JP)%im)
+
           ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
           deallocate( X, stat = stat )
           if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X')
 
-          deallocate( result%v, result%D )
+          ! Вычисление шага по частотам
+          delta_v = 1._RP / (N_2_RP * result%delta_t)
+
+          ! Заполнение массива частот периодограммы
+
+          do i = 0_JP, N_1_JP
+
+               i_RP = real(i, kind=RP)
+               result%v(i) = i_RP * delta_v
+
+          enddo
 
      end procedure scats_do_periodogram_calculate
      

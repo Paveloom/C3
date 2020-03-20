@@ -21,14 +21,17 @@ implicit none
      ! Удаление линейного тренда
      call s%remove_linear_trend()
 
-     ! Запись временного ряда в файл
-     call s%result%write('Файлы/no_trend')
-
-     ! Визуализация временного ряда после извлечения тренда
-     call s%visualize%result('Файлы/no_trend', title="После извлечения тренда")
-
      ! Вычисление периодограммы
      call s%calculate_periodogram()
+
+     ! Запись результата в файл
+     call s%result%write('Файлы/result')
+
+     ! Визуализация временного ряда после извлечения тренда
+     call s%visualize%result('Файлы/result', stage='no_trend')
+
+     ! Визуализация временного ряда после извлечения тренда
+     call s%visualize%result('Файлы/result', stage='periodogram')
 
      ! Общее освобождение памяти
      call s%deallocate()

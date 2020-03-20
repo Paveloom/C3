@@ -15,7 +15,7 @@ implicit none
      
      ! Тип, определяющий входные данные
      type input_type
-          
+
           real(RP) :: delta_t ! Шаг выборки
 
           real(RP), allocatable, dimension(:) :: t ! Массив времени

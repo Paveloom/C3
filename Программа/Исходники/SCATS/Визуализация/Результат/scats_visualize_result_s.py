@@ -21,17 +21,29 @@ from sys import argv
 # Сохранение переданных аргументов
 input_name = str(argv[1])
 
-if str(argv[2]) == '-0-':
-    use_basename = True
-    output_name = input_name
-else:
-    use_basename = False
-    output_name = str(argv[2])
-
 if str(argv[3]) == '-0-':
-    title = 'Результат'
+    custom_path = False
+    if str(argv[2]) == 'no_trend':
+        output_name = 'no_trend'
+    if str(argv[2]) == 'periodogram':
+        output_name = 'periodogram'
 else:
-    title = str(argv[3])
+    custom_path = True
+    output_name = str(argv[3])
+
+if str(argv[4]) == '-0-':
+    if str(argv[2]) == 'no_trend':
+        title = 'После извлечения тренда'
+        stage = 'no_trend'
+        xlabel = 'Время'
+        ylabel = 'Значение'
+    elif str(argv[2]) == 'periodogram':
+        stage = 'periodogram'
+        title = 'Периодограмма'
+        xlabel = 'Частота'
+        ylabel = 'Значение'
+else:
+    title = str(argv[4])
 
 # Настройки графиков
 
@@ -60,17 +72,24 @@ lines = []
 
 ## Считывание строк с данными
 with open(input_name) as f:
-    for line in islice(f, 1, 11, 3):
+    for line in islice(f, 1, 17, 3):
         lines.append(line)
 
-## Получение значения размера выборки
-N = np.int(lines[0])
+if stage == 'no_trend': 
 
-## Получение значений массива времени
-t = np.array(lines[2].split(), dtype = np.float)
+    ## Получение значений массива времени
+    x = np.array(lines[2].split(), dtype = np.float)
 
-## Получение значений массива значений
-x = np.array(lines[3].split(), dtype = np.float)
+    ## Получение значений массива значений
+    y = np.array(lines[3].split(), dtype = np.float)
+
+elif stage == 'periodogram':
+
+    ## Получение значений массива частот периодограммы
+    x = np.array(lines[4].split(), dtype = np.float)
+
+    ## Получение значений массива значений периодограммы
+    y = np.array(lines[5].split(), dtype = np.float) 
 
 # Создание и сохранение фигуры
 
@@ -78,20 +97,20 @@ x = np.array(lines[3].split(), dtype = np.float)
 f = plt.figure()
 
 ## Создание графика
-plt.plot(t, x, color="#425378")
+plt.plot(x, y, color="#425378")
 
 ## Добавление заголовка
 plt.title(r'\textrm{' + title + '}')
 
 ## Добавление названий осей
-plt.xlabel(r'\textrm{Время}')
-plt.ylabel(r'\textrm{Значения ряда}')
+plt.xlabel(r'\textrm{' + xlabel + '}')
+plt.ylabel(r'\textrm{' + ylabel + '}')
 
 ## Показ графика
 plt.show()
 
 ## Сохранение фигуры
-if use_basename:
-    f.savefig("Фигуры/" + basename(output_name) + ".pdf", bbox_inches='tight')
-else:
+if custom_path:
     f.savefig(output_name + ".pdf", bbox_inches='tight')
+else:
+    f.savefig("Фигуры/" + output_name + ".pdf", bbox_inches='tight')

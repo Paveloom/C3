@@ -29,6 +29,8 @@ implicit none
           ! Вычисление числа pi
           pi = 4._RP * atan(1._RP)
           
+          i = 0_JP
+
           ! Поразрядная обратная перестановка
           do while ( i .lt. n ) 
 
@@ -47,13 +49,14 @@ implicit none
           enddo
 
           i = 2_JP
-          ! Выполнение преобразования бабочки
+
+          ! Выполнение преобразования Фурье
           do while (i .le. n)
 
                i_RP = real(i, kind=RP)
                ih = i / 2_JP
 
-               arg = - 2._RP * pi / i_RP
+               arg = 2._RP * pi / i_RP
 
                tmp%re = cos(arg)
                tmp%im = sin(arg)
@@ -82,15 +85,6 @@ implicit none
                enddo
 
                i = ishft(i, 1_JP)
-
-          enddo
-
-          i = 0_JP
-          do while (i .lt. n)
-
-               a(i) = a(i) / n_C
-
-               i = i + 1_JP
 
           enddo
 
