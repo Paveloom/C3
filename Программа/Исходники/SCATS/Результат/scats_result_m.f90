@@ -13,8 +13,13 @@ implicit none
      ! Тип, определяющий результат
      type result_type
           
+          real(RP) :: delta_t ! Шаг выборки
+
           real(RP), allocatable, dimension(:) :: t ! Массив времени
           real(RP), allocatable, dimension(:) :: x ! Массив значений
+
+          real(RP), allocatable, dimension(:) :: v ! Массив частот периодограммы
+          real(RP), allocatable, dimension(:) :: D ! Массив значений периодограммы
 
           contains
 
@@ -24,11 +29,17 @@ implicit none
           ! Процедура для записи результата в файл
           procedure :: write => scats_result_write_to_file
 
+          ! Функция для получения указателя на шаг выборки
+          procedure :: get_delta_t_pt => scats_result_get_delta_t_pt
+
           ! Функция для получения указателя на массив времени
           procedure :: get_t_pt => scats_result_get_t_pt
 
           ! Функция для получения указателя на массив значений
           procedure :: get_x_pt => scats_result_get_x_pt
+
+          ! Процедура для присваивания значений шагу выборки
+          procedure :: put_delta_t => scats_result_put_delta_t
 
           ! Процедура для присваивания значений массиву времени
           procedure :: put_t => scats_result_put_t
@@ -65,7 +76,16 @@ implicit none
                character(*), intent(in) :: file ! Файл для записи
 
           end subroutine scats_result_write_to_file
-     
+
+          ! Функция для получения указателя на шаг выборки
+          module function scats_result_get_delta_t_pt(result) result(delta_t_pt)
+          implicit none
+          
+               class( result_type ), intent(in), target :: result ! Результат
+               real(RP), pointer :: delta_t_pt ! Шаг выборки
+          
+          end function scats_result_get_delta_t_pt
+
           ! Функция для получения указателя на массив времени
           module function scats_result_get_t_pt(result) result(t_pt)
           implicit none
@@ -83,6 +103,15 @@ implicit none
                real(RP), dimension(:), pointer :: x_pt ! Массив значений
           
           end function scats_result_get_x_pt
+
+          ! Процедура для присваивания значений шагу выборки
+          module pure subroutine scats_result_put_delta_t(result, value)
+          implicit none
+          
+               class( result_type ), intent(inout) :: result ! Результат
+               real(RP), intent(in) :: value ! Значение шага выборки
+          
+          end subroutine scats_result_put_delta_t
 
           ! Процедура для присваивания значений массиву времени
           module pure subroutine scats_result_put_t(result, array)

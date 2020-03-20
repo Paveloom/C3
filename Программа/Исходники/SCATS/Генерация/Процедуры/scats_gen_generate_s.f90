@@ -66,6 +66,9 @@ implicit none
 
           gamma_pt => gen%params%get_gamma_pt()
 
+          ! Сохранение значение шага выборки
+          call input%put_delta_t(delta_t_pt)
+
           ! Вычисление стандартного отклонения
           std = sqrt(sum(A_pt * A_pt) / (2._RP * gamma_pt))
 

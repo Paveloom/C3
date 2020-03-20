@@ -21,24 +21,43 @@ implicit none
 
           else if ( .not. allocated(result%x) ) then
 
-               call scats_log_result_error('NA_t', file)
+               call scats_log_result_error('NA_x', file)
 
-          else
+          endif
 
-               ! Запись размера выборки
-               write( unit, '(a)' ) 'Размер выборки'
-               write( f, '(i10)' ) size(result%t)
-               write( unit, '(a, /)' ) trim(adjustl(f))
+          ! Запись размера выборки
+          write( unit, '(a)' ) 'Размер выборки'
+          write( f, '(i10)' ) size(result%t)
+          write( unit, '(a, /)' ) trim(adjustl(f))
 
-               ! Запись массива времени
-               write( unit, '(a)' ) 'Массив времени'
-               write( unit, '(*('//RF//', 3x))' ) result%t
+          ! Запись шага выборки
+          write( unit, '(a)' ) 'Шаг выборки'
+          write( unit, '('//RF//', /)' ) result%delta_t
+
+          ! Запись массива времени
+          write( unit, '(a)' ) 'Массив времени'
+          write( unit, '(*('//RF//', 3x))' ) result%t
+          write( unit, '()')
+
+          ! Запись массива значений
+          write( unit, '(a)' ) 'Массив значений'
+          write( unit, '(*('//RF//', 3x))') result%x
+
+          if ( allocated(result%v) ) then
+
+               ! Запись массива частот периодограммы
                write( unit, '()')
+               write( unit, '(a)' ) 'Массив частот периодограммы'
+               write( unit, '(*('//RF//', 3x))') result%v
 
-               ! Запись массива значений
-               write( unit, '(a)' ) 'Массив значений'
-               write( unit, '(*('//RF//', 3x))') result%x
+          endif
+
+          if ( allocated(result%D) ) then
+
+               ! Запись массива значений периодограммы
                write( unit, '()')
+               write( unit, '(a)' ) 'Массив значений периодограммы'
+               write( unit, '(*('//RF//', 3x))') result%D
 
           endif
 
