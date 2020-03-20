@@ -105,16 +105,16 @@
                # Процедура общего освобождения памяти
                $(obj_path)scats_deallocate_s.o : $(obj_path)scats.o
 
-               # Процедуры для визуализации
-               $(obj_path)scats_visualize_input_s.o : $(obj_path)scats.o
-               $(obj_path)scats_visualize_result_s.o : $(obj_path)scats.o
-
                # Вспомогательная процедура для вызова процедуры,
                # извлекающей линейный тренд из данных
                $(obj_path)scats_remove_linear_trend_s.o : $(obj_path)scats.o
 
                # Вспомогательная процедура для вычисления периодограммы
                $(obj_path)scats_calculate_periodogram_s.o : $(obj_path)scats.o
+
+               # Визуализация
+               $(obj_path)scats_visualize_input_s.o : $(obj_path)scats_visualize_m.o
+               $(obj_path)scats_visualize_result_s.o : $(obj_path)scats_visualize_m.o
 
                # Генератор
                $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
