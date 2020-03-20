@@ -74,7 +74,8 @@
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
      module_subs := Визуализация/ Визуализация/Вход/ Визуализация/Результат/ \
-                    Вспомогательные/Освобождение/ Вспомогательные/Генерация/ Вспомогательные/Действия/Тренд/ \
+                    Вспомогательные/Освобождение/ Вспомогательные/Генерация/ \
+                    Вспомогательные/Действия/Периодограмма/ Вспомогательные/Действия/Тренд/ \
                     Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ Вход/Получение/ Вход/Присваивание/ \
                     Генерация/ Генерация/Процедуры/ Генерация/Ошибки/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
@@ -85,7 +86,7 @@
                     Результат/Получение/ Результат/Присваивание/ Результат/Запись/ \
                     Действия/ Действия/Ошибки/ Действия/Ошибки/Процедура/ Действия/Проверка/ Действия/Проверка/Процедура/ \
                     Действия/Тренд/ Действия/Тренд/Линейный/ \
-                    Действия/Периодограмма/ Действия/Процедуры/
+                    Действия/Периодограмма/ Действия/Периодограмма/Процедуры/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := SCATS/ $(addprefix SCATS/, $(module_subs))
@@ -115,6 +116,9 @@
                # Вспомогательная процедура для вызова процедуры,
                # извлекающей линейный тренд из данных
                $(obj_path)scats_remove_linear_trend_s.o : $(obj_path)scats.o
+
+               # Вспомогательная процедура для вычисления периодограммы
+               $(obj_path)scats_calculate_periodogram_s.o : $(obj_path)scats.o
 
                # Генератор
                $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
@@ -242,7 +246,7 @@
                # Операции над данными
 
                $(obj_path)scats_do_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
-                                         $(obj_path)scats_do_trend_m.o
+                                         $(obj_path)scats_do_trend_m.o $(obj_path)scats_do_periodogram_m.o
 
                     # Ошибки
                     $(obj_path)scats_log_do_error_s.o : $(obj_path)scats_do_errors_m.o
@@ -264,9 +268,12 @@
 
                     # Вычисление периодограммы
 
-                    $(obj_path)scats_do_periodogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o
+                    $(obj_path)scats_do_periodogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o \
+                                                          $(obj_path)scats_do_errors_m.o
 
                          $(obj_path)scats_do_periodogram_calculate_s.o : $(obj_path)scats_do_periodogram_m.o
+                         $(obj_path)scats_do_periodogram_fft_s.o : $(obj_path)scats_do_periodogram_m.o
+                         $(obj_path)scats_do_periodogram_rev_s.o : $(obj_path)scats_do_periodogram_m.o
 
      # Определение флагов компилятора
 

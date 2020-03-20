@@ -25,7 +25,10 @@ implicit none
      call s%result%write('Файлы/no_trend')
 
      ! Визуализация временного ряда после извлечения тренда
-     call s%visualize%result('Файлы/no_trend', title="После извлечения тренда") 
+     call s%visualize%result('Файлы/no_trend', title="После извлечения тренда")
+
+     ! Вычисление периодограммы
+     call s%calculate_periodogram()
 
      ! Общее освобождение памяти
      call s%deallocate()
