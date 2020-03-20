@@ -9,13 +9,33 @@ implicit none
           ! Проверка на наличие второго аргумента
           if ( present(output_file) ) then
 
-               ! Вызов скрипта
-               call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//output_file)
+               ! Проверка на наличие третьего аргумента
+               if ( present(title) ) then
+
+                    ! Вызов скрипта
+                    call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//output_file//" '"//title//"'")
+
+               else
+
+                    ! Вызов скрипта
+                    call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//output_file//' '//'-0-')
+
+               endif
 
           else
 
-               ! Вызов скрипта
-               call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file)
+               ! Проверка на наличие третьего аргумента
+               if ( present(title) ) then
+
+                    ! Вызов скрипта
+                    call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//'-0-'//" '"//title//"'")
+
+               else
+
+                    ! Вызов скрипта
+                    call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//'-0-'//' '//'-0-')
+
+               endif
 
           endif
           
