@@ -14,7 +14,6 @@ implicit none
           integer(JP) :: N_2_m1_JP ! Число N_2 - 1 (индекс)
           real(RP) :: N_2_RP ! Число N_2 (вещественное)
 
-          complex(RP), dimension(:), allocatable :: X ! Комплексные значения преобразования Фурье
           real(RP) :: delta_v ! Шаг по частотам
 
           real(RP) :: var ! Оценка дисперсии ряда
@@ -42,7 +41,7 @@ implicit none
           ! Проверка, выделена ли память под массив частот периодограммы
           if ( allocated(result%v) ) then
 
-               if ( .not. size(result%v, kind=JP) .eq. N_1_JP ) then
+               if ( .not. size(result%v, kind=JP) .eq. N_1_JP + 1_JP ) then
 
                     ! Освобождение памяти из-под массива частот периодограммы
                     deallocate( result%v, stat = stat )
@@ -62,9 +61,10 @@ implicit none
 
           endif
 
+          ! Проверка, выделена ли память под массив значений периодограммы
           if ( allocated(result%D) ) then
 
-               if ( .not. size(result%D, kind=JP) .eq. N_1_JP ) then
+               if ( .not. size(result%D, kind=JP) .eq. N_1_JP + 1_JP ) then
 
                     ! Освобождение памяти из-под массива значений периодограммы
                     deallocate( result%D, stat = stat )
@@ -84,6 +84,29 @@ implicit none
 
           endif
 
+          ! Проверка, выделена ли память под результат преобразования Фурье
+          if ( allocated(result%X_FFT) ) then
+
+               if ( .not. size(result%X_FFT, kind=JP) .eq. N_2_JP ) then
+
+                    ! Освобождение памяти из-под результата преобразования Фурье
+                    deallocate( result%X_FFT, stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
+
+                    ! Выделение памяти под результат преобразования Фурье
+                    allocate( result%X_FFT(0_JP:N_2_m1_JP), stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT')
+
+               endif
+
+          else
+
+               ! Выделение памяти под результат преобразования Фурье
+               allocate( result%X_FFT(0_JP:N_2_m1_JP), stat = stat )
+               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT')
+
+          endif
+
           ! Распаковка результата
           associate( delta_t => result%delta_t, &
                    & rx => result%x, &
@@ -92,24 +115,16 @@ implicit none
                    & v => result%v, &
                    & D => result%D )
 
-          ! Выделение памяти под массив комплексных значений преобразования Фурье
-          allocate( X(0_JP:N_2_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X')
-
           ! Копирование вещественного массива значений
-          X(0_JP:N_JP-1_JP)%re = rx(0:)
-          X(N_JP:)%re = 0._RP
-          X%im = 0._RP
+          result%X_FFT(0_JP:N_JP-1_JP)%re = rx(0:)
+          result%X_FFT(N_JP:)%re = 0._RP
+          result%X_FFT%im = 0._RP
 
           ! Выполнение быстрого преобразования Фурье
-          call scats_do_fft_calculate(X, N_2_JP, N_2_RP, N_2_log_JP, .false._LP)
+          call scats_do_fft_calculate(result%X_FFT, N_2_JP, N_2_RP, N_2_log_JP, .false._LP)
 
           ! Вычисление периодограммы
-          D(0:) = 1._RP / (N_RP * N_RP) * (X(0:N_1_JP)%re * X(0:N_1_JP)%re + X(0:N_1_JP)%im + X(0:N_1_JP)%im)
-
-          ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
-          deallocate( X, stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X')
+          D(0:) = 1._RP / (N_RP * N_RP) * (result%X_FFT(0:N_1_JP)%re * result%X_FFT(0:N_1_JP)%re + result%X_FFT(0:N_1_JP)%im + result%X_FFT(0:N_1_JP)%im)
 
           ! Вычисление шага по частотам
           delta_v = 1._RP / (N_2_RP * delta_t)

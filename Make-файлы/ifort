@@ -80,7 +80,8 @@
                     Результат/ Результат/Освобождение/ Результат/Ошибки/ Результат/Запись/ \
                     Действия/ Действия/Ошибки/ Действия/Ошибки/Процедура/ Действия/Проверка/ Действия/Проверка/Процедура/ \
                     Действия/Тренд/ Действия/Тренд/Линейный/ \
-                    Действия/Периодограмма/ Действия/Периодограмма/Процедуры/
+                    Действия/Периодограмма/ Действия/Периодограмма/Процедура/ \
+                    Действия/FFT/ Действия/FFT/Процедуры/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := SCATS/ $(addprefix SCATS/, $(module_subs))
@@ -169,7 +170,6 @@
                          $(obj_path)scats_do_check_s.o : $(obj_path)scats_do_check_m.o
 
                     # Извлечение тренда
-
                     $(obj_path)scats_do_trend_m.o : $(obj_path)prec_m.o $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
                                                     $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_check_m.o
 
@@ -177,14 +177,17 @@
 
                          $(obj_path)scats_do_trend_remove_linear_trend_s.o : $(obj_path)scats_do_trend_m.o
 
-                    # Вычисление периодограммы
+                    # Быстрого преобразование Фурье
+                    $(obj_path)scats_do_fft_m.o : $(obj_path)prec_m.o
 
+                         $(obj_path)scats_do_fft_calculate_s.o : $(obj_path)scats_do_fft_m.o
+                         $(obj_path)scats_do_fft_rev_s.o : $(obj_path)scats_do_fft_m.o
+
+                    # Вычисление периодограммы
                     $(obj_path)scats_do_periodogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o \
-                                                          $(obj_path)scats_do_errors_m.o
+                                                          $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
 
                          $(obj_path)scats_do_periodogram_calculate_s.o : $(obj_path)scats_do_periodogram_m.o
-                         $(obj_path)scats_do_periodogram_fft_s.o : $(obj_path)scats_do_periodogram_m.o
-                         $(obj_path)scats_do_periodogram_rev_s.o : $(obj_path)scats_do_periodogram_m.o
 
      # Определение флагов компилятора
 

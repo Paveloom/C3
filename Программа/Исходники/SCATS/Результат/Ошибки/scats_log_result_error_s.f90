@@ -26,6 +26,12 @@ implicit none
                                                                                  & массива значений объекта&
                                                                                  & типа result_type.'
 
+               case ('WD_X_FFT') ! Встречается в scats_result_deallocate_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
+                                                                                 & результата преобразования Фурье объекта&
+                                                                                 & типа result_type.'
+
                case ('WD_v') ! Встречается в scats_result_deallocate_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&

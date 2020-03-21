@@ -24,6 +24,14 @@ implicit none
                
           endif
 
+          ! Освобождение памяти из-под результата преобразования Фурье
+          if ( allocated(result%X_FFT) ) then
+          
+               deallocate( result%X_FFT, stat = stat )
+               if ( stat .ne. 0_SP ) call scats_log_result_error('WD_X_FFT')
+               
+          endif
+
           ! Освобождение памяти из-под массива частот периодограммы
           if ( allocated(result%v) ) then
           

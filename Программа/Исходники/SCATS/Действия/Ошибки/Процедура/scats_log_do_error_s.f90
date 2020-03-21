@@ -20,6 +20,12 @@ implicit none
                                                                              & для объекта типа result_type.'
                     stop
 
+               case ('WA_X_FFT')
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_do_error:', 'Не удалось выделить память под результат преобразования Фурье&
+                                                                             & для объекта типа result_type.'
+                    stop
+
                case ('WA_v')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_do_error:', 'Не удалось выделить память под массив частот периодограммы&
@@ -48,6 +54,12 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_do_error:', 'Не удалось освободить память из-под&
                                                                              & массива значений объекта&
+                                                                             & типа result_type.'
+
+               case ('WD_X_FFT') 
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_do_error:', 'Не удалось освободить память из-под&
+                                                                             & результата преобразования Фурье объекта&
                                                                              & типа result_type.'
 
                case ('WD_v') 
