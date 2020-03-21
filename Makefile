@@ -168,9 +168,30 @@
      ## Правило для обновления последнего коммита до текущего состояния локального репозитория
 
      git-am :
+
+	         # Определение последнего тега
+	         LAST_TAG=$$(git describe --tag)
+
 	         git add -A
 	         git commit --amend
-	         git push --force-with-lease
+
+	         # Проверка, был ли создан коммит
+	         if [ $$? -eq 0 ]; then
+
+	              # Удаление последнего тега локально
+	              git tag -d $$LAST_TAG
+
+	              # Создание последнего тега локально
+	              git tag -a $$LAST_TAG -m "$$LAST_TAG"
+
+	              # Удаление последнего тега удаленно
+	              git push origin :$$LAST_TAG
+
+	              # Пуш
+	              git push --follow-tags --force-with-lease
+
+	         fi
+
 
      # Правило для создания архивов
 

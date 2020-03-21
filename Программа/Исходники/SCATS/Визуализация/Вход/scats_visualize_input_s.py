@@ -20,18 +20,17 @@ from sys import argv
 
 # Сохранение переданных аргументов
 input_name = str(argv[1])
+output_name = str(argv[2])
+title = str(argv[3])
 
-if str(argv[2]) == '-0-':
+if output_name == '-0-':
     use_basename = True
     output_name = input_name
 else:
     use_basename = False
-    output_name = str(argv[2])
 
-if str(argv[3]) == '-0-':
+if title == '-0-':
     title = 'Исходный временной ряд'
-else:
-    title = str(argv[3])
 
 # Настройки графиков
 
@@ -60,17 +59,14 @@ lines = []
 
 ## Считывание строк с данными
 with open(input_name) as f:
-    for line in islice(f, 1, 11, 3):
+    for line in islice(f, 7, 11, 3):
         lines.append(line)
 
-## Получение значения размера выборки
-N = np.int(lines[0])
-
 ## Получение значений массива времени
-t = np.array(lines[2].split(), dtype = np.float)
+t = np.array(lines[0].split(), dtype = np.float)
 
 ## Получение значений массива значений
-x = np.array(lines[3].split(), dtype = np.float)
+x = np.array(lines[1].split(), dtype = np.float)
 
 # Создание и сохранение фигуры
 

@@ -15,15 +15,13 @@ implicit none
      ! Тип, определяющий параметры генератора
      type gen_params_type
           
-          private
-
           type( gen_settings_type ), public :: settings ! Настройки считывания 
                                                         ! параметров генератора
 
           integer(IP) :: N ! Размер выборки
 
           real(RP) :: delta_t ! Шаг выборки
-          real(RP) :: q ! Уровень значимости
+          real(RP) :: q ! Уровень значимости (не используется при генерации данных)
           real(RP) :: alpha, beta ! Параметры линейного тренда
           
           integer(IP) :: r ! Число гармонических компонент
@@ -41,28 +39,6 @@ implicit none
           procedure :: read => scats_read_gen_params ! Процедура для считывания параметров для генерации временного ряда
           procedure :: deallocate => scats_deallocate_gen_params ! Процедура для освобождения памяти из-под параметров
           
-          ! Блок получения значения
-
-          procedure :: get_N_pt => scats_get_N_pt ! Функция для получения указателя на значение переменной N
-
-          procedure :: get_delta_t_pt => scats_get_delta_t_pt ! Функция для получения указателя на значение переменной delta_t
-          procedure :: get_q_pt => scats_get_q_pt             ! Функция для получения указателя на значение переменной q
-          procedure :: get_alpha_pt => scats_get_alpha_pt     ! Функция для получения указателя на значение переменной alpha
-          procedure :: get_beta_pt => scats_get_beta_pt       ! Функция для получения указателя на значение переменной beta
-
-          procedure :: get_r_pt => scats_get_r_pt ! Функция для получения указателя на значение переменной r
-
-          procedure :: get_A_pt => scats_get_A_pt     ! Функция для получения указателя на значение переменной A
-          procedure :: get_v_pt => scats_get_v_pt     ! Функция для получения указателя на значение переменной v
-          procedure :: get_phi_pt => scats_get_phi_pt ! Функция для получения указателя на значение переменной phi
-
-          procedure :: get_gamma_pt => scats_get_gamma_pt ! Функция для получения указателя на значение переменной gamma
-
-          procedure :: get_ready_pt => scats_get_ready_pt ! Функция для получения указателя на значение переменной ready
-          
-          ! Процедура для активации флага готовности генератора
-          procedure :: turn_ready => scats_gen_params_turn_ready
-
      end type gen_params_type
 
      interface
@@ -92,115 +68,6 @@ implicit none
                class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
 
           end subroutine scats_deallocate_gen_params
-
-          ! Процедура для активации флага готовности генератора
-          module impure subroutine scats_gen_params_turn_ready(gen_params)
-          implicit none
-               
-               class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
-
-          end subroutine scats_gen_params_turn_ready
-
-          ! Блок получения значения
-
-          ! Функция для получения указателя на значение переменной N
-          module impure function scats_get_N_pt(gen_params) result(N_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               integer(IP), pointer :: N_pt ! Указатель на значение переменной N
-               
-          end function scats_get_N_pt
-
-          ! Функция для получения указателя на значение переменной delta_t
-          module impure function scats_get_delta_t_pt(gen_params) result(delta_t_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               real(RP), pointer :: delta_t_pt ! Указатель на значение переменной delta_t
-               
-          end function scats_get_delta_t_pt
-
-          ! Функция для получения указателя на значение переменной q
-          module impure function scats_get_q_pt(gen_params) result(q_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               real(RP), pointer :: q_pt ! Указатель на значение переменной q
-               
-          end function scats_get_q_pt
-
-          ! Функция для получения указателя на значение переменной alpha
-          module impure function scats_get_alpha_pt(gen_params) result(alpha_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               real(RP), pointer :: alpha_pt ! Указатель на значение переменной alpha
-               
-          end function scats_get_alpha_pt
-
-          ! Функция для получения указателя на значение переменной beta
-          module impure function scats_get_beta_pt(gen_params) result(beta_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               real(RP), pointer :: beta_pt ! Указатель на значение переменной beta
-               
-          end function scats_get_beta_pt
-
-          ! Функция для получения указателя на значение переменной r
-          module impure function scats_get_r_pt(gen_params) result(r_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               integer(IP), pointer :: r_pt ! Указатель на значение переменной r
-               
-          end function scats_get_r_pt
-
-          ! Функция для получения указателя на значение переменной A
-          module impure function scats_get_A_pt(gen_params) result(A_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               real(RP), dimension(:), pointer :: A_pt ! Указатель на значение переменной A
-               
-          end function scats_get_A_pt
-
-          ! Функция для получения указателя на значение переменной v
-          module impure function scats_get_v_pt(gen_params) result(v_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               real(RP), dimension(:), pointer :: v_pt ! Указатель на значение переменной v
-               
-          end function scats_get_v_pt
-
-          ! Функция для получения указателя на значение переменной phi
-          module impure function scats_get_phi_pt(gen_params) result(phi_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               real(RP), dimension(:), pointer :: phi_pt ! Указатель на значение переменной phi
-               
-          end function scats_get_phi_pt
-
-          ! Функция для получения указателя на значение переменной gamma
-          module impure function scats_get_gamma_pt(gen_params) result(gamma_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               real(RP), pointer :: gamma_pt ! Указатель на значение переменной gamma
-               
-          end function scats_get_gamma_pt
-
-          ! Функция для получения указателя на значение переменной ready
-          module impure function scats_get_ready_pt(gen_params) result(ready_pt)
-          implicit none
-               
-               class ( gen_params_type ), target, intent(in) :: gen_params ! Параметры
-               logical(LP), pointer :: ready_pt ! Указатель на значение переменной ready
-               
-          end function scats_get_ready_pt
 
      end interface
      
