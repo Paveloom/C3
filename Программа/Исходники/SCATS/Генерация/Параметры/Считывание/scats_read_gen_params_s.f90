@@ -22,7 +22,7 @@ implicit none
 
           ! Считывание значения размера выборки
 
-          if (gen_params%settings%get_read_N_pt()) then
+          if (gen_params%settings%read_N) then
 
                read( unit = unit, fmt = * , iostat = stat ) gen_params%N
                if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_N', file) ! Проверка на ошибку считывания
@@ -39,7 +39,7 @@ implicit none
 
           ! Считывание значения шага выборки
 
-          if (gen_params%settings%get_read_delta_t_pt()) then
+          if (gen_params%settings%read_delta_t) then
                
                read( unit = unit, fmt = *, iostat = stat ) gen_params%delta_t
                if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_delta_t', file) ! Проверка на ошибку считывания
@@ -63,7 +63,7 @@ implicit none
 
           ! Считывание значения параметра \alpha
 
-          if (gen_params%settings%get_read_alpha_pt()) then
+          if (gen_params%settings%read_alpha) then
                
                read( unit = unit, fmt = *, iostat = stat ) gen_params%alpha
                if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_alpha', file) ! Проверка на ошибку считывания
@@ -80,7 +80,7 @@ implicit none
 
           ! Считывание значения параметра \beta
 
-          if (gen_params%settings%get_read_beta_pt()) then
+          if (gen_params%settings%read_beta) then
                
                read( unit = unit, fmt = *, iostat = stat ) gen_params%beta
                if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_beta', file) ! Проверка на ошибку считывания
@@ -100,7 +100,7 @@ implicit none
 
           ! Считывание значения числа гармонических компонент
 
-          if (gen_params%settings%get_read_r_pt()) then
+          if (gen_params%settings%read_r) then
 
                read( unit = unit, fmt = *, iostat = stat ) gen_params%r
                if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_r', file) ! Проверка на ошибку считывания
@@ -129,7 +129,7 @@ implicit none
 
                     ! Считывание значений массива амплитуд
 
-                    if (gen_params%settings%get_read_A_pt()) then
+                    if (gen_params%settings%read_A) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%A
                          if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
@@ -153,7 +153,7 @@ implicit none
 
                     ! Считывание значений массива амплитуд
 
-                    if (gen_params%settings%get_read_A_pt()) then
+                    if (gen_params%settings%read_A) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%A
                          if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
@@ -174,7 +174,7 @@ implicit none
 
                ! Считывание значений массива амплитуд
 
-               if (gen_params%settings%get_read_A_pt()) then
+               if (gen_params%settings%read_A) then
                     
                     read( unit = unit, fmt = *, iostat = stat ) gen_params%A
                     if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_A', file) ! Проверка на ошибку считывания
@@ -201,7 +201,7 @@ implicit none
 
                     ! Считывание значений массива частот
 
-                    if (gen_params%settings%get_read_v_pt()) then
+                    if (gen_params%settings%read_v) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%v
                          if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
@@ -225,7 +225,7 @@ implicit none
 
                     ! Считывание значений массива частот
 
-                    if (gen_params%settings%get_read_v_pt()) then
+                    if (gen_params%settings%read_v) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%v
                          if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
@@ -246,7 +246,7 @@ implicit none
 
                ! Считывание значений массива частот
 
-               if (gen_params%settings%get_read_v_pt()) then
+               if (gen_params%settings%read_v) then
                     
                     read( unit = unit, fmt = *, iostat = stat ) gen_params%v
                     if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_v', file) ! Проверка на ошибку считывания
@@ -273,7 +273,7 @@ implicit none
 
                     ! Считывание значений массива фазовых сдвигов
 
-                    if (gen_params%settings%get_read_phi_pt()) then
+                    if (gen_params%settings%read_phi) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
                          if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
@@ -297,7 +297,7 @@ implicit none
 
                     ! Считывание значений массива фазовых сдвигов
 
-                    if (gen_params%settings%get_read_phi_pt()) then
+                    if (gen_params%settings%read_phi) then
                          
                          read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
                          if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
@@ -318,7 +318,7 @@ implicit none
 
                ! Считывание значений массива фазовых сдвигов
 
-               if (gen_params%settings%get_read_phi_pt()) then
+               if (gen_params%settings%read_phi) then
                     
                     read( unit = unit, fmt = *, iostat = stat ) gen_params%phi
                     if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_phi', file) ! Проверка на ошибку считывания
@@ -337,7 +337,7 @@ implicit none
 
           ! Считывание значения отношения «сигнал к шуму»
 
-          if (gen_params%settings%get_read_gamma_pt()) then
+          if (gen_params%settings%read_gamma) then
                
                read( unit = unit, fmt = *, iostat = stat ) gen_params%gamma
                if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WR_gamma', file) ! Проверка на ошибку считывания
@@ -354,7 +354,7 @@ implicit none
           if ( stat .ne. 0_SP ) call scats_log_gen_params_error('WC', file) ! Проверка на ошибку закрытия файла
 
           ! Активация генератора
-          call gen_params%turn_ready()
+          gen_params%ready = .true.
 
      end procedure scats_read_gen_params
      

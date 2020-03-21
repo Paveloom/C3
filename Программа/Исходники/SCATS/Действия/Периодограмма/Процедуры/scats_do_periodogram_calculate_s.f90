@@ -6,9 +6,6 @@ implicit none
      ! Процедура для вычисления периодограммы
      module procedure scats_do_periodogram_calculate
           
-          real(RP), pointer :: delta_t_pt ! Указатель на шаг выборки
-          real(RP), dimension(:), pointer :: x_pt ! Указатель на массив значений
-
           integer(JP) :: N_JP ! Размер выборки
           real(RP) :: N_RP ! Размер выборки (вещественное)
           integer(JP) :: N_2_log_JP ! Логарифм по степени 2 от числа N_2 (целое)
@@ -24,12 +21,8 @@ implicit none
           real(RP) :: i_RP ! Овеществление счетчика
           integer(SP) :: stat ! Статусная переменная
  
-          ! Распаковка данных
-          delta_t_pt => result%get_delta_t_pt()
-          x_pt => result%get_x_pt()
-
           ! Определение размера выборки
-          N_JP = size(x_pt, kind=JP)
+          N_JP = size(result%x, kind=JP)
           N_RP = real(N_JP, kind=RP)
 
           ! Определение степени логарифма по степени 2 от числа 2 * N_1, где N_1 > N и N_1 кратно двум
@@ -93,7 +86,7 @@ implicit none
           if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X')
 
           ! Копирование вещественного массива значений
-          X(0_JP:N_JP-1_JP)%re = x_pt(0:)
+          X(0_JP:N_JP-1_JP)%re = result%x(0:)
           X(N_JP:)%re = 0._RP
           X%im = 0._RP
 
