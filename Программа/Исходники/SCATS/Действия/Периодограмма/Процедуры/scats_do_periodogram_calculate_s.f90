@@ -81,12 +81,17 @@ implicit none
 
           endif
 
+          associate( delta_t => result%delta_t, &
+                   & rx => result%x, &
+                   & v => result%v, &
+                   & D => result%D )
+
           ! Выделение памяти под массив комплексных значений преобразования Фурье
           allocate( X(0_JP:N_2_m1_JP), stat = stat )
           if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X')
 
           ! Копирование вещественного массива значений
-          X(0_JP:N_JP-1_JP)%re = result%x(0:)
+          X(0_JP:N_JP-1_JP)%re = rx(0:)
           X(N_JP:)%re = 0._RP
           X%im = 0._RP
 
@@ -94,23 +99,25 @@ implicit none
           call scats_do_periodogram_fft(X, N_2_JP, N_2_RP, N_2_log_JP)
 
           ! Вычисление периодограммы
-          result%D(0:) = 1._RP / (N_RP * N_RP) * (X(0:N_1_JP)%re * X(0:N_1_JP)%re + X(0:N_1_JP)%im + X(0:N_1_JP)%im)
+          D(0:) = 1._RP / (N_RP * N_RP) * (X(0:N_1_JP)%re * X(0:N_1_JP)%re + X(0:N_1_JP)%im + X(0:N_1_JP)%im)
 
           ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
           deallocate( X, stat = stat )
           if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X')
 
           ! Вычисление шага по частотам
-          delta_v = 1._RP / (N_2_RP * result%delta_t)
+          delta_v = 1._RP / (N_2_RP * delta_t)
 
           ! Заполнение массива частот периодограммы
 
           do i = 0_JP, N_1_JP
 
                i_RP = real(i, kind=RP)
-               result%v(i) = i_RP * delta_v
+               v(i) = i_RP * delta_v
 
           enddo
+
+          end associate
 
      end procedure scats_do_periodogram_calculate
      

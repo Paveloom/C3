@@ -28,28 +28,40 @@ implicit none
           ! Проверка, активирован ли генератор
           if (.not. gen%params%ready) call scats_log_gen_error('NA')
 
+          ! Распаковка параметров генератора
+          associate( N => gen%params%N, &
+                   & delta_t => gen%params%delta_t, &
+                   & q => gen%params%q, &
+                   & alpha => gen%params%alpha, &
+                   & beta => gen%params%beta, &
+                   & r => gen%params%r, &
+                   & A => gen%params%A, &
+                   & v => gen%params%v, &
+                   & phi => gen%params%phi, &
+                   & gamma => gen%params%gamma )
+
           ! Сохранение значение шага выборки
-          input%delta_t = gen%params%delta_t
+          input%delta_t = delta_t
 
           ! Сохранение значения уровня значимости
-          input%q = gen%params%q
+          input%q = q
 
           ! Вычисление стандартного отклонения
-          std = sqrt(sum(gen%params%A * gen%params%A) / (2._RP * gen%params%gamma))
+          std = sqrt(sum(A * A) / (2._RP * gamma))
 
           ! Вычисление вспомогательной переменной
-          N_m1 = gen%params%N - 1_IP
+          N_m1 = N - 1_IP
 
           ! Конвертации для индексов
-          N_JP = int(gen%params%N, kind=JP)
+          N_JP = int(N, kind=JP)
           N_m1_JP = int(N_m1, kind=JP)
-          r_JP = int(gen%params%r, kind=JP)
+          r_JP = int(r, kind=JP)
 
           ! Выделение памяти под массивы
 
           if ( allocated(input%t) ) then
 
-               if ( .not. size(input%t, kind=IP) .eq. gen%params%N ) then
+               if ( .not. size(input%t, kind=IP) .eq. N ) then
 
                     ! Освобождение памяти из-под массива времени
                     deallocate( input%t, stat = stat )
@@ -71,7 +83,7 @@ implicit none
 
           if ( allocated(input%x) ) then
 
-               if ( .not. size(input%x, kind=IP) .eq. gen%params%N ) then
+               if ( .not. size(input%x, kind=IP) .eq. N ) then
 
                     ! Освобождение памяти из-под массива значений
                     deallocate( input%x, stat = stat )
@@ -103,14 +115,14 @@ implicit none
 
                k_RP = real(k, kind=RP)
 
-               t = gen%params%delta_t * k_RP
+               t = delta_t * k_RP
                input%t(k) = t
 
-               c = gen%params%alpha + gen%params%beta * t
+               c = alpha + beta * t
 
                do l = 1_JP, r_JP
 
-                    c = c + gen%params%A(l) * cos(2._RP * pi * gen%params%v(l) * t - gen%params%phi(l))
+                    c = c + A(l) * cos(2._RP * pi * v(l) * t - phi(l))
 
                enddo
 
@@ -122,6 +134,8 @@ implicit none
 
           deallocate( rand, stat = stat )
           if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_rand')
+
+          end associate
           
      end procedure scats_gen_generate
      
