@@ -74,8 +74,8 @@
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
      module_subs := Визуализация/ Визуализация/Вход/ Визуализация/Результат/ \
-                    Вспомогательные/Освобождение/ Вспомогательные/Генерация/ \
-                    Вспомогательные/Действия/Периодограмма/ Вспомогательные/Действия/Тренд/ \
+                    Вспомогательные/Освобождение/ Вспомогательные/Генерация/ Вспомогательные/Действия/Тренд/ \
+                    Вспомогательные/Действия/Периодограмма/ Вспомогательные/Действия/Коррелограмма/ \
                     Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ \
                     Генерация/ Генерация/Процедуры/ Генерация/Ошибки/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
@@ -85,7 +85,8 @@
                     Действия/ Действия/Ошибки/ Действия/Ошибки/Процедура/ Действия/Проверка/ Действия/Проверка/Процедура/ \
                     Действия/Тренд/ Действия/Тренд/Линейный/ \
                     Действия/Периодограмма/ Действия/Периодограмма/Процедура/ \
-                    Действия/FFT/ Действия/FFT/Процедуры/
+                    Действия/FFT/ Действия/FFT/Процедуры/ \
+                    Действия/Коррелограмма/ Действия/Коррелограмма/Процедура/
 
      ## Указание всех поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш)
      subs := SCATS/ $(addprefix SCATS/, $(module_subs))
@@ -114,6 +115,9 @@
 
                # Вспомогательная процедура для вычисления периодограммы
                $(obj_path)scats_calculate_periodogram_s.o : $(obj_path)scats.o
+
+               # Вспомогательная процедура для вычисления коррелограммы
+               $(obj_path)scats_calculate_correlogram_s.o : $(obj_path)scats.o
 
                # Визуализация
                $(obj_path)scats_visualize_input_s.o : $(obj_path)scats_visualize_m.o
@@ -162,7 +166,8 @@
                # Операции над данными
 
                $(obj_path)scats_do_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
-                                         $(obj_path)scats_do_trend_m.o $(obj_path)scats_do_periodogram_m.o
+                                         $(obj_path)scats_do_trend_m.o $(obj_path)scats_do_periodogram_m.o \
+                                         $(obj_path)scats_do_correlogram_m.o
 
                     # Ошибки
                     $(obj_path)scats_log_do_error_s.o : $(obj_path)scats_do_errors_m.o
@@ -192,6 +197,12 @@
                                                           $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
 
                          $(obj_path)scats_do_periodogram_calculate_s.o : $(obj_path)scats_do_periodogram_m.o
+
+                    # Вычисление коррелограммы
+                    $(obj_path)scats_do_correlogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o \
+                                                          $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
+
+                         $(obj_path)scats_do_correlogram_calculate_s.o : $(obj_path)scats_do_correlogram_m.o
 
      # Определение флагов компилятора
 

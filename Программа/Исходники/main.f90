@@ -24,6 +24,9 @@ implicit none
      ! Вычисление периодограммы
      call s%calculate_periodogram()
 
+     ! Вычисление коррелограммы
+     call s%calculate_correlogram()
+
      ! Запись результата в файл
      call s%result%write('Файлы/result')
 

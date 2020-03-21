@@ -14,6 +14,7 @@ implicit none
           integer(JP) :: N_2_m1_JP ! Число N_2 - 1 (индекс)
           real(RP) :: N_2_RP ! Число N_2 (вещественное)
 
+          complex(RP), dimension(:), allocatable :: X_FFT ! Массив комплексных значений преобразования Фурье
           real(RP) :: delta_v ! Шаг по частотам
 
           real(RP) :: var ! Оценка дисперсии ряда
@@ -23,6 +24,10 @@ implicit none
           real(RP) :: i_RP ! Овеществление счетчика
           integer(SP) :: stat ! Статусная переменная
  
+          ! Проверка, выделена ли память под массивы
+          if ( .not. allocated(result%t) ) call scats_log_do_error('NA_t')
+          if ( .not. allocated(result%x) ) call scats_log_do_error('NA_x')
+
           ! Определение размера выборки
           N_JP = size(result%x, kind=JP)
           N_RP = real(N_JP, kind=RP)
@@ -84,26 +89,26 @@ implicit none
 
           endif
 
-          ! Проверка, выделена ли память под результат преобразования Фурье
-          if ( allocated(result%X_FFT) ) then
+          ! Проверка, выделена ли память под модуль преобразованных значений
+          if ( allocated(result%X_FFT_ABS) ) then
 
-               if ( .not. size(result%X_FFT, kind=JP) .eq. N_2_JP ) then
+               if ( .not. size(result%X_FFT_ABS, kind=JP) .eq. N_2_JP ) then
 
-                    ! Освобождение памяти из-под результата преобразования Фурье
-                    deallocate( result%X_FFT, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
+                    ! Освобождение памяти из-под модуля преобразованных значений
+                    deallocate( result%X_FFT_ABS, stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT_ABS')
 
-                    ! Выделение памяти под результат преобразования Фурье
-                    allocate( result%X_FFT(0_JP:N_2_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT')
+                    ! Выделение памяти под модуль преобразованных значений
+                    allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT_ABS')
 
                endif
 
           else
 
-               ! Выделение памяти под результат преобразования Фурье
-               allocate( result%X_FFT(0_JP:N_2_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT')
+               ! Выделение памяти под модуль преобразованных значений
+               allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )
+               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT_ABS')
 
           endif
 
@@ -115,16 +120,27 @@ implicit none
                    & v => result%v, &
                    & D => result%D )
 
+          ! Выделение памяти под массив комплексных значений преобразования Фурье
+          allocate( X_FFT(0_JP:N_2_m1_JP), stat = stat )
+          if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT')
+
           ! Копирование вещественного массива значений
-          result%X_FFT(0_JP:N_JP-1_JP)%re = rx(0:)
-          result%X_FFT(N_JP:)%re = 0._RP
-          result%X_FFT%im = 0._RP
+          X_FFT(0_JP:N_JP-1_JP)%re = rx(0:)
+          X_FFT(N_JP:)%re = 0._RP
+          X_FFT%im = 0._RP
 
           ! Выполнение быстрого преобразования Фурье
-          call scats_do_fft_calculate(result%X_FFT, N_2_JP, N_2_RP, N_2_log_JP, .false._LP)
+          call scats_do_fft_calculate(X_FFT, N_2_JP, N_2_RP, N_2_log_JP, .false._LP)
+
+          ! Вычисление модуля преобразованных значений
+          result%X_FFT_ABS(0:) = X_FFT(0:)%re * X_FFT(0:)%re + X_FFT(0:)%im + X_FFT(0:)%im
+
+          ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
+          deallocate( X_FFT, stat = stat )
+          if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
 
           ! Вычисление периодограммы
-          D(0:) = 1._RP / (N_RP * N_RP) * (result%X_FFT(0:N_1_JP)%re * result%X_FFT(0:N_1_JP)%re + result%X_FFT(0:N_1_JP)%im + result%X_FFT(0:N_1_JP)%im)
+          D(0:) = 1._RP / (N_RP * N_RP) * result%X_FFT_ABS(0:N_1_JP)
 
           ! Вычисление шага по частотам
           delta_v = 1._RP / (N_2_RP * delta_t)

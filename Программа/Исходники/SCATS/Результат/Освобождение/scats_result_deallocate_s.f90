@@ -24,11 +24,11 @@ implicit none
                
           endif
 
-          ! Освобождение памяти из-под результата преобразования Фурье
-          if ( allocated(result%X_FFT) ) then
+          ! Освобождение памяти из-под квадрата преобразованных значений
+          if ( allocated(result%X_FFT_ABS) ) then
           
-               deallocate( result%X_FFT, stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_result_error('WD_X_FFT')
+               deallocate( result%X_FFT_ABS, stat = stat )
+               if ( stat .ne. 0_SP ) call scats_log_result_error('WD_X_FFT_ABS')
                
           endif
 
@@ -45,6 +45,14 @@ implicit none
           
                deallocate( result%D, stat = stat )
                if ( stat .ne. 0_SP ) call scats_log_result_error('WD_D')
+               
+          endif
+
+          ! Освобождение памяти из-под массива значений коррелограммы
+          if ( allocated(result%c) ) then
+          
+               deallocate( result%c, stat = stat )
+               if ( stat .ne. 0_SP ) call scats_log_result_error('WD_c')
                
           endif
 
