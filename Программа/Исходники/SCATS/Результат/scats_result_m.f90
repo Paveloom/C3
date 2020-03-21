@@ -18,6 +18,9 @@ implicit none
           real(RP), allocatable, dimension(:) :: t ! Массив времени
           real(RP), allocatable, dimension(:) :: x ! Массив значений
 
+          real(RP) :: q ! Уровень значимости
+          real(RP) :: threshold ! Порог обнаружения сигнала
+
           real(RP), allocatable, dimension(:) :: v ! Массив частот периодограммы
           real(RP), allocatable, dimension(:) :: D ! Массив значений периодограммы
 

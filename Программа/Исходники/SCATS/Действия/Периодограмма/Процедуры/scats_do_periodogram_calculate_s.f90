@@ -17,6 +17,9 @@ implicit none
           complex(RP), dimension(:), allocatable :: X ! Комплексные значения преобразования Фурье
           real(RP) :: delta_v ! Шаг по частотам
 
+          real(RP) :: var ! Оценка дисперсии ряда
+          real(RP) :: X_1 ! Критическое значение для разделения шум / сигнал
+
           integer(JP) :: i ! Счетчик
           real(RP) :: i_RP ! Овеществление счетчика
           integer(SP) :: stat ! Статусная переменная
@@ -84,6 +87,8 @@ implicit none
           ! Распаковка результата
           associate( delta_t => result%delta_t, &
                    & rx => result%x, &
+                   & q => result%q, &
+                   & threshold => result%threshold, &
                    & v => result%v, &
                    & D => result%D )
 
@@ -117,6 +122,15 @@ implicit none
                v(i) = i_RP * delta_v
 
           enddo
+
+          ! Оценивание дисперсии ряда
+          var = 1._RP / ( N_RP - 1._RP) * sum(rx * rx)
+
+          ! Вычисление критического значения для разделения шум / сигнал
+          X_1 = - log(1._RP - (1._RP - q) ** ( 2._RP / (N_RP - 2._RP) ))
+
+          ! Вычисление порога обнаружения сигнала
+          threshold = var * X_1 / N_RP
 
           end associate
 
