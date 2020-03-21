@@ -77,14 +77,12 @@
      module_subs := Визуализация/ Визуализация/Вход/ Визуализация/Результат/ \
                     Вспомогательные/Освобождение/ Вспомогательные/Генерация/ \
                     Вспомогательные/Действия/Периодограмма/ Вспомогательные/Действия/Тренд/ \
-                    Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ Вход/Получение/ Вход/Присваивание/ \
+                    Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ \
                     Генерация/ Генерация/Процедуры/ Генерация/Ошибки/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
-                    Генерация/Параметры/Освобождение/ Генерация/Параметры/Получение/ Генерация/Параметры/Готовность/ \
+                    Генерация/Параметры/Освобождение/ \
                     Генерация/Настройки/ Генерация/Настройки/Ошибки/ Генерация/Настройки/Считывание/ \
-                    Генерация/Настройки/Получение/ Генерация/Настройки/Присваивание/ \
-                    Результат/ Результат/Освобождение/ Результат/Ошибки/ \
-                    Результат/Получение/ Результат/Присваивание/ Результат/Запись/ \
+                    Результат/ Результат/Освобождение/ Результат/Ошибки/ Результат/Запись/ \
                     Действия/ Действия/Ошибки/ Действия/Ошибки/Процедура/ Действия/Проверка/ Действия/Проверка/Процедура/ \
                     Действия/Тренд/ Действия/Тренд/Линейный/ \
                     Действия/Периодограмма/ Действия/Периодограмма/Процедуры/
@@ -133,87 +131,18 @@
                     # Функция для получения значения равномерно распределенного случайного числа 
                     $(obj_path)scats_generate_random_uniform_s.o : $(obj_path)scats_gen_m.o
 
-                    # Настройки генератора
+                    # Параметры генератора
                     $(obj_path)scats_gen_params_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_settings_m.o
 
                          $(obj_path)scats_read_gen_params_s.o : $(obj_path)scats_gen_params_m.o
                          $(obj_path)scats_log_gen_params_error_s.o : $(obj_path)scats_gen_params_m.o
                          $(obj_path)scats_deallocate_gen_params_s.o : $(obj_path)scats_gen_params_m.o
-                         $(obj_path)scats_gen_params_turn_ready_s.o : $(obj_path)scats_gen_params_m.o
 
-                         # Блок получения значения
-
-                         $(obj_path)scats_get_n_pt_s.o : $(obj_path)scats_gen_params_m.o
-
-                         $(obj_path)scats_get_delta_t_pt_s.o : $(obj_path)scats_gen_params_m.o
-                         $(obj_path)scats_get_q_pt_s.o : $(obj_path)scats_gen_params_m.o
-                         $(obj_path)scats_get_alpha_pt_s.o : $(obj_path)scats_gen_params_m.o
-                         $(obj_path)scats_get_beta_pt_s.o : $(obj_path)scats_gen_params_m.o
-
-                         $(obj_path)scats_get_r_pt_s.o : $(obj_path)scats_gen_params_m.o
-
-                         $(obj_path)scats_get_a_pt_s.o : $(obj_path)scats_gen_params_m.o
-                         $(obj_path)scats_get_v_pt_s.o : $(obj_path)scats_gen_params_m.o
-                         $(obj_path)scats_get_phi_pt_s.o : $(obj_path)scats_gen_params_m.o
-
-                         $(obj_path)scats_get_gamma_pt_s.o : $(obj_path)scats_gen_params_m.o
-
-                         $(obj_path)scats_get_ready_pt_s.o : $(obj_path)scats_gen_params_m.o
-
-                    # Настройки считывания настроек генератора
+                    # Настройки считывания параметров генератора
                     $(obj_path)scats_gen_settings_m.o : $(obj_path)prec_m.o
 
                          $(obj_path)scats_read_gen_settings_s.o : $(obj_path)scats_gen_settings_m.o
                          $(obj_path)scats_log_gen_settings_error_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         # Блок получения значения
-
-                         $(obj_path)scats_get_read_n_pt_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_get_read_delta_t_pt_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_get_read_q_pt_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_get_read_alpha_pt_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_get_read_beta_pt_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_get_read_r_pt_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_get_read_a_pt_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_get_read_v_pt_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_get_read_phi_pt_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_get_read_gamma_pt_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         # Блок смены значения
-
-                         $(obj_path)scats_turn_read_n_on_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_delta_t_on_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_q_on_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_alpha_on_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_beta_on_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_r_on_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_a_on_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_v_on_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_phi_on_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_gamma_on_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_n_off_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_delta_t_off_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_q_off_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_alpha_off_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_beta_off_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_r_off_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_a_off_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_v_off_s.o : $(obj_path)scats_gen_settings_m.o
-                         $(obj_path)scats_turn_read_phi_off_s.o : $(obj_path)scats_gen_settings_m.o
-
-                         $(obj_path)scats_turn_read_gamma_off_s.o : $(obj_path)scats_gen_settings_m.o
 
                # Входные данные
                $(obj_path)scats_input_m.o : $(obj_path)prec_m.o
@@ -223,26 +152,12 @@
                     $(obj_path)scats_input_read_s.o : $(obj_path)scats_input_m.o
                     $(obj_path)scats_input_write_to_file_s.o : $(obj_path)scats_input_m.o
 
-                    $(obj_path)scats_input_put_delta_t_s.o : $(obj_path)scats_input_m.o
-
-                    $(obj_path)scats_input_get_delta_t_pt_s.o : $(obj_path)scats_input_m.o
-                    $(obj_path)scats_input_get_t_pt_s.o : $(obj_path)scats_input_m.o
-                    $(obj_path)scats_input_get_x_pt_s.o : $(obj_path)scats_input_m.o
-
                # Результат
                $(obj_path)scats_result_m.o : $(obj_path)prec_m.o
 
                     $(obj_path)scats_log_result_error_s.o : $(obj_path)scats_result_m.o
                     $(obj_path)scats_result_deallocate_s.o : $(obj_path)scats_result_m.o
                     $(obj_path)scats_result_write_to_file_s.o : $(obj_path)scats_result_m.o
-
-                    $(obj_path)scats_result_get_delta_t_pt_s.o : $(obj_path)scats_result_m.o
-                    $(obj_path)scats_result_get_t_pt_s.o : $(obj_path)scats_result_m.o
-                    $(obj_path)scats_result_get_x_pt_s.o : $(obj_path)scats_result_m.o
-
-                    $(obj_path)scats_result_put_delta_t_s.o : $(obj_path)scats_result_m.o
-                    $(obj_path)scats_result_put_t_s.o : $(obj_path)scats_result_m.o
-                    $(obj_path)scats_result_put_x_s.o : $(obj_path)scats_result_m.o
 
                # Операции над данными
 
