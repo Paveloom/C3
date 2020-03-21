@@ -22,6 +22,7 @@ implicit none
 
           ! Распаковка входных данных
           associate( delta_t => input%delta_t, &
+                   & q => input%q, &
                    & t => input%t, &
                    & x => input%x )
 
@@ -48,6 +49,7 @@ implicit none
           result%x(0:) = x(0:) - ( a * t(0:) + b )
 
           ! Запись остальных данных
+          result%q = q
           result%delta_t = delta_t
           result%t(0:) = t(0:)
 
