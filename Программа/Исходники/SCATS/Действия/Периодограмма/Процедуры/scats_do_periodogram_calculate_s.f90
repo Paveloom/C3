@@ -81,6 +81,7 @@ implicit none
 
           endif
 
+          ! Распаковка результата
           associate( delta_t => result%delta_t, &
                    & rx => result%x, &
                    & v => result%v, &
