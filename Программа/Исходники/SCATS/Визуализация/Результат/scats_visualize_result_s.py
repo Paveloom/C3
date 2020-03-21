@@ -111,7 +111,7 @@ plt.plot(x, y, color="#425378")
 ## Добавление порога обнаружения сигнала
 if stage == 'periodogram':
     plt.axhline(y=threshold, color="#635D9E", alpha=0.5, linestyle="--")
-    plt.text(x[-1] - x[-1] * 0.085, threshold + threshold * 0.1, r'\textrm{' + str((1 - q) * 100) + '\%}', fontsize=12)
+    plt.text(x[-1] * 0.915, threshold * 1.075, r'\textrm{' + str((1 - q) * 100) + '\%}', fontsize=12)
 
 ## Добавление заголовка
 plt.title(r'\textrm{' + title + '}')
