@@ -26,6 +26,12 @@ implicit none
                                                                                  & массива значений объекта&
                                                                                  & типа result_type.'
 
+               case ('WD_X_FFT_ABS') ! Встречается в scats_result_deallocate_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
+                                                                                 & модуля преобразованных значений объекта&
+                                                                                 & типа result_type.'
+
                case ('WD_v') ! Встречается в scats_result_deallocate_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
@@ -36,6 +42,12 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
                                                                                  & массива значений периодограммы объекта&
+                                                                                 & типа result_type.'
+
+               case ('WD_c') ! Встречается в scats_result_deallocate_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
+                                                                                 & массива значений коррелограммы объекта&
                                                                                  & типа result_type.'
 
                case ('NA_t') ! Встречается в scats_result_write_to_file_s

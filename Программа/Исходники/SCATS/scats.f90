@@ -5,7 +5,8 @@ use scats_input_m, only : input_type ! Тип, определяющий вход
 use scats_visualize_m, only : visualize_type ! Тип, содержащий процедуры для визуализации
 use scats_result_m, only : result_type ! Тип, определяющий результат
 use scats_do_m, only : scats_do_trend_remove_linear_trend, & ! Процедура для удаления линейного тренда из входных данных
-                     & scats_do_periodogram_calculate ! Процедура для вычисления периодограммы
+                     & scats_do_periodogram_calculate, & ! Процедура для вычисления периодограммы
+                     & scats_do_correlogram_calculate    ! Процедура для вычисления коррелограммы
 implicit none
      
      private
@@ -32,6 +33,9 @@ implicit none
 
           ! Вспомогательная процедура для вычисления периодограммы
           procedure :: calculate_periodogram => scats_calculate_periodogram
+
+          ! Вспомогательная процедура для вычисления коррелограммы
+          procedure :: calculate_correlogram => scats_calculate_correlogram
 
      end type SCATS_API
 
@@ -69,6 +73,14 @@ implicit none
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
           
           end subroutine scats_calculate_periodogram
+
+          ! Вспомогательная процедура для вычисления коррелограммы
+          module impure subroutine scats_calculate_correlogram(s)
+          implicit none
+          
+               class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
+          
+          end subroutine scats_calculate_correlogram
      
      end interface
 

@@ -24,14 +24,20 @@ implicit none
      ! Вычисление периодограммы
      call s%calculate_periodogram()
 
+     ! Вычисление коррелограммы
+     call s%calculate_correlogram()
+
      ! Запись результата в файл
      call s%result%write('Файлы/result')
 
      ! Визуализация временного ряда после извлечения тренда
      call s%visualize%result('Файлы/result', stage='no_trend')
 
-     ! Визуализация временного ряда после извлечения тренда
+     ! Визуализация периодограммы
      call s%visualize%result('Файлы/result', stage='periodogram')
+
+     ! Визуализация коррелограммы
+     call s%visualize%result('Файлы/result', stage='correlogram')
 
      ! Общее освобождение памяти
      call s%deallocate()

@@ -21,8 +21,12 @@ implicit none
           real(RP) :: q ! Уровень значимости
           real(RP) :: threshold ! Порог обнаружения сигнала
 
+          real(RP), allocatable, dimension(:) :: X_FFT_ABS ! Модуль преобразованных значений
+
           real(RP), allocatable, dimension(:) :: v ! Массив частот периодограммы
           real(RP), allocatable, dimension(:) :: D ! Массив значений периодограммы
+
+          real(RP), allocatable, dimension(:) :: c ! Массив значений коррелограммы
 
           contains
 

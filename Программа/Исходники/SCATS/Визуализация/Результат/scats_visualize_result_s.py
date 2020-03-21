@@ -28,8 +28,12 @@ if output_name == '-0-':
     custom_path = False
     if stage == 'no_trend':
         output_name = 'no_trend'
+
     if stage == 'periodogram':
         output_name = 'periodogram'
+
+    if stage == 'correlogram':
+        output_name = 'correlogram'
 else:
     custom_path = True
 
@@ -38,9 +42,15 @@ if title == '-0-':
         title = 'После извлечения тренда'
         xlabel = 'Время'
         ylabel = 'Значение'
+
     elif stage == 'periodogram':
         title = 'Периодограмма'
         xlabel = 'Частота'
+        ylabel = 'Значение'
+
+    elif stage == 'correlogram':
+        title = 'Коррелограмма'
+        xlabel = 'Время'
         ylabel = 'Значение'
 
 # Настройки графиков
@@ -98,7 +108,20 @@ elif stage == 'periodogram':
     x = np.array(lines[2].split(), dtype = np.float)
 
     ## Получение значений массива значений периодограммы
-    y = np.array(lines[3].split(), dtype = np.float) 
+    y = np.array(lines[3].split(), dtype = np.float)
+
+elif stage == 'correlogram':
+
+    ## Считывание строк с данными
+    with open(input_name) as f:
+        for line in islice(f, 7, 26, 18):
+            lines.append(line)
+
+    ## Получение значений массива времени
+    x = np.array(lines[0].split(), dtype = np.float)
+
+    ## Получение значений массива значений коррелограммы
+    y = np.array(lines[1].split(), dtype = np.float) 
 
 # Создание и сохранение фигуры
 
