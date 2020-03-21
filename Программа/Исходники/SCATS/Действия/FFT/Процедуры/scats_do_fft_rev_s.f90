@@ -1,10 +1,10 @@
-submodule ( scats_do_periodogram_m ) scats_do_periodogram_rev_s
+submodule ( scats_do_fft_m ) scats_do_fft_rev_s
 implicit none
      
      contains
      
      ! Функция для выполнения поразрядно обратной перестановки
-     module procedure scats_do_periodogram_rev
+     module procedure scats_do_fft_rev
 
           ! Источник алгоритма: https://e-maxx.ru/algo/fft_multiply
           
@@ -25,6 +25,6 @@ implicit none
 
           enddo
           
-     end procedure scats_do_periodogram_rev
+     end procedure scats_do_fft_rev
      
-end submodule scats_do_periodogram_rev_s
+end submodule scats_do_fft_rev_s

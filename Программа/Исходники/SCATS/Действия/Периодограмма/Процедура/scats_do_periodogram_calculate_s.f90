@@ -102,7 +102,7 @@ implicit none
           X%im = 0._RP
 
           ! Выполнение быстрого преобразования Фурье
-          call scats_do_periodogram_fft(X, N_2_JP, N_2_RP, N_2_log_JP)
+          call scats_do_fft_calculate(X, N_2_JP, N_2_RP, N_2_log_JP, .false._LP)
 
           ! Вычисление периодограммы
           D(0:) = 1._RP / (N_RP * N_RP) * (X(0:N_1_JP)%re * X(0:N_1_JP)%re + X(0:N_1_JP)%im + X(0:N_1_JP)%im)

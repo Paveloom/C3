@@ -1,10 +1,10 @@
-submodule ( scats_do_periodogram_m ) scats_do_periodogram_fft_s
+submodule ( scats_do_fft_m ) scats_do_fft_calculate_s
 implicit none
 
      contains
      
      ! Процедура для выполнения быстрого преобразования Фурье
-     module procedure scats_do_periodogram_fft
+     module procedure scats_do_fft_calculate
 
           ! Источник алгоритма: https://e-maxx.ru/algo/fft_multiply
 
@@ -22,6 +22,8 @@ implicit none
           integer(JP) :: ih ! Половина от i
           real(RP) :: i_RP ! Овеществление i
 
+          real(RP) :: invert_real ! +1 или -1 в зависимости от типа преобразования
+
           ! Заполнение n_C
           n_C%re = n_d
           n_C%im = 0._RP
@@ -34,7 +36,7 @@ implicit none
           ! Поразрядная обратная перестановка
           do while ( i .lt. n ) 
 
-               rev = scats_do_periodogram_rev(i, lg_n)
+               rev = scats_do_fft_rev(i, lg_n)
 
                if ( i .lt. rev ) then
 
@@ -48,6 +50,17 @@ implicit none
 
           enddo
 
+          ! Получение типа преобразования Фурье
+          if (invert) then
+          
+               invert_real = -1._RP
+
+          else
+
+               invert_real = 1._RP
+
+          endif
+
           i = 2_JP
 
           ! Выполнение преобразования Фурье
@@ -56,7 +69,7 @@ implicit none
                i_RP = real(i, kind=RP)
                ih = i / 2_JP
 
-               arg = 2._RP * pi / i_RP
+               arg = invert_real * 2._RP * pi / i_RP
 
                tmp%re = cos(arg)
                tmp%im = sin(arg)
@@ -88,6 +101,18 @@ implicit none
 
           enddo
 
-     end procedure scats_do_periodogram_fft
+          if (invert) then
+
+               i = 0_JP
+               do while (i .lt. n)
+
+                    a(i) = a(i) / n_C;
+                    i = i + 1_JP
+
+               enddo
+
+          endif
+
+     end procedure scats_do_fft_calculate
      
-end submodule scats_do_periodogram_fft_s
+end submodule scats_do_fft_calculate_s
