@@ -42,6 +42,16 @@ implicit none
           ! Запись массива значений
           write( unit, '(a)' ) 'Массив значений'
           write( unit, '(*('//RF//', 3x))') result%x
+          write( unit, '()')
+
+          ! Запись уровня значимости
+          write( unit, '(a)' ) 'Уровень значимости'
+          write( unit, '(*('//RF//', 3x))') result%q
+          write( unit, '()')
+
+          ! Запись порога обнаружения сигнала
+          write( unit, '(a)' ) 'Порог обнаружения сигнала'
+          write( unit, '(*('//RF//', 3x))') result%threshold
 
           if ( allocated(result%v) ) then
 

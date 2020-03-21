@@ -85,14 +85,20 @@ elif stage == 'periodogram':
 
     ## Считывание строк с данными
     with open(input_name) as f:
-        for line in islice(f, 13, 17, 3):
+        for line in islice(f, 13, 23, 3):
             lines.append(line)
 
+    ## Получение значения уровня значимости
+    q = np.float(lines[0])
+
+    ## Получение порога обнаружения сигнала
+    threshold = np.float(lines[1])
+
     ## Получение значений массива частот периодограммы
-    x = np.array(lines[0].split(), dtype = np.float)
+    x = np.array(lines[2].split(), dtype = np.float)
 
     ## Получение значений массива значений периодограммы
-    y = np.array(lines[1].split(), dtype = np.float) 
+    y = np.array(lines[3].split(), dtype = np.float) 
 
 # Создание и сохранение фигуры
 
@@ -101,6 +107,11 @@ f = plt.figure()
 
 ## Создание графика
 plt.plot(x, y, color="#425378")
+
+## Добавление порога обнаружения сигнала
+if stage == 'periodogram':
+    plt.axhline(y=threshold, color="#635D9E", alpha=0.5, linestyle="--")
+    plt.text(x[-1] - x[-1] * 0.085, threshold + threshold * 0.1, r'\textrm{' + str((1 - q) * 100) + '\%}', fontsize=12)
 
 ## Добавление заголовка
 plt.title(r'\textrm{' + title + '}')
