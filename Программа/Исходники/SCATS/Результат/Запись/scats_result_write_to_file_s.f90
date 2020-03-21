@@ -71,6 +71,15 @@ implicit none
 
           endif
 
+          if ( allocated(result%c) ) then
+
+               ! Запись массива значений коррелограммы
+               write( unit, '()')
+               write( unit, '(a)' ) 'Массив значений коррелограммы'
+               write( unit, '(*('//RF//', 3x))') result%c
+
+          endif
+
           ! Закрытие файла
           close( unit = unit, iostat = stat )
           if ( stat .ne. 0_SP ) call scats_log_result_error('WC', file) ! Проверка на ошибку закрытия файла
