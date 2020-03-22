@@ -56,7 +56,7 @@
                   -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2018
 
      ## Флаги для финальной сборки
-     opt_production := -Ofast
+     opt_production := -Ofast -ffree-line-length-0
 
      ## Имя главной программы
      main_name := main
