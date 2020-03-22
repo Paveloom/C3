@@ -27,7 +27,7 @@ echo $CURRENT_TAG
 if [ ! $CURRENT_TAG == $MASTER_TAG ]; then
 
      printf "\nТекущий тег и тег на master НЕ совпадают.Обновите"
-     printf "\nтег на master в соответствии с текущим тегом.\n\n"
+     printf "\nтег на master в соответствии с текущим тегом.\n"
 
      exit 1
 
