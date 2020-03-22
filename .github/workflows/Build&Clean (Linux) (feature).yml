@@ -13,9 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Установка модулей
+    - name: Установка пакетов и модулей
       run: |
         pip3 install numpy
         pip3 install matplotlib
+        sudo aptitude install texlive-fonts-recommended texlive-fonts-extra
+        sudo apt-get install dvipng
     - name: Запуск скрипта для проверки сборки
       run: bash .github/scripts/Build\&Clean\ \(Linux\,\ проверка\ сборки\ и\ очистки\).sh
