@@ -56,7 +56,7 @@ implicit none
           endif
 
           ! Вызов скрипта
-          call execute_command_line('python Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//trim(arg1)//' '//trim(arg2)//' '//trim(arg3)//" '"//trim(arg4)//"' ")
+          call execute_command_line('python3 Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//trim(arg1)//' '//trim(arg2)//' '//trim(arg3)//" '"//trim(arg4)//"' ")
           
      end procedure scats_visualize_result
      
