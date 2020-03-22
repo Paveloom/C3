@@ -1,6 +1,6 @@
 program main ! Программа, демонстрирующая использование модуля
              ! для спектрально-корреляционного анализа временных рядов
-use SCATS, only: SCATS_API ! API модуля СКАВР
+use SCATS ! API модуля СКАВР
 implicit none
      
      ! Определение экземпляра для использования API модуля СКАВР
@@ -22,10 +22,13 @@ implicit none
      call s%remove_linear_trend()
 
      ! Вычисление периодограммы
-     call s%calculate_periodogram()
+     call s%calc_per()
 
      ! Вычисление коррелограммы
-     call s%calculate_correlogram()
+     call s%calc_corr()
+
+     ! Вычисление взвешенной коррелограммы
+     call s%calc_w_corr(0.1_RP, 0.25_RP)
 
      ! Запись результата в файл
      call s%result%write('Файлы/result')

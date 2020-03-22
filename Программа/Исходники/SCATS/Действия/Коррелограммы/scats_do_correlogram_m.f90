@@ -10,16 +10,28 @@ use scats_do_fft_m, only : scats_do_fft_calculate ! Процедура для в
 implicit none
      
      private
-     public :: scats_do_correlogram_calculate ! Процедура для вычисления коррелограммы
+     public :: scats_do_correlogram_calculate, & ! Процедура для вычисления коррелограммы
+             & scats_do_correlogram_calculate_weighted ! Процедура для вычисления взвешенной коррелограммы
      
      interface
      
-          module subroutine scats_do_correlogram_calculate(result)
+          ! Процедура для вычисления коррелограммы
+          module impure subroutine scats_do_correlogram_calculate(result)
           implicit none
           
                type( result_type ) :: result ! Результат
           
           end subroutine scats_do_correlogram_calculate
+
+          ! Процедура для вычисления взвешенной коррелограммы
+          module impure subroutine scats_do_correlogram_calculate_weighted(result, nfactor, a)
+          implicit none
+          
+               type( result_type ) :: result ! Результат
+               real(RP), intent(in) :: nfactor ! Множитель перед N (.ge. 0.1 .and. le. 1.0)
+               real(RP), intent(in) :: a ! Множитель a весовой функции
+          
+          end subroutine scats_do_correlogram_calculate_weighted
      
      end interface
      

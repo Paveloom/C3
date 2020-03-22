@@ -1,4 +1,5 @@
 module SCATS ! Модуль, содержащий API алгоритма СКАВР
+use prec_m, only : RP ! Точность вещественных чисел, используемых в программе
 use scats_gen_m, only : gen_type ! Тип, содержащий типы параметров, их настроек и
                                  ! включающий в себя процедуру генерации данных
 use scats_input_m, only : input_type ! Тип, определяющий входные данные
@@ -6,11 +7,13 @@ use scats_visualize_m, only : visualize_type ! Тип, содержащий пр
 use scats_result_m, only : result_type ! Тип, определяющий результат
 use scats_do_m, only : scats_do_trend_remove_linear_trend, & ! Процедура для удаления линейного тренда из входных данных
                      & scats_do_periodogram_calculate, & ! Процедура для вычисления периодограммы
-                     & scats_do_correlogram_calculate    ! Процедура для вычисления коррелограммы
+                     & scats_do_correlogram_calculate, & ! Процедура для вычисления коррелограммы
+                     & scats_do_correlogram_calculate_weighted ! Процедура для вычисления взвешенной коррелограммы
 implicit none
      
      private
-     public :: SCATS_API ! API модуля
+     public :: SCATS_API, & ! API модуля
+             & RP ! Точность вещественных чисел, используемых в программе
      
      type SCATS_API
 
@@ -32,10 +35,13 @@ implicit none
           procedure :: remove_linear_trend => scats_remove_linear_trend
 
           ! Вспомогательная процедура для вычисления периодограммы
-          procedure :: calculate_periodogram => scats_calculate_periodogram
+          procedure :: calc_per => scats_calculate_periodogram
 
           ! Вспомогательная процедура для вычисления коррелограммы
-          procedure :: calculate_correlogram => scats_calculate_correlogram
+          procedure :: calc_corr => scats_calculate_correlogram
+
+          ! Вспомогательная процедура для вычисления коррелограммы
+          procedure :: calc_w_corr => scats_calculate_weighted_correlogram          
 
      end type SCATS_API
 
@@ -81,6 +87,16 @@ implicit none
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
           
           end subroutine scats_calculate_correlogram
+
+          ! Вспомогательная процедура для вычисления взвешенной коррелограммы
+          module impure subroutine scats_calculate_weighted_correlogram(s, nfactor, a)
+          implicit none
+          
+               class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
+               real(RP), intent(in) :: nfactor ! Множитель перед N (.ge. 0.1 .and. le. 1.0)
+               real(RP), intent(in) :: a ! Множитель a весовой функции
+          
+          end subroutine scats_calculate_weighted_correlogram
      
      end interface
 
