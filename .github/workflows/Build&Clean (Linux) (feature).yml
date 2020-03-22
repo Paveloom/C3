@@ -13,5 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Установка пакетов и модулей
+      run: bash .github/scripts/Build\&Clean\ \(Linux\,\ установка\ зависимостей\).sh
     - name: Запуск скрипта для проверки сборки
       run: bash .github/scripts/Build\&Clean\ \(Linux\,\ проверка\ сборки\ и\ очистки\).sh

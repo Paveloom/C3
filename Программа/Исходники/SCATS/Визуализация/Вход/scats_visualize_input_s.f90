@@ -13,12 +13,12 @@ implicit none
                if ( present(title) ) then
 
                     ! Вызов скрипта
-                    call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//output_file//" '"//title//"'")
+                    call execute_command_line('python3 Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//output_file//" '"//title//"'")
 
                else
 
                     ! Вызов скрипта
-                    call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//output_file//' '//'-0-')
+                    call execute_command_line('python3 Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//output_file//' '//'-0-')
 
                endif
 
@@ -28,12 +28,12 @@ implicit none
                if ( present(title) ) then
 
                     ! Вызов скрипта
-                    call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//'-0-'//" '"//title//"'")
+                    call execute_command_line('python3 Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//'-0-'//" '"//title//"'")
 
                else
 
                     ! Вызов скрипта
-                    call execute_command_line('python Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//'-0-'//' '//'-0-')
+                    call execute_command_line('python3 Исходники/SCATS/Визуализация/Вход/scats_visualize_input_s.py '//input_file//' '//'-0-'//' '//'-0-')
 
                endif
 

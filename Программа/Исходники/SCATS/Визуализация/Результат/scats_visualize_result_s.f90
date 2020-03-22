@@ -10,11 +10,11 @@ implicit none
           character(300) :: arg1, arg2, arg3, arg4
 
           ! Проверка на разрешенные этапы
-          if ( .not. (stage .eq. 'no_trend' .or. stage .eq. 'periodogram' .or. stage .eq. 'correlogram') ) then
+          if ( .not. (stage .eq. 'no_trend' .or. stage .eq. 'per' .or. stage .eq. 'corr' .or. stage .eq. 'w_per') ) then
 
                write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_visualize_result:', 'Указано недопустимый этап в переменной stage,&
                                                                           & визуализация невозможна. Допустимые значения:&
-                                                                          & no_trend, periodogram, correlogram.'
+                                                                          & no_trend, per, corr, w_per.'
                stop
 
           endif
@@ -56,7 +56,7 @@ implicit none
           endif
 
           ! Вызов скрипта
-          call execute_command_line('python Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//trim(arg1)//' '//trim(arg2)//' '//trim(arg3)//" '"//trim(arg4)//"' ")
+          call execute_command_line('python3 Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//trim(arg1)//' '//trim(arg2)//' '//trim(arg3)//" '"//trim(arg4)//"' ")
           
      end procedure scats_visualize_result
      

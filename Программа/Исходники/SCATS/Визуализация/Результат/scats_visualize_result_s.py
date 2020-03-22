@@ -1,12 +1,20 @@
+# coding=utf-8
+
 # Скрипт для визуализации входных данных
 
 # Подключение модулей
 
+## Подключение модуля для получения базовых имен
+## файлов и содержимого переменных окружения
+from os import environ
+from os.path import basename
+
+### Проверка на запуск в виртуальной среде системы macOS
+if environ.get('RUNNING_IN_MACOS_VM'):
+    quit()
+
 ## Подключение модуля numpy
 import numpy as np
-
-## Подключение модуля для получения базовых имен файлов
-from os.path import basename
 
 ## Подключение пакетов для настройки и создания графики
 from matplotlib import rcParams as rcP
@@ -29,11 +37,15 @@ if output_name == '-0-':
     if stage == 'no_trend':
         output_name = 'no_trend'
 
-    if stage == 'periodogram':
+    if stage == 'per':
         output_name = 'periodogram'
 
-    if stage == 'correlogram':
+    if stage == 'corr':
         output_name = 'correlogram'
+
+    if stage == 'w_per':
+        output_name = 'weighted_periodogram'
+
 else:
     custom_path = True
 
@@ -43,14 +55,19 @@ if title == '-0-':
         xlabel = 'Время'
         ylabel = 'Значение'
 
-    elif stage == 'periodogram':
+    elif stage == 'per':
         title = 'Периодограмма'
         xlabel = 'Частота'
         ylabel = 'Значение'
 
-    elif stage == 'correlogram':
+    elif stage == 'corr':
         title = 'Коррелограмма'
         xlabel = 'Время'
+        ylabel = 'Значение'
+
+    elif stage == 'w_per':
+        title = 'Сглаженная периодограмма'
+        xlabel = 'Частота'
         ylabel = 'Значение'
 
 # Настройки графиков
@@ -91,7 +108,7 @@ if stage == 'no_trend':
     ## Получение значений массива значений
     y = np.array(lines[1].split(), dtype = np.float)
 
-elif stage == 'periodogram':
+elif stage == 'per':
 
     ## Считывание строк с данными
     with open(input_name) as f:
@@ -110,7 +127,7 @@ elif stage == 'periodogram':
     ## Получение значений массива значений периодограммы
     y = np.array(lines[3].split(), dtype = np.float)
 
-elif stage == 'correlogram':
+elif stage == 'corr':
 
     ## Считывание строк с данными
     with open(input_name) as f:
@@ -123,6 +140,19 @@ elif stage == 'correlogram':
     ## Получение значений массива значений коррелограммы
     y = np.array(lines[1].split(), dtype = np.float) 
 
+elif stage == 'w_per':
+
+    ## Считывание строк с данными
+    with open(input_name) as f:
+        for line in islice(f, 19, 29, 9):
+            lines.append(line)
+
+    ## Получение значений массива частот периодограммы
+    x = np.array(lines[0].split(), dtype = np.float)
+
+    ## Получение значений массива значений сглаженной периодограммы
+    y = np.array(lines[1].split(), dtype = np.float) 
+
 # Создание и сохранение фигуры
 
 ## Создание фигуры
@@ -132,7 +162,7 @@ f = plt.figure()
 plt.plot(x, y, color="#425378")
 
 ## Добавление порога обнаружения сигнала
-if stage == 'periodogram':
+if stage == 'per':
     plt.axhline(y=threshold, color="#635D9E", alpha=0.5, linestyle="--")
     plt.text(x[-1] * 0.915, threshold * 1.075, r'\textrm{' + str((1 - q) * 100) + '\%}', fontsize=12)
 

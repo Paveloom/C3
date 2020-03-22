@@ -8,7 +8,7 @@ export PATH=$PATH:/opt/local/bin
 
 # Установка gmake
 
-printf "\nВыполняется установка gmake.\n\n"
+printf "Выполняется установка gmake.\n\n"
 sudo port install gmake
 
 # Проверка, установлен ли gmake

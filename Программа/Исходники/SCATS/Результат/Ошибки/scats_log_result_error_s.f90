@@ -50,6 +50,18 @@ implicit none
                                                                                  & массива значений коррелограммы объекта&
                                                                                  & типа result_type.'
 
+               case ('WD_cw') ! Встречается в scats_result_deallocate_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
+                                                                                 & массива значений взвешенной коррелограммы объекта&
+                                                                                 & типа result_type.'
+
+               case ('WD_Dw') ! Встречается в scats_result_deallocate_s
+
+                    write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Не удалось освободить память из-под&
+                                                                                 & массива значений сглаженной периодограммы объекта&
+                                                                                 & типа result_type.'
+
                case ('NA_t') ! Встречается в scats_result_write_to_file_s
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_result_error:', 'Массив времени не был размещен.&

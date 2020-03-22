@@ -53,30 +53,59 @@ implicit none
           write( unit, '(a)' ) 'Порог обнаружения сигнала'
           write( unit, '(*('//RF//', 3x))') result%threshold
 
+          ! Запись массива частот периодограммы
+          write( unit, '()')
+          write( unit, '(a)' ) 'Массив частот периодограммы'
+
           if ( allocated(result%v) ) then
 
-               ! Запись массива частот периодограммы
-               write( unit, '()')
-               write( unit, '(a)' ) 'Массив частот периодограммы'
                write( unit, '(*('//RF//', 3x))') result%v
 
+          else
+
+               write( unit, '(a)') 'Нет данных'
+
           endif
+
+          ! Запись массива значений периодограммы
+          write( unit, '()')
+          write( unit, '(a)' ) 'Массив значений периодограммы'
 
           if ( allocated(result%D) ) then
 
-               ! Запись массива значений периодограммы
-               write( unit, '()')
-               write( unit, '(a)' ) 'Массив значений периодограммы'
                write( unit, '(*('//RF//', 3x))') result%D
+
+          else
+
+               write( unit, '(a)') 'Нет данных'
 
           endif
 
+          ! Запись массива значений коррелограммы
+          write( unit, '()')
+          write( unit, '(a)' ) 'Массив значений коррелограммы'
+
           if ( allocated(result%c) ) then
 
-               ! Запись массива значений коррелограммы
-               write( unit, '()')
-               write( unit, '(a)' ) 'Массив значений коррелограммы'
                write( unit, '(*('//RF//', 3x))') result%c
+
+          else
+
+               write( unit, '(a)') 'Нет данных'
+
+          endif
+
+          ! Запись массива значений сглаженной периодограммы
+          write( unit, '()')
+          write( unit, '(a)' ) 'Массив значений сглаженной периодограммы'
+
+          if ( allocated(result%Dw) ) then
+
+               write( unit, '(*('//RF//', 3x))') result%Dw
+
+          else
+
+               write( unit, '(a)') 'Нет данных'
 
           endif
 

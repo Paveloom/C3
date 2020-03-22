@@ -27,6 +27,9 @@ implicit none
           real(RP), allocatable, dimension(:) :: D ! Массив значений периодограммы
 
           real(RP), allocatable, dimension(:) :: c ! Массив значений коррелограммы
+          real(RP), allocatable, dimension(:) :: cw ! Массив значений взвешенной коррелограммы
+
+          real(RP), allocatable, dimension(:) :: Dw ! Массив значений сглаженной периодограммы
 
           contains
 

@@ -56,6 +56,22 @@ implicit none
                
           endif
 
+          ! Освобождение памяти из-под массива значений взвешенной коррелограммы
+          if ( allocated(result%cw) ) then
+          
+               deallocate( result%cw, stat = stat )
+               if ( stat .ne. 0_SP ) call scats_log_result_error('WD_cw')
+               
+          endif
+
+          ! Освобождение памяти из-под массива значений сглаженное периодограммы
+          if ( allocated(result%Dw) ) then
+          
+               deallocate( result%Dw, stat = stat )
+               if ( stat .ne. 0_SP ) call scats_log_result_error('WD_Dw')
+               
+          endif
+
      end procedure scats_result_deallocate
      
 end submodule scats_result_deallocate_s
