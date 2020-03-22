@@ -14,10 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Установка пакетов и модулей
-      run: |
-        pip3 install matplotlib
-        sudo apt-get install texlive-fonts-extra
-        sudo apt-get install cm-super
-        sudo apt-get install texlive-lang-cyrillic
+      run: bash .github/scripts/Build\&Clean\ \(Linux\,\ установка\ зависимостей\).sh
     - name: Запуск скрипта для проверки сборки
       run: bash .github/scripts/Build\&Clean\ \(Linux\,\ проверка\ сборки\ и\ очистки\).sh

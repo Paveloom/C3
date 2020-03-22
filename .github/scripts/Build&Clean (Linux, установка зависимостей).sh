@@ -11,8 +11,10 @@ pip3 install matplotlib
 printf "\nВыполняется установка дополнительных шрифтов из пакета texlive.\n"
 sudo apt-get install texlive-fonts-extra
 
-# Установка пакета dvipng
-printf "\nВыполняется установка дополнительных шрифтов из пакета texlive.\n"
-        sudo apt-get install dvipng
-        sudo apt-get install cm-super
-        sudo apt-get install texlive-lang-cyrillic
+# Установка кириллических шрифтов из пакета texlive
+printf "\nВыполняется установка кириллических шрифтов из пакета texlive.\n"
+sudo apt-get install texlive-lang-cyrillic
+
+# Установка пакета cm-super
+printf "\nВыполняется установка пакета cm-super.\n"
+sudo apt-get install cm-super
