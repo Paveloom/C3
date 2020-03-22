@@ -1,3 +1,4 @@
+[![](https://img.shields.io/badge/GitHub-Paveloom/C3-5DA399.svg)](https://github.com/Paveloom/) [![](https://img.shields.io/badge/license-Unlicense-5DA399.svg)](#) <br> 
 [![](https://img.shields.io/badge/release-v1.0.0-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.0.0) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC9) [![](https://img.shields.io/badge/requires-python%203.7%2B-critical.svg)](https://www.python.org/downloads/)
 
 # Описание
@@ -25,6 +26,8 @@
 + Наличие установленных пакетов Python: matplotlib;
 + Наличие установленных системных пакетов: texlive-fonts-extra, texlive-lang-cyrillic, cm-super.
 
-Запуск из папки с программой производится с помощью команды ``make``. Удаление объектных файлов выполняется с помощью команды ``make clean``.
+Сборка и запуск из папки с программой производятся с помощью команды ``make``. Удаление объектных файлов выполняется с помощью команды ``make clean``.
 
 Сниппет зависимостей расположен в текущем [make-файле](https://github.com/Paveloom/C3/blob/master/Программа/Makefile?ts=5).
+
+Автор: [Павел Соболев](http://paveloom.tk).
