@@ -6,7 +6,7 @@ implicit none
      ! Вспомогательная процедура для вычисления периодограммы
      module procedure scats_calculate_weighted_periodogram
           
-          call scats_do_periodogram_calculate_weighted(s%result)
+          call scats_do_periodogram_calculate_w(s%result)
           
      end procedure scats_calculate_weighted_periodogram
      

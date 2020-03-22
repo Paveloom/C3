@@ -12,7 +12,7 @@ implicit none
      
      private
      public :: scats_do_periodogram_calculate, & ! Процедура для вычисления периодограммы
-             & scats_do_periodogram_calculate_weighted ! Процедура для вычисления сглаженной периодограммы
+             & scats_do_periodogram_calculate_w ! Процедура для вычисления сглаженной периодограммы
      
      interface
      
@@ -25,12 +25,12 @@ implicit none
           end subroutine scats_do_periodogram_calculate
 
           ! Процедура для вычисления сглаженной периодограммы
-          module impure subroutine scats_do_periodogram_calculate_weighted(result)
+          module impure subroutine scats_do_periodogram_calculate_w(result)
           implicit none
           
                type( result_type ) :: result ! Результат
           
-          end subroutine scats_do_periodogram_calculate_weighted
+          end subroutine scats_do_periodogram_calculate_w
 
      end interface
      

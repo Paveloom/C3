@@ -1,10 +1,10 @@
-submodule ( scats_do_periodogram_m ) scats_do_periodogram_calculate_weighted_s
+submodule ( scats_do_periodogram_m ) scats_do_periodogram_calculate_w_s
 implicit none
      
      contains
      
      ! Процедура для вычисления сглаженной периодограммы
-     module procedure scats_do_periodogram_calculate_weighted
+     module procedure scats_do_periodogram_calculate_w
           
           integer(JP) :: N_JP ! Размер выборки
           real(RP) :: N_RP ! Размер выборки (вещественное)
@@ -92,6 +92,6 @@ implicit none
           deallocate( X_FFT, stat = stat )
           if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
 
-     end procedure scats_do_periodogram_calculate_weighted
+     end procedure scats_do_periodogram_calculate_w
      
-end submodule scats_do_periodogram_calculate_weighted_s
+end submodule scats_do_periodogram_calculate_w_s
