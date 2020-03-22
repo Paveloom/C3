@@ -32,7 +32,7 @@ check_debugging "Make-файлы/gmake"
 # Проверка числа ошибок
 if [ "$ERROR_COUNT" -gt 0 ]; then
 
-     printf "Число ошибок: $ERROR_COUNT\n"
+     printf "Число ошибок: $ERROR_COUNT\n\n"
      exit 1
 
 else

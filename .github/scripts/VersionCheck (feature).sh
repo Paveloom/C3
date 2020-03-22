@@ -120,7 +120,7 @@ run_version_checks
 
 if [ "$ERROR_COUNT" -gt 0 ]; then
 
-     printf "\nЧисло ошибок: $ERROR_COUNT\n"
+     printf "\nЧисло ошибок: $ERROR_COUNT\n\n"
      exit 1
 
 else
