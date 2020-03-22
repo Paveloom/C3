@@ -20,11 +20,6 @@ jobs:
     - name: Установка gmake
       run: bash .github/scripts/Build\&Clean\ \(macOS\,\ установка\ gmake\).sh
 
-    - name: Установка модулей
-      run: |
-        pip3 install numpy
-        pip3 install matplotlib
-
     - name: Запуск скрипта для проверки сборки
       env: 
         RUNNING_IN_MACOS_VM: True

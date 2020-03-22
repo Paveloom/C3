@@ -5,7 +5,7 @@ printf "\nЗапущен скрипт установки MacPorts.\n\n"
 
 # Скачивание пакета MacPorts 2.6 для macOS 10.15 Catalina
 
-printf "\nВыполняется скачивание пакета.\n\n"
+printf "Выполняется скачивание пакета.\n\n"
 curl -JOL 'https://github.com/macports/macports-base/releases/download/v2.6.2/MacPorts-2.6.2-10.15-Catalina.pkg'
 
 # Получение полного пути к файлу
