@@ -40,10 +40,13 @@ implicit none
      call s%visualize%result('Файлы/result', stage='no_trend')
 
      ! Визуализация периодограммы
-     call s%visualize%result('Файлы/result', stage='periodogram')
+     call s%visualize%result('Файлы/result', stage='per')
 
      ! Визуализация коррелограммы
-     call s%visualize%result('Файлы/result', stage='correlogram')
+     call s%visualize%result('Файлы/result', stage='corr')
+
+     ! Визуализация сглаженной периодограммы
+     call s%visualize%result('Файлы/result', stage='w_per')
 
      ! Общее освобождение памяти
      call s%deallocate()

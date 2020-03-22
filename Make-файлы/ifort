@@ -119,7 +119,7 @@
                $(obj_path)scats_calculate_weighted_correlogram_s.o : $(obj_path)scats.o
 
                # Вспомогательная процедура для вычисления сглаженной периодограммы
-               $(obj_path)scats_do_periodogram_calculate_w_s.o : $(obj_path)scats.o
+               $(obj_path)scats_calculate_weighted_periodogram_s.o : $(obj_path)scats.o
 
                # Визуализация
                $(obj_path)scats_visualize_input_s.o : $(obj_path)scats_visualize_m.o
