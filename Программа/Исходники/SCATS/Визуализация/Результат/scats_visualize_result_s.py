@@ -4,11 +4,17 @@
 
 # Подключение модулей
 
+## Подключение модуля для получения базовых имен
+## файлов и содержимого переменных окружения
+from os import environ
+from os.path import basename
+
+### Проверка на запуск в виртуальной среде системы macOS
+if environ.get('RUNNING_IN_MACOS_VM'):
+    quit()
+
 ## Подключение модуля numpy
 import numpy as np
-
-## Подключение модуля для получения базовых имен файлов
-from os.path import basename
 
 ## Подключение пакетов для настройки и создания графики
 from matplotlib import rcParams as rcP
