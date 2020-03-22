@@ -1,1 +1,30 @@
-[![](https://img.shields.io/badge/release-v1.0.0-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.0.0) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC6) [![](https://img.shields.io/badge/requires-python%203.7.6%2B-critical.svg)](https://www.python.org/downloads/)
+[![](https://img.shields.io/badge/release-v1.0.0-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.0.0) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC9) [![](https://img.shields.io/badge/requires-python%203.7%2B-critical.svg)](https://www.python.org/downloads/)
+
+# Описание
+
+Доступные возможности API модуля:
++ генерация равномерного временного ряда с произвольным набором гармонических компонент;
++ исключение линейного тренда;
++ вычисление периодограммы с использованием быстрого преобразования Фурье;
++ вычисление коррелограммы с использованием быстрого преобразования Фурье;
++ вычисление взвешенной коррелограммы с использованием весовой функции Тьюки;
++ вычисление сглаженной периодограммы с использованием быстрого преобразования Фурье;
++ графическое представление получемых результатов.
+
+Полный список доступных к вызову процедур изображен на [mind-карте интерфейса](https://github.com/Paveloom/C3/blob/master/Mind-карты/C3%20API/C3%20API.svg).
+
+Make-файлы для других компиляторов, в том числе для ``ifort``, расположены в одноименной [папке](https://github.com/Paveloom/C3/tree/master/Make-файлы). Mind-карты используемых объектов расположены в [соответствующей директории](https://github.com/Paveloom/C3/tree/master/Mind-карты). Книга, на основе которой были описаны процедуры этого модуля, доступна к скачиванию / просмотру [здесь](https://github.com/Paveloom/C3/blob/master/Материалы/В.%20В.%20Витязев%20—%20Спектрально-корреляционный%20анализ%20равномерных%20временных%20рядов.pdf). Архивы с программой, пакетами make-файлов и mind-карт находятся в одноименном [каталоге](https://github.com/Paveloom/C3/tree/master/Архивы).
+
+# Использование
+
+Рабочая программа расположена в одноименной [директории](https://github.com/Paveloom/C3/tree/master/Программа).
+
+Минимальные требования:
++ компилятор gfortran из [GCC 9+](https://gcc.gnu.org/wiki/GFortran/News#GCC9) (поддержка подмодулей; поддержка доступа к вещественным и мнимым частям комплексного числа с помощью c%re и c%im);
++ [Python 3.7+](https://www.python.org/downloads/) (ветка, которая была использована при разработке этого модуля; работа на более ранних версия Python 3.x не гарантируется);
++ Наличие установленных пакетов Python: matplotlib;
++ Наличие установленных системных пакетов: texlive-fonts-extra, texlive-lang-cyrillic, cm-super.
+
+Запуск из папки с программой производится с помощью команды ``make``. Удаление объектных файлов выполняется с помощью команды ``make clean``.
+
+Сниппет зависимостей расположен в текущем [make-файле](https://github.com/Paveloom/C3/blob/master/Программа/Makefile?ts=5).
