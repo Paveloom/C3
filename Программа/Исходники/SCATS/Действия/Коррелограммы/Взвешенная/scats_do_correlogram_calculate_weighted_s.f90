@@ -1,10 +1,10 @@
-submodule ( scats_do_correlogram_m ) scats_do_correlogram_calculate_weighted_s
+submodule ( scats_do_correlogram_m ) scats_do_correlogram_calculate_w_s
 implicit none
      
      contains
      
      ! Процедура для вычисления взвешенной коррелограммы
-     module procedure scats_do_correlogram_calculate_weighted
+     module procedure scats_do_correlogram_calculate_w
           
           integer(JP) :: N_s_JP ! Значение N* (индекс)
           integer(JP) :: N_m1_s_JP ! Значение N*-1 (индекс)
@@ -74,6 +74,6 @@ implicit none
 
           enddo
           
-     end procedure scats_do_correlogram_calculate_weighted
+     end procedure scats_do_correlogram_calculate_w
      
-end submodule scats_do_correlogram_calculate_weighted_s
+end submodule scats_do_correlogram_calculate_w_s

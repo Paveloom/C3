@@ -11,7 +11,7 @@ implicit none
      
      private
      public :: scats_do_correlogram_calculate, & ! Процедура для вычисления коррелограммы
-             & scats_do_correlogram_calculate_weighted ! Процедура для вычисления взвешенной коррелограммы
+             & scats_do_correlogram_calculate_w ! Процедура для вычисления взвешенной коррелограммы
      
      interface
      
@@ -24,14 +24,14 @@ implicit none
           end subroutine scats_do_correlogram_calculate
 
           ! Процедура для вычисления взвешенной коррелограммы
-          module impure subroutine scats_do_correlogram_calculate_weighted(result, nfactor, a)
+          module impure subroutine scats_do_correlogram_calculate_w(result, nfactor, a)
           implicit none
           
                type( result_type ) :: result ! Результат
                real(RP), intent(in) :: nfactor ! Множитель перед N (.ge. 0.1 .and. le. 1.0)
                real(RP), intent(in) :: a ! Множитель a весовой функции
           
-          end subroutine scats_do_correlogram_calculate_weighted
+          end subroutine scats_do_correlogram_calculate_w
      
      end interface
      
