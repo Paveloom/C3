@@ -30,6 +30,9 @@ implicit none
      ! Вычисление взвешенной коррелограммы
      call s%calc_w_corr(0.1_RP, 0.25_RP)
 
+     ! Вычисление сглаженной периодограммы
+     call s%calc_w_per()
+
      ! Запись результата в файл
      call s%result%write('Файлы/result')
 
