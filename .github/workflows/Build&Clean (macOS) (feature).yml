@@ -26,5 +26,6 @@ jobs:
         pip3 install matplotlib
 
     - name: Запуск скрипта для проверки сборки
-      env: RUNNING_IN_MACOS_VM: True
+      env: 
+        RUNNING_IN_MACOS_VM: True
       run: bash .github/scripts/Build\&Clean\ \(macOS\,\ проверка\ сборки\ и\ очистки\).sh
