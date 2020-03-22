@@ -33,7 +33,7 @@ implicit none
 
           ! Вспомогательная процедура для вызова процедуры,
           ! извлекающей линейный тренд из данных
-          procedure :: remove_linear_trend => scats_remove_linear_trend
+          procedure :: rem_l_trend => scats_remove_linear_trend
 
           ! Вспомогательная процедура для вычисления периодограммы
           procedure :: calc_per => scats_calculate_periodogram

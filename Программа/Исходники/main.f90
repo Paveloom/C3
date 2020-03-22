@@ -19,7 +19,7 @@ implicit none
      call s%visualize%input('Файлы/input')
 
      ! Удаление линейного тренда
-     call s%remove_linear_trend()
+     call s%rem_l_trend()
 
      ! Вычисление периодограммы
      call s%calc_per()
