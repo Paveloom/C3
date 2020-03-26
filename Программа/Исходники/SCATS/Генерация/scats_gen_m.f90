@@ -29,11 +29,11 @@ implicit none
 
      interface
 
-          ! Процедура для вывода ошибок для процедуры генерации
+          ! Процедура для вывода ошибок (генерация)
           module impure subroutine scats_log_gen_error(error_code)
           implicit none
 
-               character(*), intent(in) :: error_code     ! Код ошибки
+               character(*), intent(in) :: error_code ! Код ошибки
 
           end subroutine scats_log_gen_error
 
@@ -46,6 +46,7 @@ implicit none
 
           end subroutine scats_generate_random_array
 
+          ! Процедура для генерации временного ряда
           module impure subroutine scats_gen_generate(gen, input)
           implicit none
 

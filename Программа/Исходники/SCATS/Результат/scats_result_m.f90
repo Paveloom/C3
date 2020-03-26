@@ -6,13 +6,13 @@ use prec_m, only : RP, & ! Точность вещественных чисел,
                  & UP, & ! Точность целого числа номера дескриптора файла
                  & FP    ! Число байт для хранения вспомогательной строки
 implicit none
-     
+
      private
      public :: result_type ! Тип, определяющий результат
-     
+
      ! Тип, определяющий результат
      type result_type
-          
+
           real(RP) :: delta_t ! Шаг выборки
 
           real(RP), allocatable, dimension(:) :: t ! Массив времени
@@ -40,13 +40,13 @@ implicit none
           procedure :: write => scats_result_write_to_file
 
      end type result_type
-     
+
      interface
 
-          ! Процедура для вывода ошибок для других процедур, связанных с результатом
+          ! Процедура для вывода ошибок (результат)
           module impure subroutine scats_log_result_error(error_code, file)
           implicit none
-               
+
                character(*), intent(in) :: error_code ! Код ошибки
                character(*), intent(in), optional :: file ! Файл для записи
 
@@ -55,15 +55,15 @@ implicit none
           ! Процедура для освобождения памяти из-под результата
           module subroutine scats_result_deallocate(result)
           implicit none
-          
+
                class( result_type ), intent(inout) :: result ! Результат
-          
+
           end subroutine scats_result_deallocate
 
           ! Процедура для записи результата в файл
           module impure subroutine scats_result_write_to_file(result, file)
           implicit none
-               
+
                class( result_type ), intent(in) :: result ! Результат
                character(*), intent(in) :: file ! Файл для записи
 

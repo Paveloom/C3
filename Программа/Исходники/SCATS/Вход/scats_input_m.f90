@@ -43,7 +43,7 @@ implicit none
 
           end subroutine scats_input_deallocate
 
-          ! Процедура для вывода ошибок для других процедур, связанных с входными данными
+          ! Процедура для вывода ошибок (входные данные)
           module impure subroutine scats_log_input_error(error_code, file)
           implicit none
 

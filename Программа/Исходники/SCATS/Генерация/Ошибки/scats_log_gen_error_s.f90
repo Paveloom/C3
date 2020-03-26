@@ -3,7 +3,7 @@ implicit none
 
      contains
 
-     ! Процедура для вывода ошибок для процедуры генерации
+     ! Процедура для вывода ошибок (генерация)
      module procedure scats_log_gen_error
 
           select case (error_code) ! Проверка кода ошибки

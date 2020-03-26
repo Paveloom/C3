@@ -1,5 +1,5 @@
 module scats_do_errors_m ! Модуль, содержащий процедуру
-                         ! для вывода ошибок
+                         ! для вывода ошибок (действия)
 implicit none
 
      private

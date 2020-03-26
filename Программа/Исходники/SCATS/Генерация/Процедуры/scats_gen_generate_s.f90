@@ -3,7 +3,7 @@ implicit none
 
      contains
 
-     ! Процедура для вызова генератора временного ряда
+     ! Процедура для генерации временного ряда
      module procedure scats_gen_generate
 
           integer(SP) :: stat ! Статусная переменная

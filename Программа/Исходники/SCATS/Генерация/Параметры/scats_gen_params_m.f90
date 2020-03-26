@@ -52,7 +52,7 @@ implicit none
 
           end subroutine scats_read_gen_params
 
-          ! Процедура для вывода ошибок (параметры для генерации временного ряда)
+          ! Процедура для вывода ошибок (параметры генерации временного ряда)
           module impure subroutine scats_log_gen_params_error(error_code, file)
           implicit none
 

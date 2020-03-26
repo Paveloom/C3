@@ -3,7 +3,7 @@ implicit none
 
      contains
 
-     ! Процедура для вывода ошибок (параметры для генерации временного ряда)
+     ! Процедура для вывода ошибок (параметры генерации временного ряда)
      module procedure scats_log_gen_params_error
 
           select case (error_code) ! Проверка кода ошибки

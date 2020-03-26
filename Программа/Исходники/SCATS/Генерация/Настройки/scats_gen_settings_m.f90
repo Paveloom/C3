@@ -44,8 +44,7 @@ implicit none
 
           end subroutine scats_read_gen_settings
 
-          ! Процедура для вывода ошибок для других процедур, связанных с
-          ! настройками считывания параметров для генерации временного ряда
+          ! Процедура для вывода ошибок (настройки считывания параметров)
           module impure subroutine scats_log_gen_settings_error(error_code, file)
           implicit none
 
