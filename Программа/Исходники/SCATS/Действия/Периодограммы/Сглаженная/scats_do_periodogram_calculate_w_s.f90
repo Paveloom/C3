@@ -1,11 +1,11 @@
 submodule ( scats_do_periodogram_m ) scats_do_periodogram_calculate_w_s
 implicit none
-     
+
      contains
-     
+
      ! Процедура для вычисления сглаженной периодограммы
      module procedure scats_do_periodogram_calculate_w
-          
+
           integer(JP) :: N_JP ! Размер выборки
           real(RP) :: N_RP ! Размер выборки (вещественное)
           integer(JP) :: N_2_log_JP ! Логарифм по степени 2 от числа N_2 (целое)
@@ -19,7 +19,7 @@ implicit none
           complex(RP), dimension(:), allocatable :: X_FFT ! Массив комплексных значений преобразования Фурье
 
           integer(SP) :: stat ! Статусная переменная
- 
+
           ! Проверка, выделена ли память под массив времени
           if ( .not. allocated(result%t) ) call scats_log_do_error('NA_t')
 
@@ -93,5 +93,5 @@ implicit none
           if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
 
      end procedure scats_do_periodogram_calculate_w
-     
+
 end submodule scats_do_periodogram_calculate_w_s

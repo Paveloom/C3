@@ -2,7 +2,7 @@ submodule ( scats_do_fft_m ) scats_do_fft_calculate_s
 implicit none
 
      contains
-     
+
      ! Процедура для выполнения быстрого преобразования Фурье
      module procedure scats_do_fft_calculate
 
@@ -15,7 +15,7 @@ implicit none
 
           complex(RP) :: tmp  ! Временная переменная
           complex(RP) :: w   ! Первообразный корень
-          complex(RP) :: u, v ! Элементы из массива 
+          complex(RP) :: u, v ! Элементы из массива
           integer(JP) :: rev  ! Результат перестановки
 
           integer(JP) :: i, j, k ! Счетчики
@@ -30,11 +30,11 @@ implicit none
 
           ! Вычисление числа pi
           pi = 4._RP * atan(1._RP)
-          
+
           i = 0_JP
 
           ! Поразрядная обратная перестановка
-          do while ( i .lt. n ) 
+          do while ( i .lt. n )
 
                rev = scats_do_fft_rev(i, lg_n)
 
@@ -52,7 +52,7 @@ implicit none
 
           ! Получение типа преобразования Фурье
           if (invert) then
-          
+
                invert_real = -1._RP
 
           else
@@ -114,5 +114,5 @@ implicit none
           endif
 
      end procedure scats_do_fft_calculate
-     
+
 end submodule scats_do_fft_calculate_s

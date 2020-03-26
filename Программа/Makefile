@@ -20,9 +20,14 @@
      ## Имя координатора
      make_name := make
 
+     ## Указание оболочки
+     SHELL := /bin/bash
+
+     ## Указание make-файлу выполнять все правила в одном вызове оболочки
+     .ONESHELL :
+
      ## Заглушка на вывод сообщений указанными правилами
      ## (без указания имён подавляет вывод со стороны make-файла у всех правил)
-
      .SILENT :
 
      ## Правила-псевдоцели
@@ -95,7 +100,7 @@
      obj_path := Объектники/
 
      ## Правила-зависимости (при необходимости)
-     
+
      $(obj_path)$(main_name).o : $(obj_path)scats.o
 
           # API модуля
@@ -137,9 +142,6 @@
 
                     # Процедура для генерации массива значений нормально распределенных случайных величин
                     $(obj_path)scats_generate_random_array_s.o : $(obj_path)scats_gen_m.o
-
-                    # Функция для получения значения равномерно распределенного случайного числа 
-                    $(obj_path)scats_generate_random_uniform_s.o : $(obj_path)scats_gen_m.o
 
                     # Параметры генератора
                     $(obj_path)scats_gen_params_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_settings_m.o
@@ -262,25 +264,25 @@
 	        touch input
 
      result : $(main_name)
-	         if [ "true" = "$(use_input)" ]; then\
-	              $(make_name) input;\
-	              if [ "true" = "$(use_output)" ]; then\
-	                   time ./$< < input > output;\
-	              else\
-	                   time ./$< < input;\
-	              fi\
-	         else\
-	              if [ "true" = "$(use_output)" ]; then\
-	                   time ./$< > output;\
-	              else\
-	                   time ./$<;\
-	              fi\
+	         if [ "true" = "$(use_input)" ]; then
+	              $(make_name) input;
+	              if [ "true" = "$(use_output)" ]; then
+	                   time ./$< < input > output;
+	              else
+	                   time ./$< < input;
+	              fi
+	         else
+	              if [ "true" = "$(use_output)" ]; then
+	                   time ./$< > output;
+	              else
+	                   time ./$<;
+	              fi
 	         fi
 
      result-r :
-	           if [ "true" != "$(use_output)" ]; then\
-	                echo; echo "Вы не можете использовать это правило, пока значение переменной use_output != true."; echo;\
-	                exit 1;\
+	           if [ "true" != "$(use_output)" ]; then
+	                echo; echo "Вы не можете использовать это правило, пока значение переменной use_output != true."; echo;
+	                exit 1;
 	           fi
 	           $(make_name) result
 	           cat output
@@ -290,9 +292,9 @@
 	           $(make_name) clean
 
      result-c :
-	           if [ "true" != "$(use_output)" ]; then\
-	                echo; echo "Вы не можете использовать это правило, пока значение переменной use_output != true."; echo;\
-	                exit 1;\
+	           if [ "true" != "$(use_output)" ]; then
+	                echo; echo "Вы не можете использовать это правило, пока значение переменной use_output != true."; echo;
+	                exit 1;
 	           fi
 	           $(make_name) result-r
 	           $(make_name) clean
@@ -300,8 +302,8 @@
      # Правило для очистки
 
      clean :
-	        if [ "true" = "$(save_main)" ]; then\
-	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod);\
-	        else\
-	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod) $(main_name);\
+	        if [ "true" = "$(save_main)" ]; then
+	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod);
+	        else
+	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod) $(main_name);
 	        fi

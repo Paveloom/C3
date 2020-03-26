@@ -1,11 +1,11 @@
 submodule ( scats_input_m ) scats_input_write_to_file_s
 implicit none
-     
+
      contains
-     
+
      ! Процедура для записи входных данных в файл
      module procedure scats_input_write_to_file
-          
+
           integer(SP) :: stat ! Статусная переменная
           integer(UP) :: unit ! Номер дескриптора файла
 
@@ -13,43 +13,34 @@ implicit none
 
           ! Открытие файла
           open( newunit = unit, file = file, action = 'write', status = 'replace', iostat = stat)
-          if ( stat .ne. 0_SP ) call scats_log_input_error('WO', file) ! Проверка на ошибку открытия файла
+          if ( stat .ne. 0_SP ) call scats_log_input_error('WO', file)
 
-          if ( .not. allocated(input%t) ) then
+          if ( .not. allocated(input%t) ) call scats_log_input_error('NA_t')
+          if ( .not. allocated(input%x) ) call scats_log_input_error('NA_x')
 
-               call scats_log_input_error('NA_t', file)
+          ! Запись размера выборки
+          write( unit, '(a)' ) 'Размер выборки'
+          write( f, '(i10)' ) size(input%t)
+          write( unit, '(a, /)' ) trim(adjustl(f))
 
-          else if ( .not. allocated(input%x) ) then
+          ! Запись шага выборки
+          write( unit, '(a)' ) 'Шаг выборки'
+          write( unit, '('//RF//', /)' ) input%delta_t
 
-               call scats_log_input_error('NA_t', file)
+          ! Запись массива времени
+          write( unit, '(a)' ) 'Массив времени'
+          write( unit, '(*('//RF//', 3x))' ) input%t
+          write( unit, '()')
 
-          else
-
-               ! Запись размера выборки
-               write( unit, '(a)' ) 'Размер выборки'
-               write( f, '(i10)' ) size(input%t)
-               write( unit, '(a, /)' ) trim(adjustl(f))
-
-               ! Запись шага выборки
-               write( unit, '(a)' ) 'Шаг выборки'
-               write( unit, '('//RF//', /)' ) input%delta_t
-
-               ! Запись массива времени
-               write( unit, '(a)' ) 'Массив времени'
-               write( unit, '(*('//RF//', 3x))' ) input%t
-               write( unit, '()')
-
-               ! Запись массива значений
-               write( unit, '(a)' ) 'Массив значений'
-               write( unit, '(*('//RF//', 3x))') input%x
-               write( unit, '()')
-
-          endif
+          ! Запись массива значений
+          write( unit, '(a)' ) 'Массив значений'
+          write( unit, '(*('//RF//', 3x))') input%x
+          write( unit, '()')
 
           ! Закрытие файла
           close( unit = unit, iostat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_input_error('WC', file) ! Проверка на ошибку закрытия файла
-          
+          if ( stat .ne. 0_SP ) call scats_log_input_error('WC', file)
+
      end procedure scats_input_write_to_file
-     
+
 end submodule scats_input_write_to_file_s

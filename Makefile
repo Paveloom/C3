@@ -24,11 +24,10 @@
      SHELL := /bin/bash
 
      ## Указание make-файлу выполнять все правила в одном вызове оболочки
-     .ONESHELL : 
+     .ONESHELL :
 
      ## Заглушка на вывод сообщений указанными правилами
      ## (без указания имён подавляет вывод со стороны make-файла у всех правил)
-
      .SILENT :
 
      ## Правила-псевдоцели
@@ -50,7 +49,7 @@
      ## Правило для создания и публикации коммита
 
      git :
- 
+
 	      # Определение текущей ветки
 	      CURRENT_BRANCH=$$(git status | head -n 1 | cut -d " " -f 3)
 
@@ -77,7 +76,7 @@
 
 	                     git add -A
 	                     git commit -e
-                     
+
 	                     # Проверка, был ли создан коммит
 	                     if [ $$? -eq 0 ]; then
 
@@ -115,7 +114,7 @@
 	                if [ $$? -eq 0 ]; then
 	                     git push
 	                fi
-  
+
 	           fi
 
 	      else
@@ -133,7 +132,7 @@
      # Правило для удаления последнего тега
      # на ветке изменений локально и удаленно
 
-     final : 
+     final :
 
 	        # Определение текущей ветки
 	        CURRENT_BRANCH=$$(git status | head -n 1 | cut -d " " -f 3)
@@ -196,6 +195,6 @@
      # Правило для создания архивов
 
      archive :
-	          find Программа/ -path '*/.*' -prune -o -type f -print | zip Архивы/Программа.zip -FS -q -@
+	          find Программа/ -path '*/*' -type f -print | zip Архивы/Программа.zip -FS -q -@
 	          find Make-файлы/ -path '*/.*' -prune -o -type f -print | zip Архивы/Make-файлы.zip -FS -q -@
 	          find Mind-карты/ -path '*/.*' -prune -o -type f -print | zip Архивы/Mind-карты.zip -FS -q -@

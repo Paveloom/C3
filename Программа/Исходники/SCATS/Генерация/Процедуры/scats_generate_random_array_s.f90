@@ -1,19 +1,19 @@
 submodule ( scats_gen_m ) scats_generate_random_array_s
 implicit none
-     
+
      contains
-     
+
      ! Процедура для генерации массива значений нормально распределенных случайных величин
      module procedure scats_generate_random_array
 
           ! Стандартное нормальное распределение:
-          ! математическое ожидание = 0, 
+          ! математическое ожидание = 0,
           ! среднеквадратическое отклонение = 1.
 
           integer(JP) :: half ! Половина от длины массива случайных чисел
 
           real(RP) :: s ! Сумма квадратов случайных величин ~ U[0, 1)
-          real(RP) :: fac ! Фактор перед r1 и r2 
+          real(RP) :: fac ! Фактор перед r1 и r2
 
           real(RP) :: r1, r2 ! Случайные величина ~ U[-1, 1)
           real(RP) :: rr1, rr2 ! Случайные величины ~ U[0, 1)
@@ -41,8 +41,8 @@ implicit none
                     do while( (s .gt. 1._RP) .or. (s .lt. 1e-8_RP) )
 
                          ! Получение значений случайных величин на полуинтервале [0, 1)
-                         rr1 = scats_generate_random_uniform()
-                         rr2 = scats_generate_random_uniform()
+                         call random_number(rr1)
+                         call random_number(rr2)
 
                          ! Проверка на их малость
                          if (abs(rr1) .lt. 1e-8_RP) rr1 = 0._RP
@@ -83,8 +83,8 @@ implicit none
                     do while( (s .gt. 1._RP) .or. (s .lt. 1e-8_RP) )
 
                          ! Получение значений случайных величин на полуинтервале [0, 1)
-                         rr1 = scats_generate_random_uniform()
-                         rr2 = scats_generate_random_uniform()
+                         call random_number(rr1)
+                         call random_number(rr2)
 
                          ! Проверка на их малость
                          if (abs(rr1) .lt. 1e-8_RP) rr1 = 0._RP
@@ -117,8 +117,8 @@ implicit none
                do while( (s .gt. 1._RP) .or. (s .lt. 1e-8_RP) )
 
                     ! Получение значений случайных величин на полуинтервале [0, 1)
-                    rr1 = scats_generate_random_uniform()
-                    rr2 = scats_generate_random_uniform()
+                    call random_number(rr1)
+                    call random_number(rr2)
 
                     ! Проверка на их малость
                     if (abs(rr1) .lt. 1e-8_RP) rr1 = 0._RP
@@ -140,7 +140,7 @@ implicit none
                array(length - 1_JP) = r1 * fac
 
           endif
-          
+
      end procedure scats_generate_random_array
-     
+
 end submodule scats_generate_random_array_s

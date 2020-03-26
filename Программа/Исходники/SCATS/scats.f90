@@ -11,11 +11,11 @@ use scats_do_m, only : scats_do_trend_remove_linear_trend, & ! Процедур�
                      & scats_do_correlogram_calculate, & ! Процедура для вычисления коррелограммы
                      & scats_do_correlogram_calculate_w ! Процедура для вычисления взвешенной коррелограммы
 implicit none
-     
+
      private
      public :: SCATS_API, & ! API модуля
              & RP ! Точность вещественных чисел, используемых в программе
-     
+
      type SCATS_API
 
           type( input_type ) :: input ! Экземпляр API для взаимодействия с входными данными
@@ -42,7 +42,7 @@ implicit none
           procedure :: calc_corr => scats_calculate_correlogram
 
           ! Вспомогательная процедура для вычисления взвешенной коррелограммы
-          procedure :: calc_w_corr => scats_calculate_weighted_correlogram     
+          procedure :: calc_w_corr => scats_calculate_weighted_correlogram
 
           ! Вспомогательная процедура для вычисления сглаженной коррелограммы
           procedure :: calc_w_per => scats_calculate_weighted_periodogram
@@ -50,66 +50,66 @@ implicit none
      end type SCATS_API
 
      interface
-     
+
           ! Вспомогательная процедура для вызова генератора временного ряда
           module impure subroutine scats_generate(s)
           implicit none
-          
+
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
-          
+
           end subroutine scats_generate
 
           ! Процедура для общего освобождения памяти
           module impure subroutine scats_deallocate(s)
           implicit none
-          
+
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
-          
+
           end subroutine scats_deallocate
 
           ! Вспомогательная процедура для вызова процедуры,
           ! извлекающей линейный тренд из данных
           module impure subroutine scats_remove_linear_trend(s)
           implicit none
-          
+
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
-          
+
           end subroutine scats_remove_linear_trend
 
           ! Вспомогательная процедура для вычисления периодограммы
           module impure subroutine scats_calculate_periodogram(s)
           implicit none
-          
+
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
-          
+
           end subroutine scats_calculate_periodogram
 
           ! Вспомогательная процедура для вычисления коррелограммы
           module impure subroutine scats_calculate_correlogram(s)
           implicit none
-          
+
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
-          
+
           end subroutine scats_calculate_correlogram
 
           ! Вспомогательная процедура для вычисления взвешенной коррелограммы
           module impure subroutine scats_calculate_weighted_correlogram(s, nfactor, a)
           implicit none
-          
+
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
                real(RP), intent(in) :: nfactor ! Множитель перед N (.ge. 0.1 .and. le. 1.0)
                real(RP), intent(in) :: a ! Множитель a весовой функции
-          
+
           end subroutine scats_calculate_weighted_correlogram
 
           ! Вспомогательная процедура для вычисления сглаженной периодограммы
           module impure subroutine scats_calculate_weighted_periodogram(s)
           implicit none
-          
+
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
-          
+
           end subroutine scats_calculate_weighted_periodogram
-     
+
      end interface
 
 end module SCATS
