@@ -1,84 +1,84 @@
 submodule ( scats_input_m ) scats_log_input_error_s
 implicit none
-     
+
      contains
-     
+
      ! Процедура для вывода ошибок для других процедур, связанных с входными данными
      module procedure scats_log_input_error
-          
+
           select case (error_code) ! Проверка кода ошибки
 
-               case ('WO') ! Встречается в scats_input_write_to_file_s и scats_input_read_s
+               case ('WO')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось получить доступ к файлу '//file//'&
                                                                                 & для чтения или записи.'
                     stop
 
-               case ('WR_N') ! Встречается в scats_input_read_s
+               case ('WR_N')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось считать значение размера выборки в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
                     stop
 
-               case ('WR_delta_t') ! Встречается в scats_input_read_s
+               case ('WR_delta_t')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось считать значение шага выборки в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
                     stop
 
-               case ('WR_t') ! Встречается в scats_input_read_s
+               case ('WR_t')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось считать значения массива времени в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
                     stop
 
-               case ('WR_x') ! Встречается в scats_input_read_s
+               case ('WR_x')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось считать значения массива значений в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
                     stop
 
-               case ('WA_t') ! Встречается в scats_input_read_s
+               case ('WA_t')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось выделить память под массив времени&
                                                                                 & для объекта типа input_type.'
                     stop
 
-               case ('WA_x') ! Встречается в scats_input_read_s
+               case ('WA_x')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось выделить память под массив значений&
                                                                                 & для объекта типа input_type.'
                     stop
 
-               case ('WD_t') ! Встречается в scats_input_deallocate_s и scats_input_read_s
+               case ('WD_t')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось освободить память из-под&
                                                                                 & массива времени объекта&
                                                                                 & типа input_type.'
 
-               case ('WD_x') ! Встречается в scats_input_deallocate_s и scats_input_read_s
+               case ('WD_x')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось освободить память из-под&
                                                                                 & массива значений объекта&
                                                                                 & типа input_type.'
 
-               case ('NA_t') ! Встречается в scats_input_write_to_file_s
+               case ('NA_t')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Массив времени не был размещен.&
                                                                                 & Запись невозможна.'
                     stop
 
-               case ('NA_x') ! Встречается в scats_input_write_to_file_s
+               case ('NA_x')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Массив значений не был размещен.&
                                                                                 & Запись невозможна.'
                     stop
 
-               case ('WС') ! Встречается в scats_input_write_to_file_s и scats_input_read_s
+               case ('WС')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Не удалось закрыть файл '//file//'&
                                                                                 & для чтения или записи.'
@@ -89,7 +89,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_log_input_error:', 'Неизвестный код ошибки ('//error_code//').'
 
           end select
-          
+
      end procedure scats_log_input_error
-     
+
 end submodule scats_log_input_error_s

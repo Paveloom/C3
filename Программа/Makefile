@@ -44,7 +44,7 @@
      pattern := f90
 
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
-     debugging := false
+     debugging := true
 
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -Warray-temporaries -Wcharacter-truncation -Wconversion-extra \
@@ -95,7 +95,7 @@
      obj_path := Объектники/
 
      ## Правила-зависимости (при необходимости)
-     
+
      $(obj_path)$(main_name).o : $(obj_path)scats.o
 
           # API модуля
@@ -138,7 +138,7 @@
                     # Процедура для генерации массива значений нормально распределенных случайных величин
                     $(obj_path)scats_generate_random_array_s.o : $(obj_path)scats_gen_m.o
 
-                    # Функция для получения значения равномерно распределенного случайного числа 
+                    # Функция для получения значения равномерно распределенного случайного числа
                     $(obj_path)scats_generate_random_uniform_s.o : $(obj_path)scats_gen_m.o
 
                     # Параметры генератора
