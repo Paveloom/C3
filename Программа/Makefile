@@ -20,9 +20,14 @@
      ## Имя координатора
      make_name := make
 
+     ## Указание оболочки
+     SHELL := /bin/bash
+
+     ## Указание make-файлу выполнять все правила в одном вызове оболочки
+     .ONESHELL :
+
      ## Заглушка на вывод сообщений указанными правилами
      ## (без указания имён подавляет вывод со стороны make-файла у всех правил)
-
      .SILENT :
 
      ## Правила-псевдоцели
@@ -44,7 +49,7 @@
      pattern := f90
 
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
-     debugging := true
+     debugging := false
 
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -Warray-temporaries -Wcharacter-truncation -Wconversion-extra \
@@ -259,25 +264,25 @@
 	        touch input
 
      result : $(main_name)
-	         if [ "true" = "$(use_input)" ]; then\
-	              $(make_name) input;\
-	              if [ "true" = "$(use_output)" ]; then\
-	                   time ./$< < input > output;\
-	              else\
-	                   time ./$< < input;\
-	              fi\
-	         else\
-	              if [ "true" = "$(use_output)" ]; then\
-	                   time ./$< > output;\
-	              else\
-	                   time ./$<;\
-	              fi\
+	         if [ "true" = "$(use_input)" ]; then
+	              $(make_name) input;
+	              if [ "true" = "$(use_output)" ]; then
+	                   time ./$< < input > output;
+	              else
+	                   time ./$< < input;
+	              fi
+	         else
+	              if [ "true" = "$(use_output)" ]; then
+	                   time ./$< > output;
+	              else
+	                   time ./$<;
+	              fi
 	         fi
 
      result-r :
-	           if [ "true" != "$(use_output)" ]; then\
-	                echo; echo "Вы не можете использовать это правило, пока значение переменной use_output != true."; echo;\
-	                exit 1;\
+	           if [ "true" != "$(use_output)" ]; then
+	                echo; echo "Вы не можете использовать это правило, пока значение переменной use_output != true."; echo;
+	                exit 1;
 	           fi
 	           $(make_name) result
 	           cat output
@@ -287,9 +292,9 @@
 	           $(make_name) clean
 
      result-c :
-	           if [ "true" != "$(use_output)" ]; then\
-	                echo; echo "Вы не можете использовать это правило, пока значение переменной use_output != true."; echo;\
-	                exit 1;\
+	           if [ "true" != "$(use_output)" ]; then
+	                echo; echo "Вы не можете использовать это правило, пока значение переменной use_output != true."; echo;
+	                exit 1;
 	           fi
 	           $(make_name) result-r
 	           $(make_name) clean
@@ -297,8 +302,8 @@
      # Правило для очистки
 
      clean :
-	        if [ "true" = "$(save_main)" ]; then\
-	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod);\
-	        else\
-	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod) $(main_name);\
+	        if [ "true" = "$(save_main)" ]; then
+	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod);
+	        else
+	             rm -f $(obj_main) $(obj_mod) $(obj_path)*.smod $(mod) $(main_name);
 	        fi
