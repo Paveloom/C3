@@ -95,7 +95,7 @@ rcP["legend.fontsize"] = 12
 ## Создание пустого списка
 lines = []
 
-if stage == 'no_trend': 
+if stage == 'no_trend':
 
     ## Считывание строк с данными
     with open(input_name) as f:
@@ -138,7 +138,7 @@ elif stage == 'corr':
     x = np.array(lines[0].split(), dtype = np.float)
 
     ## Получение значений массива значений коррелограммы
-    y = np.array(lines[1].split(), dtype = np.float) 
+    y = np.array(lines[1].split(), dtype = np.float)
 
 elif stage == 'w_per':
 
@@ -151,7 +151,7 @@ elif stage == 'w_per':
     x = np.array(lines[0].split(), dtype = np.float)
 
     ## Получение значений массива значений сглаженной периодограммы
-    y = np.array(lines[1].split(), dtype = np.float) 
+    y = np.array(lines[1].split(), dtype = np.float)
 
 # Создание и сохранение фигуры
 
