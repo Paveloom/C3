@@ -1,8 +1,8 @@
 submodule ( scats_do_trend_m ) scats_do_trend_remove_linear_trend_s
 implicit none
-     
+
      contains
-     
+
      ! Процедура для удаления линейного тренда из входных данных
      module procedure scats_do_trend_remove_linear_trend
 
@@ -32,7 +32,7 @@ implicit none
           ! Конвертации
           N_m1_JP = int(N, kind=JP) - 1_JP
           N_RP = real(N, kind=RP)
-               
+
           ! Вычисление сумм
           SX  = sum(t)
           SX2 = sum(t ** 2)
@@ -56,5 +56,5 @@ implicit none
           end associate
 
      end procedure scats_do_trend_remove_linear_trend
-     
+
 end submodule scats_do_trend_remove_linear_trend_s

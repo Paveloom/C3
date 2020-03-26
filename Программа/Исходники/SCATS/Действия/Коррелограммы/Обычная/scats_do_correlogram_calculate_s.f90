@@ -1,11 +1,11 @@
 submodule ( scats_do_correlogram_m ) scats_do_correlogram_calculate_s
 implicit none
-     
+
      contains
-     
+
      ! Процедура для вычисления коррелограммы
      module procedure scats_do_correlogram_calculate
-          
+
           integer(JP) :: N_JP ! Размер выборки
           integer(JP) :: N_m1_JP ! Размер выборки - 1
           real(RP) :: N_RP ! Размер выборки (вещественное)
@@ -131,5 +131,5 @@ implicit none
           if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
 
      end procedure scats_do_correlogram_calculate
-     
+
 end submodule scats_do_correlogram_calculate_s

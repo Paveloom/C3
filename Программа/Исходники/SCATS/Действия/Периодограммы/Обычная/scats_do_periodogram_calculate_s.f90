@@ -1,11 +1,11 @@
 submodule ( scats_do_periodogram_m ) scats_do_periodogram_calculate_s
 implicit none
-     
+
      contains
-     
+
      ! Процедура для вычисления периодограммы
      module procedure scats_do_periodogram_calculate
-          
+
           integer(JP) :: N_JP ! Размер выборки
           real(RP) :: N_RP ! Размер выборки (вещественное)
           integer(JP) :: N_2_log_JP ! Логарифм по степени 2 от числа N_2 (целое)
@@ -23,7 +23,7 @@ implicit none
           integer(JP) :: i ! Счетчик
           real(RP) :: i_RP ! Овеществление счетчика
           integer(SP) :: stat ! Статусная переменная
- 
+
           ! Проверка, выделена ли память под массивы
           if ( .not. allocated(result%t) ) call scats_log_do_error('NA_t')
           if ( .not. allocated(result%x) ) call scats_log_do_error('NA_x')
@@ -166,5 +166,5 @@ implicit none
           end associate
 
      end procedure scats_do_periodogram_calculate
-     
+
 end submodule scats_do_periodogram_calculate_s
