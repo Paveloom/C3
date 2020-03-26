@@ -138,9 +138,6 @@
                     # Процедура для генерации массива значений нормально распределенных случайных величин
                     $(obj_path)scats_generate_random_array_s.o : $(obj_path)scats_gen_m.o
 
-                    # Функция для получения значения равномерно распределенного случайного числа
-                    $(obj_path)scats_generate_random_uniform_s.o : $(obj_path)scats_gen_m.o
-
                     # Параметры генератора
                     $(obj_path)scats_gen_params_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_settings_m.o
 

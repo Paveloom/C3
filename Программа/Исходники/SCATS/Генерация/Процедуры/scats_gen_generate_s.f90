@@ -1,8 +1,8 @@
 submodule ( scats_gen_m ) scats_gen_generate_s
 implicit none
-     
+
      contains
-     
+
      ! Процедура для вызова генератора временного ряда
      module procedure scats_gen_generate
 
@@ -136,7 +136,7 @@ implicit none
           if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_rand')
 
           end associate
-          
+
      end procedure scats_gen_generate
-     
+
 end submodule scats_gen_generate_s
