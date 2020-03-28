@@ -44,13 +44,13 @@ implicit none
      interface
 
           ! Процедура для вывода ошибок (результат)
-          module impure subroutine scats_log_result_error(error_code, file)
+          module impure subroutine scats_result_log_error(error_code, file)
           implicit none
 
                character(*), intent(in) :: error_code ! Код ошибки
                character(*), intent(in), optional :: file ! Файл для записи
 
-          end subroutine scats_log_result_error
+          end subroutine scats_result_log_error
 
           ! Процедура для освобождения памяти из-под результата
           module subroutine scats_result_deallocate(result)

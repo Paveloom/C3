@@ -5,7 +5,7 @@ use prec_m, only : RP, & ! Точность вещественных чисел,
                  & JP, & ! Точность целого числа счетчика и индекса
                  & LP    ! Число байт для хранения логической переменной
 use scats_result_m, only : result_type ! Тип, определяющий входные данные
-use scats_do_errors_m, only : scats_log_do_error ! Процедура для вывода ошибок (действия)
+use scats_do_errors_m, only : scats_do_errors_log_error ! Процедура для вывода ошибок (действия)
 use scats_do_fft_m, only : scats_do_fft_calculate ! Процедура для выполнения быстрого преобразования Фурье
 implicit none
 

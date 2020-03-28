@@ -1,9 +1,9 @@
 [![](https://img.shields.io/badge/GitHub-Paveloom/C3-5DA399.svg)](https://github.com/Paveloom/) [![](https://img.shields.io/badge/license-Unlicense-5DA399.svg)](https://github.com/Paveloom/C3/blob/master/LICENSE.md) <br>
-[![](https://img.shields.io/badge/release-v1.0.2-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.0.2) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC9) [![](https://img.shields.io/badge/requires-python%203.7%2B-critical.svg)](https://www.python.org/downloads/)
+[![](https://img.shields.io/badge/release-v1.0.3-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.0.3) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC9) [![](https://img.shields.io/badge/requires-python%203.7%2B-critical.svg)](https://www.python.org/downloads/)
 
 # Описание
 
-Доступные возможности API модуля:
+Возможности API модуля:
 + генерация равномерного временного ряда с произвольным набором гармонических компонент;
 + исключение линейного тренда из данных временного ряда;
 + вычисление периодограммы с использованием быстрого преобразования Фурье;

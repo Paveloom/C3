@@ -30,21 +30,21 @@ implicit none
      interface
 
           ! Процедура для вывода ошибок (генерация)
-          module impure subroutine scats_log_gen_error(error_code)
+          module impure subroutine scats_gen_log_error(error_code)
           implicit none
 
                character(*), intent(in) :: error_code ! Код ошибки
 
-          end subroutine scats_log_gen_error
+          end subroutine scats_gen_log_error
 
           ! Процедура для генерации массива значений нормально распределенных случайных величин
-          module impure subroutine scats_generate_random_array(length, array)
+          module impure subroutine scats_gen_generate_random_array(length, array)
           implicit none
 
                integer(JP), intent(in) :: length ! Длина массива значений случайных чисел
                real(RP), dimension(0:), intent(inout) :: array ! Массив значений случайных чисел
 
-          end subroutine scats_generate_random_array
+          end subroutine scats_gen_generate_random_array
 
           ! Процедура для генерации временного ряда
           module impure subroutine scats_gen_generate(gen, input)

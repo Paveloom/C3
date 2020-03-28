@@ -31,9 +31,8 @@ implicit none
           ! Процедура для общего освобождения памяти
           procedure :: deallocate => scats_deallocate
 
-          ! Вспомогательная процедура для вызова процедуры,
-          ! извлекающей линейный тренд из данных
-          procedure :: rem_l_trend => scats_remove_linear_trend
+          ! Вспомогательная процедура для извлечения тренда из входных данных
+          procedure :: rem_trend => scats_remove_trend
 
           ! Вспомогательная процедура для вычисления периодограммы
           procedure :: calc_per => scats_calculate_periodogram
@@ -67,14 +66,16 @@ implicit none
 
           end subroutine scats_deallocate
 
-          ! Вспомогательная процедура для вызова процедуры,
-          ! извлекающей линейный тренд из данных
-          module impure subroutine scats_remove_linear_trend(s)
+          ! Вспомогательная процедура для извлечения тренда из входных данных
+          module impure subroutine scats_remove_trend(s, type)
           implicit none
 
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
 
-          end subroutine scats_remove_linear_trend
+               ! Тип тренда
+               character(*), intent(in) :: type
+
+          end subroutine scats_remove_trend
 
           ! Вспомогательная процедура для вычисления периодограммы
           module impure subroutine scats_calculate_periodogram(s)

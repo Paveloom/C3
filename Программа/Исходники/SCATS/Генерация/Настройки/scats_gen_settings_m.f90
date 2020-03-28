@@ -29,29 +29,29 @@ implicit none
 
           contains
 
-          procedure :: read => scats_read_gen_settings ! Процедура для считывания настроек считывания параметров
+          procedure :: read => scats_gen_settings_read ! Процедура для считывания настроек считывания параметров
 
      end type gen_settings_type
 
      interface
 
           ! Процедура для считывания настроек считывания параметров для генерации временного ряда
-          module impure subroutine scats_read_gen_settings(gen_settings, file)
+          module impure subroutine scats_gen_settings_read(gen_settings, file)
           implicit none
 
                class ( gen_settings_type ), intent(inout) :: gen_settings ! Настройки считывания параметров
                character(*), intent(in) :: file ! Имя файла для считывания
 
-          end subroutine scats_read_gen_settings
+          end subroutine scats_gen_settings_read
 
           ! Процедура для вывода ошибок (настройки считывания параметров)
-          module impure subroutine scats_log_gen_settings_error(error_code, file)
+          module impure subroutine scats_gen_settings_log_error(error_code, file)
           implicit none
 
                character(*), intent(in) :: error_code     ! Код ошибки
                character(*), intent(in), optional :: file ! Имя файла для считывания
 
-          end subroutine scats_log_gen_settings_error
+          end subroutine scats_gen_settings_log_error
 
      end interface
 

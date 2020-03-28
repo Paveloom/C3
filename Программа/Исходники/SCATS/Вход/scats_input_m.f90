@@ -44,13 +44,13 @@ implicit none
           end subroutine scats_input_deallocate
 
           ! Процедура для вывода ошибок (входные данные)
-          module impure subroutine scats_log_input_error(error_code, file)
+          module impure subroutine scats_input_log_error(error_code, file)
           implicit none
 
                character(*), intent(in) :: error_code ! Код ошибки
                character(*), intent(in), optional :: file ! Имя файла для записи
 
-          end subroutine scats_log_input_error
+          end subroutine scats_input_log_error
 
           ! Процедура для считывания входных данных
           module impure subroutine scats_input_read(input, file)

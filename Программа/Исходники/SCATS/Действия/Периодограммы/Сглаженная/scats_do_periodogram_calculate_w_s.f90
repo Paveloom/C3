@@ -21,13 +21,13 @@ implicit none
           integer(SP) :: stat ! Статусная переменная
 
           ! Проверка, выделена ли память под массив времени
-          if ( .not. allocated(result%t) ) call scats_log_do_error('NA_t')
+          if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
 
           ! Проверка, выделена ли память под массив частот периодограммы
-          if ( .not. allocated(result%v) ) call scats_log_do_error('NA_v')
+          if ( .not. allocated(result%v) ) call scats_do_errors_log_error('NA_v')
 
           ! Проверка, выделена ли память под массив значений сглаженной коррелограммы
-          if ( .not. allocated(result%cw) ) call scats_log_do_error('NA_cw')
+          if ( .not. allocated(result%cw) ) call scats_do_errors_log_error('NA_cw')
 
           ! Определение размера выборки
           N_JP = size(result%t, kind=JP)
@@ -57,11 +57,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений сглаженной периодограммы
                     deallocate( result%Dw, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_Dw')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_Dw')
 
                     ! Выделение памяти под массив значений сглаженной периодограммы
                     allocate( result%Dw(0_JP:N_1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_Dw')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_Dw')
 
                endif
 
@@ -69,13 +69,13 @@ implicit none
 
                ! Выделение памяти под массив значений сглаженной периодограммы
                allocate( result%Dw(0_JP:N_1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_Dw')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_Dw')
 
           endif
 
           ! Выделение памяти под массив комплексных значений преобразования Фурье
           allocate( X_FFT(0_JP:N_2_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT')
+          if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_X_FFT')
 
           ! Копирование вещественного массива значений
           X_FFT(0_JP:N_s_JP-1_JP)%re = result%cw(0:)
@@ -90,7 +90,7 @@ implicit none
 
           ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
           deallocate( X_FFT, stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
+          if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_X_FFT')
 
      end procedure scats_do_periodogram_calculate_w
 

@@ -36,38 +36,38 @@ implicit none
 
           contains
 
-          procedure :: read => scats_read_gen_params ! Процедура для считывания параметров для генерации временного ряда
-          procedure :: deallocate => scats_deallocate_gen_params ! Процедура для освобождения памяти из-под параметров
+          procedure :: read => scats_gen_params_read ! Процедура для считывания параметров для генерации временного ряда
+          procedure :: deallocate => scats_gen_params_deallocate ! Процедура для освобождения памяти из-под параметров
 
      end type gen_params_type
 
      interface
 
           ! Процедура для считывания параметров для генерации временного ряда
-          module impure subroutine scats_read_gen_params(gen_params, file)
+          module impure subroutine scats_gen_params_read(gen_params, file)
           implicit none
 
                class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
                character(*), intent(in) :: file ! Имя файла для считывания
 
-          end subroutine scats_read_gen_params
+          end subroutine scats_gen_params_read
 
           ! Процедура для вывода ошибок (параметры генерации временного ряда)
-          module impure subroutine scats_log_gen_params_error(error_code, file)
+          module impure subroutine scats_gen_params_log_error(error_code, file)
           implicit none
 
                character(*), intent(in) :: error_code     ! Код ошибки
                character(*), intent(in), optional :: file ! Имя файла для считывания
 
-          end subroutine scats_log_gen_params_error
+          end subroutine scats_gen_params_log_error
 
           ! Процедура для освобождения памяти из-под параметров
-          module impure subroutine scats_deallocate_gen_params(gen_params)
+          module impure subroutine scats_gen_params_deallocate(gen_params)
           implicit none
 
                class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
 
-          end subroutine scats_deallocate_gen_params
+          end subroutine scats_gen_params_deallocate
 
      end interface
 

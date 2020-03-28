@@ -3,17 +3,17 @@ module scats_do_errors_m ! Модуль, содержащий процедуру
 implicit none
 
      private
-     public :: scats_log_do_error ! Процедура для вывода ошибок (действия)
+     public :: scats_do_errors_log_error ! Процедура для вывода ошибок (действия)
 
      interface
 
           ! Процедура для вывода ошибок (действия)
-          module subroutine scats_log_do_error(error_code)
+          module subroutine scats_do_errors_log_error(error_code)
           implicit none
 
                character(*), intent(in) :: error_code ! Код ошибки
 
-          end subroutine scats_log_do_error
+          end subroutine scats_do_errors_log_error
 
      end interface
 

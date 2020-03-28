@@ -25,8 +25,8 @@ implicit none
           integer(SP) :: stat ! Статусная переменная
 
           ! Проверка, выделена ли память под массивы
-          if ( .not. allocated(result%t) ) call scats_log_do_error('NA_t')
-          if ( .not. allocated(result%x) ) call scats_log_do_error('NA_x')
+          if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
+          if ( .not. allocated(result%x) ) call scats_do_errors_log_error('NA_x')
 
           ! Определение размера выборки
           N_JP = size(result%x, kind=JP)
@@ -50,11 +50,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива частот периодограммы
                     deallocate( result%v, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_v')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_v')
 
                     ! Выделение памяти под массив частот периодограммы
                     allocate( result%v(0_JP:N_1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_v')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_v')
 
                endif
 
@@ -62,7 +62,7 @@ implicit none
 
                ! Выделение памяти под массив частот периодограммы
                allocate( result%v(0_JP:N_1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_v')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_v')
 
           endif
 
@@ -73,11 +73,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений периодограммы
                     deallocate( result%D, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_D')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_D')
 
                     ! Выделение памяти под массив значений периодограммы
                     allocate( result%D(0_JP:N_1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_D')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_D')
 
                endif
 
@@ -85,7 +85,7 @@ implicit none
 
                ! Выделение памяти под массив значений периодограммы
                allocate( result%D(0_JP:N_1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_D')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_D')
 
           endif
 
@@ -96,11 +96,11 @@ implicit none
 
                     ! Освобождение памяти из-под модуля преобразованных значений
                     deallocate( result%X_FFT_ABS, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT_ABS')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_X_FFT_ABS')
 
                     ! Выделение памяти под модуль преобразованных значений
                     allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT_ABS')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_X_FFT_ABS')
 
                endif
 
@@ -108,7 +108,7 @@ implicit none
 
                ! Выделение памяти под модуль преобразованных значений
                allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT_ABS')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_X_FFT_ABS')
 
           endif
 
@@ -122,7 +122,7 @@ implicit none
 
           ! Выделение памяти под массив комплексных значений преобразования Фурье
           allocate( X_FFT(0_JP:N_2_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT')
+          if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_X_FFT')
 
           ! Копирование вещественного массива значений
           X_FFT(0_JP:N_JP-1_JP)%re = rx(0:)
@@ -137,7 +137,7 @@ implicit none
 
           ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
           deallocate( X_FFT, stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
+          if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_X_FFT')
 
           ! Вычисление периодограммы
           D(0:) = 1._RP / (N_RP * N_RP) * result%X_FFT_ABS(0:N_1_JP)

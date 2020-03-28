@@ -13,8 +13,8 @@ implicit none
 
           ! Проверка, выделены ли входные данные
 
-          if ( .not. allocated(input%t) ) call scats_log_do_error('NA_t')
-          if ( .not. allocated(input%x) ) call scats_log_do_error('NA_x')
+          if ( .not. allocated(input%t) ) call scats_do_errors_log_error('NA_t')
+          if ( .not. allocated(input%x) ) call scats_do_errors_log_error('NA_x')
 
           ! Определение размера выборки
           N = size(input%t, kind=IP)
@@ -28,11 +28,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива времени
                     deallocate( result%t, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_t')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_t')
 
                     ! Выделение памяти под массив времени
                     allocate( result%t(0:N_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_t')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_t')
 
                endif
 
@@ -40,7 +40,7 @@ implicit none
 
                ! Выделение памяти под массив времени
                allocate( result%t(0:N_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_t')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_t')
 
           endif
 
@@ -50,11 +50,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений
                     deallocate( result%x, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_x')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_x')
 
                     ! Выделение памяти под массив значений
                     allocate( result%x(0:N_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_x')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_x')
 
                endif
 
@@ -62,7 +62,7 @@ implicit none
 
                ! Выделение памяти под массив значений
                allocate( result%x(0:N_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_x')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_x')
 
           endif
 
