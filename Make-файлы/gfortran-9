@@ -108,14 +108,14 @@
                                $(obj_path)scats_visualize_m.o $(obj_path)scats_result_m.o \
                                $(obj_path)scats_do_m.o $(obj_path)prec_m.o
 
-               # Вспомогательная процедура генерации
+               # Вспомогательная процедура для вызова генератора временного ряда
                $(obj_path)scats_generate_s.o : $(obj_path)scats.o
 
-               # Процедура общего освобождения памяти
+               # Процедура для общего освобождения памяти
                $(obj_path)scats_deallocate_s.o : $(obj_path)scats.o
 
                # Вспомогательная процедура для извлечения тренда из входных данных
-               $(obj_path)scats_remove_linear_trend_s.o : $(obj_path)scats.o
+               $(obj_path)scats_remove_trend_s.o : $(obj_path)scats.o
 
                # Вспомогательная процедура для вычисления периодограммы
                $(obj_path)scats_calculate_periodogram_s.o : $(obj_path)scats.o
@@ -136,7 +136,10 @@
                # Генератор
                $(obj_path)scats_gen_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_params_m.o $(obj_path)scats_input_m.o
 
-                    # Процедура генерации
+                    # Процедура для вывода ошибок (генерация временного ряда)
+                    $(obj_path)scats_gen_log_error_s.o : $(obj_path)scats_gen_params_m.o
+
+                    # Процедура для генерации временного ряда
                     $(obj_path)scats_gen_generate_s.o : $(obj_path)scats_gen_m.o
 
                     # Процедура для генерации массива значений нормально распределенных случайных величин
@@ -145,44 +148,64 @@
                     # Параметры генератора
                     $(obj_path)scats_gen_params_m.o : $(obj_path)prec_m.o $(obj_path)scats_gen_settings_m.o
 
-                         $(obj_path)scats_gen_params_read_s.o : $(obj_path)scats_gen_params_m.o
+                         # Процедура для вывода ошибок (параметры генерации временного ряда)
                          $(obj_path)scats_gen_params_log_error_s.o : $(obj_path)scats_gen_params_m.o
+
+                         # Процедура для считывания параметров для генерации временного ряда
+                         $(obj_path)scats_gen_params_read_s.o : $(obj_path)scats_gen_params_m.o
+
+                         # Процедура для освобождения памяти из-под параметров
                          $(obj_path)scats_gen_params_deallocate_s.o : $(obj_path)scats_gen_params_m.o
 
                     # Настройки считывания параметров генератора
                     $(obj_path)scats_gen_settings_m.o : $(obj_path)prec_m.o
 
-                         $(obj_path)scats_gen_settings_read_s.o : $(obj_path)scats_gen_settings_m.o
+                         # Процедура для вывода ошибок (настройки считывания параметров)
                          $(obj_path)scats_gen_settings_log_error_s.o : $(obj_path)scats_gen_settings_m.o
+
+                         # Процедура для считывания настроек считывания параметров для генерации временного ряда
+                         $(obj_path)scats_gen_settings_read_s.o : $(obj_path)scats_gen_settings_m.o
 
                # Входные данные
                $(obj_path)scats_input_m.o : $(obj_path)prec_m.o
 
-                    $(obj_path)scats_input_deallocate_s.o : $(obj_path)scats_input_m.o
+                    # Процедура для вывода ошибок (входные данные)
                     $(obj_path)scats_input_log_error_s.o : $(obj_path)scats_input_m.o
+
+                    # Процедура для считывания входных данных
                     $(obj_path)scats_input_read_s.o : $(obj_path)scats_input_m.o
+
+                    # Процедура для записи входных данных в файл
                     $(obj_path)scats_input_write_to_file_s.o : $(obj_path)scats_input_m.o
+
+                    # Процедура освобождения памяти из-под входных данных
+                    $(obj_path)scats_input_deallocate_s.o : $(obj_path)scats_input_m.o
 
                # Результат
                $(obj_path)scats_result_m.o : $(obj_path)prec_m.o
 
+                    # Процедура для вывода ошибок (результат)
                     $(obj_path)scats_result_log_error_s.o : $(obj_path)scats_result_m.o
-                    $(obj_path)scats_result_deallocate_s.o : $(obj_path)scats_result_m.o
+
+                    # Процедура для записи результата в файл
                     $(obj_path)scats_result_write_to_file_s.o : $(obj_path)scats_result_m.o
 
-               # Операции над данными
+                    # Процедура для освобождения памяти из-под результата
+                    $(obj_path)scats_result_deallocate_s.o : $(obj_path)scats_result_m.o
 
+               # Операции над данными
                $(obj_path)scats_do_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
                                          $(obj_path)scats_do_trend_m.o $(obj_path)scats_do_periodogram_m.o \
                                          $(obj_path)scats_do_correlogram_m.o
 
-                    # Ошибки
+                    # Процедура для вывода ошибок (действия)
                     $(obj_path)scats_do_errors_log_error_s.o : $(obj_path)scats_do_errors_m.o
 
-                    # Проверка
+                    # Проверка на совпадение форм входных данных и результата
                     $(obj_path)scats_do_check_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
                                                     $(obj_path)scats_do_errors_m.o
 
+                         # Процедура для проверки на совпадение форм входных данных и результата
                          $(obj_path)scats_do_check_s.o : $(obj_path)scats_do_check_m.o
 
                     # Извлечение тренда
@@ -192,24 +215,33 @@
                          # Процедура для удаления линейного тренда из входных данных
                          $(obj_path)scats_do_trend_remove_linear_trend_s.o : $(obj_path)scats_do_trend_m.o
 
-                    # Быстрого преобразование Фурье
+                    # Быстрое преобразование Фурье
                     $(obj_path)scats_do_fft_m.o : $(obj_path)prec_m.o
 
+                         # Процедура для выполнения быстрого преобразования Фурье
                          $(obj_path)scats_do_fft_calculate_s.o : $(obj_path)scats_do_fft_m.o
+
+                         # Функция для выполнения поразрядно обратной перестановки
                          $(obj_path)scats_do_fft_rev_s.o : $(obj_path)scats_do_fft_m.o
 
                     # Вычисление периодограммы
                     $(obj_path)scats_do_periodogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o \
                                                           $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
 
+                         # Процедура для вычисления периодограммы
                          $(obj_path)scats_do_periodogram_calculate_s.o : $(obj_path)scats_do_periodogram_m.o
+
+                         # Процедура для вычисления сглаженной периодограммы
                          $(obj_path)scats_do_periodogram_calculate_w_s.o : $(obj_path)scats_do_periodogram_m.o
 
                     # Вычисление коррелограммы
                     $(obj_path)scats_do_correlogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o \
                                                           $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
 
+                         # Процедура для вычисления коррелограммы
                          $(obj_path)scats_do_correlogram_calculate_s.o : $(obj_path)scats_do_correlogram_m.o
+
+                         # Процедура для вычисления взвешенной коррелограммы
                          $(obj_path)scats_do_correlogram_calculate_w_s.o : $(obj_path)scats_do_correlogram_m.o
 
      # Определение флагов компилятора
