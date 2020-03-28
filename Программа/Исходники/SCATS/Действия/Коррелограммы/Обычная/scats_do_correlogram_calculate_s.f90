@@ -19,7 +19,7 @@ implicit none
           integer(SP) :: stat ! Статусная переменная
 
           ! Проверка, выделена ли память под массив времени
-          if ( .not. allocated(result%t) ) call scats_log_do_error('NA_t')
+          if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
 
           ! Определение размера выборки
           N_JP = size(result%t, kind=JP)
@@ -40,7 +40,7 @@ implicit none
 
           ! Выделение памяти под массив комплексных значений преобразования Фурье
           allocate( X_FFT(0_JP:N_2_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT')
+          if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_X_FFT')
 
           ! Проверка, выделена ли память под модуль преобразованных значений
           if ( allocated(result%X_FFT_ABS) ) then
@@ -48,15 +48,15 @@ implicit none
                if ( .not. size(result%X_FFT_ABS, kind=JP) .eq. N_2_JP ) then
 
                     ! Проверка, выделена ли память под массив значений
-                    if ( .not. allocated(result%x) ) call scats_log_do_error('NA_x')
+                    if ( .not. allocated(result%x) ) call scats_do_errors_log_error('NA_x')
 
                     ! Освобождение памяти из-под модуля преобразованных значений
                     deallocate( result%X_FFT_ABS, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT_ABS')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_X_FFT_ABS')
 
                     ! Выделение памяти под модуль преобразованных значений
                     allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT_ABS')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_X_FFT_ABS')
 
                     ! Копирование вещественного массива значений
                     X_FFT(0_JP:N_m1_JP)%re = result%x(0:)
@@ -74,11 +74,11 @@ implicit none
           else
 
                ! Проверка, выделена ли память под массив значений
-               if ( .not. allocated(result%x) ) call scats_log_do_error('NA_x')
+               if ( .not. allocated(result%x) ) call scats_do_errors_log_error('NA_x')
 
                ! Выделение памяти под модуль преобразованных значений
                allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_X_FFT_ABS')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_X_FFT_ABS')
 
                ! Копирование вещественного массива значений
                X_FFT(0_JP:N_m1_JP)%re = result%x(0:)
@@ -107,11 +107,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений коррелограммы
                     deallocate( result%c, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WD_c')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_c')
 
                     ! Выделение памяти под массив значений коррелограммы
                     allocate( result%c(0_JP:N_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_do_error('WA_c')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_c')
 
                endif
 
@@ -119,7 +119,7 @@ implicit none
 
                ! Выделение памяти под массив значений коррелограммы
                allocate( result%c(0_JP:N_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_do_error('WA_c')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_c')
 
           endif
 
@@ -128,7 +128,7 @@ implicit none
 
           ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
           deallocate( X_FFT, stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_do_error('WD_X_FFT')
+          if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_X_FFT')
 
      end procedure scats_do_correlogram_calculate
 

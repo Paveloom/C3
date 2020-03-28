@@ -26,7 +26,7 @@ implicit none
           real(RP) :: k_RP ! Овеществление счетчика
 
           ! Проверка, активирован ли генератор
-          if (.not. gen%params%ready) call scats_log_gen_error('NA')
+          if (.not. gen%params%ready) call scats_gen_log_error('NA')
 
           ! Распаковка параметров генератора
           associate( N => gen%params%N, &
@@ -65,11 +65,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива времени
                     deallocate( input%t, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_t')
+                    if ( stat .ne. 0_SP ) call scats_gen_log_error('WD_t')
 
                     ! Выделение памяти под массив времени
                     allocate( input%t(0:N_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_t')
+                    if ( stat .ne. 0_SP ) call scats_gen_log_error('WA_t')
 
                endif
 
@@ -77,7 +77,7 @@ implicit none
 
                ! Выделение памяти под массив времени
                allocate( input%t(0:N_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_t')
+               if ( stat .ne. 0_SP ) call scats_gen_log_error('WA_t')
 
           endif
 
@@ -87,11 +87,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений
                     deallocate( input%x, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_x')
+                    if ( stat .ne. 0_SP ) call scats_gen_log_error('WD_x')
 
                     ! Выделение памяти под массив значений
                     allocate( input%x(0:N_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_x')
+                    if ( stat .ne. 0_SP ) call scats_gen_log_error('WA_x')
 
                endif
 
@@ -99,15 +99,15 @@ implicit none
 
                ! Выделение памяти под массив значений
                allocate( input%x(0:N_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_x')
+               if ( stat .ne. 0_SP ) call scats_gen_log_error('WA_x')
 
           endif
 
           allocate( rand(0:N_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_gen_error('WA_rand')
+          if ( stat .ne. 0_SP ) call scats_gen_log_error('WA_rand')
 
           ! Генерация массива случайных чисел
-          call scats_generate_random_array(N_JP, rand)
+          call scats_gen_generate_random_array(N_JP, rand)
 
           ! Генерация временного ряда
 
@@ -133,7 +133,7 @@ implicit none
           enddo
 
           deallocate( rand, stat = stat )
-          if ( stat .ne. 0_SP ) call scats_log_gen_error('WD_rand')
+          if ( stat .ne. 0_SP ) call scats_gen_log_error('WD_rand')
 
           end associate
 
