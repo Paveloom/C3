@@ -114,8 +114,7 @@
                # Процедура общего освобождения памяти
                $(obj_path)scats_deallocate_s.o : $(obj_path)scats.o
 
-               # Вспомогательная процедура для вызова процедуры,
-               # извлекающей линейный тренд из данных
+               # Вспомогательная процедура для извлечения тренда из входных данных
                $(obj_path)scats_remove_linear_trend_s.o : $(obj_path)scats.o
 
                # Вспомогательная процедура для вычисления периодограммы
@@ -190,8 +189,7 @@
                     $(obj_path)scats_do_trend_m.o : $(obj_path)prec_m.o $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \
                                                     $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_check_m.o
 
-                         $(obj_path)scats_do_trend_check_s.o : $(obj_path)scats_do_trend_m.o
-
+                         # Процедура для удаления линейного тренда из входных данных
                          $(obj_path)scats_do_trend_remove_linear_trend_s.o : $(obj_path)scats_do_trend_m.o
 
                     # Быстрого преобразование Фурье
