@@ -7,7 +7,7 @@ implicit none
      module procedure scats_visualize_result
 
           ! Аргументы для скрипта
-          character(300) :: arg1, arg2, arg3, arg4
+          character(300) :: arg1, arg2, arg3, arg4, arg5, arg6
 
           ! Проверка на разрешенные этапы
           if ( .not. (stage .eq. 'data' .or. stage .eq. 'per' .or. stage .eq. 'corr' .or. stage .eq. 'w_per') ) then
@@ -29,13 +29,89 @@ implicit none
                ! Проверка на наличие четвертого аргумента
                if ( present(title) ) then
 
-                    arg3 = output_file
-                    arg4 = title
+                    ! Проверка на наличие пятого аргумента
+                    if ( present(xlim) ) then
+
+                         ! Проверка на наличие шестого аргумента
+                         if ( present(ylim) ) then
+
+                              arg3 = output_file
+                              arg4 = title
+                              arg5 = xlim
+                              arg6 = ylim
+
+                         else
+
+                              arg3 = output_file
+                              arg4 = title
+                              arg5 = xlim
+                              arg6 = '-0-'
+
+                         endif
+
+                    else
+
+                         ! Проверка на наличие шестого аргумента
+                         if ( present(ylim) ) then
+
+                              arg3 = output_file
+                              arg4 = title
+                              arg5 = '-0-'
+                              arg6 = ylim
+
+                         else
+
+                              arg3 = output_file
+                              arg4 = title
+                              arg5 = '-0-'
+                              arg6 = '-0-'
+
+                         endif
+
+                    endif
 
                else
 
-                    arg3 = output_file
-                    arg4 = '-0-'
+                    ! Проверка на наличие пятого аргумента
+                    if ( present(xlim) ) then
+
+                         ! Проверка на наличие шестого аргумента
+                         if ( present(ylim) ) then
+
+                              arg3 = output_file
+                              arg4 = '-0-'
+                              arg5 = xlim
+                              arg6 = ylim
+
+                         else
+
+                              arg3 = output_file
+                              arg4 = '-0-'
+                              arg5 = xlim
+                              arg6 = '-0-'
+
+                         endif
+
+                    else
+
+                         ! Проверка на наличие шестого аргумента
+                         if ( present(ylim) ) then
+
+                              arg3 = output_file
+                              arg4 = '-0-'
+                              arg5 = '-0-'
+                              arg6 = ylim
+
+                         else
+
+                              arg3 = output_file
+                              arg4 = '-0-'
+                              arg5 = '-0-'
+                              arg6 = '-0-'
+
+                         endif
+
+                    endif
 
                endif
 
@@ -44,20 +120,97 @@ implicit none
                ! Проверка на наличие четвертого аргумента
                if ( present(title) ) then
 
-                    arg3 = '-0-'
-                    arg4 = title
+                    ! Проверка на наличие пятого аргумента
+                    if ( present(xlim) ) then
+
+                         ! Проверка на наличие шестого аргумента
+                         if ( present(ylim) ) then
+
+                              arg3 = '-0-'
+                              arg4 = title
+                              arg5 = xlim
+                              arg6 = ylim
+
+                         else
+
+                              arg3 = '-0-'
+                              arg4 = title
+                              arg5 = xlim
+                              arg6 = '-0-'
+
+                         endif
+
+                    else
+
+                         ! Проверка на наличие шестого аргумента
+                         if ( present(ylim) ) then
+
+                              arg3 = '-0-'
+                              arg4 = title
+                              arg5 = '-0-'
+                              arg6 = ylim
+
+                         else
+
+                              arg3 = '-0-'
+                              arg4 = title
+                              arg5 = '-0-'
+                              arg6 = '-0-'
+
+                         endif
+
+                    endif
 
                else
 
-                    arg3 = '-0-'
-                    arg4 = '-0-'
+                    ! Проверка на наличие пятого аргумента
+                    if ( present(xlim) ) then
+
+                         ! Проверка на наличие шестого аргумента
+                         if ( present(ylim) ) then
+
+                              arg3 = '-0-'
+                              arg4 = '-0-'
+                              arg5 = xlim
+                              arg6 = ylim
+
+                         else
+
+                              arg3 = '-0-'
+                              arg4 = '-0-'
+                              arg5 = xlim
+                              arg6 = '-0-'
+
+                         endif
+
+                    else
+
+                         ! Проверка на наличие шестого аргумента
+                         if ( present(ylim) ) then
+
+                              arg3 = '-0-'
+                              arg4 = '-0-'
+                              arg5 = '-0-'
+                              arg6 = ylim
+
+                         else
+
+                              arg3 = '-0-'
+                              arg4 = '-0-'
+                              arg5 = '-0-'
+                              arg6 = '-0-'
+
+                         endif
+
+                    endif
 
                endif
 
           endif
 
           ! Вызов скрипта
-          call execute_command_line('python3 Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '//trim(arg1)//' '//trim(arg2)//' '//trim(arg3)//" '"//trim(arg4)//"'")
+          call execute_command_line('python3 Исходники/SCATS/Визуализация/Результат/scats_visualize_result_s.py '&
+                                   &//trim(arg1)//' '//trim(arg2)//' '//trim(arg3)//" '"//trim(arg4)//"' '"//trim(arg5)//"' '"//trim(arg6)//"'")
 
      end procedure scats_visualize_result
 
