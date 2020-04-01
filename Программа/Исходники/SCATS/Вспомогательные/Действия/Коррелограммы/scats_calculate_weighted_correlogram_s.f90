@@ -6,6 +6,7 @@ implicit none
      ! Вспомогательная процедура для вычисления взвешенной коррелограммы
      module procedure scats_calculate_weighted_correlogram
 
+          ! Вызов процедуры для вычисления взвешенной коррелограммы
           call scats_do_correlogram_calculate_w(s%result, nfactor, a)
 
      end procedure scats_calculate_weighted_correlogram

@@ -37,7 +37,8 @@ implicit none
      call s%result%write('Файлы/result')
 
      ! Визуализация временного ряда после извлечения тренда
-     call s%visualize%result('Файлы/result', stage='no_trend')
+     call s%visualize%result('Файлы/result', stage='data',&
+                            & output_file="Фигуры/no_trend", title="После извлечения тренда")
 
      ! Визуализация периодограммы
      call s%visualize%result('Файлы/result', stage='per')

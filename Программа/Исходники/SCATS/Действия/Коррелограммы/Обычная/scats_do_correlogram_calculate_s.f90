@@ -18,11 +18,27 @@ implicit none
 
           integer(SP) :: stat ! Статусная переменная
 
-          ! Проверка, выделена ли память под массив времени
-          if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
+          if ( present(input) ) then
+
+               ! Проверка, совпадают ли формы входных данных и результата
+               call scats_do_check(input, result)
+
+               ! Копирование данных из результата
+               result%q = input%q
+               result%delta_t = input%delta_t
+               result%t(0:) = input%t(0:)
+               result%x(0:) = input%x(0:)
+
+          else
+
+               ! Проверка, выделена ли память под массив значений
+               if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
+               if ( .not. allocated(result%x) ) call scats_do_errors_log_error('NA_x')
+
+          endif
 
           ! Определение размера выборки
-          N_JP = size(result%t, kind=JP)
+          N_JP = size(result%x, kind=JP)
           N_RP = real(N_JP, kind=RP)
 
           ! Вычисление числа N - 1
@@ -45,10 +61,7 @@ implicit none
           ! Проверка, выделена ли память под модуль преобразованных значений
           if ( allocated(result%X_FFT_ABS) ) then
 
-               if ( .not. size(result%X_FFT_ABS, kind=JP) .eq. N_2_JP ) then
-
-                    ! Проверка, выделена ли память под массив значений
-                    if ( .not. allocated(result%x) ) call scats_do_errors_log_error('NA_x')
+               if ( size(result%X_FFT_ABS, kind=JP) .ne. N_2_JP ) then
 
                     ! Освобождение памяти из-под модуля преобразованных значений
                     deallocate( result%X_FFT_ABS, stat = stat )
@@ -72,9 +85,6 @@ implicit none
                endif
 
           else
-
-               ! Проверка, выделена ли память под массив значений
-               if ( .not. allocated(result%x) ) call scats_do_errors_log_error('NA_x')
 
                ! Выделение памяти под модуль преобразованных значений
                allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )

@@ -225,8 +225,8 @@
                          $(obj_path)scats_do_fft_rev_s.o : $(obj_path)scats_do_fft_m.o
 
                     # Вычисление периодограммы
-                    $(obj_path)scats_do_periodogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o \
-                                                          $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
+                    $(obj_path)scats_do_periodogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o $(obj_path)scats_input_m.o \
+                                                          $(obj_path)scats_do_check_m.o $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
 
                          # Процедура для вычисления периодограммы
                          $(obj_path)scats_do_periodogram_calculate_s.o : $(obj_path)scats_do_periodogram_m.o
@@ -235,8 +235,8 @@
                          $(obj_path)scats_do_periodogram_calculate_w_s.o : $(obj_path)scats_do_periodogram_m.o
 
                     # Вычисление коррелограммы
-                    $(obj_path)scats_do_correlogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o \
-                                                          $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
+                    $(obj_path)scats_do_correlogram_m.o : $(obj_path)prec_m.o $(obj_path)scats_result_m.o $(obj_path)scats_input_m.o \
+                                                          $(obj_path)scats_do_check_m.o $(obj_path)scats_do_errors_m.o $(obj_path)scats_do_fft_m.o
 
                          # Процедура для вычисления коррелограммы
                          $(obj_path)scats_do_correlogram_calculate_s.o : $(obj_path)scats_do_correlogram_m.o

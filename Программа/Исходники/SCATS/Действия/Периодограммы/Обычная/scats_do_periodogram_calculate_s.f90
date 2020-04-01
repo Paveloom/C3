@@ -24,9 +24,24 @@ implicit none
           real(RP) :: i_RP ! Овеществление счетчика
           integer(SP) :: stat ! Статусная переменная
 
-          ! Проверка, выделена ли память под массивы
-          if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
-          if ( .not. allocated(result%x) ) call scats_do_errors_log_error('NA_x')
+          if ( present(input) ) then
+
+               ! Проверка, совпадают ли формы входных данных и результата
+               call scats_do_check(input, result)
+
+               ! Копирование данных из результата
+               result%q = input%q
+               result%delta_t = input%delta_t
+               result%t(0:) = input%t(0:)
+               result%x(0:) = input%x(0:)
+
+          else
+
+               ! Проверка, выделена ли память под массивы
+               if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
+               if ( .not. allocated(result%x) ) call scats_do_errors_log_error('NA_x')
+
+          endif
 
           ! Определение размера выборки
           N_JP = size(result%x, kind=JP)

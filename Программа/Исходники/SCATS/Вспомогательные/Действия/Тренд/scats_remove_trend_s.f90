@@ -10,6 +10,7 @@ implicit none
 
                case ('l') ! Линейный тренд
 
+                    ! Вызов процедуры для извлечения линейного тренда
                     call scats_do_trend_remove_linear_trend(s%input, s%result)
 
                case default
