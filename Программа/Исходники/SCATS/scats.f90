@@ -78,18 +78,22 @@ implicit none
           end subroutine scats_remove_trend
 
           ! Вспомогательная процедура для вычисления периодограммы
-          module impure subroutine scats_calculate_periodogram(s)
+          module impure subroutine scats_calculate_periodogram(s, use_input)
           implicit none
 
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
+               logical(kind(.true.)), optional, intent(in) :: use_input ! Использовать входные данные
+                                                                        ! вместо данных из результата?
 
           end subroutine scats_calculate_periodogram
 
           ! Вспомогательная процедура для вычисления коррелограммы
-          module impure subroutine scats_calculate_correlogram(s)
+          module impure subroutine scats_calculate_correlogram(s, use_input)
           implicit none
 
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
+               logical(kind(.true.)), optional, intent(in) :: use_input ! Использовать входные данные
+                                                                        ! вместо данных из результата?
 
           end subroutine scats_calculate_correlogram
 

@@ -12,7 +12,6 @@ implicit none
           integer(SP) :: stat ! Статусная переменная
 
           ! Проверка, выделены ли входные данные
-
           if ( .not. allocated(input%t) ) call scats_do_errors_log_error('NA_t')
           if ( .not. allocated(input%x) ) call scats_do_errors_log_error('NA_x')
 

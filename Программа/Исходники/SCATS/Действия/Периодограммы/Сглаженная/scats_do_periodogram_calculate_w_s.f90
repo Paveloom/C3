@@ -18,13 +18,15 @@ implicit none
 
           complex(RP), dimension(:), allocatable :: X_FFT ! Массив комплексных значений преобразования Фурье
 
+          real(RP) :: delta_v ! Шаг по частоте
+
+          integer(JP) :: i ! Счетчик
+          real(RP) :: i_RP ! Овеществление счетчика
+
           integer(SP) :: stat ! Статусная переменная
 
           ! Проверка, выделена ли память под массив времени
           if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
-
-          ! Проверка, выделена ли память под массив частот периодограммы
-          if ( .not. allocated(result%v) ) call scats_do_errors_log_error('NA_v')
 
           ! Проверка, выделена ли память под массив значений сглаженной коррелограммы
           if ( .not. allocated(result%cw) ) call scats_do_errors_log_error('NA_cw')
@@ -70,6 +72,53 @@ implicit none
                ! Выделение памяти под массив значений сглаженной периодограммы
                allocate( result%Dw(0_JP:N_1_JP), stat = stat )
                if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_Dw')
+
+          endif
+
+          ! Проверка, выделена ли память под массив частот периодограммы
+          if ( allocated(result%v) ) then
+
+               if ( size(result%v, kind=JP) .ne. N_1_JP + 1_JP ) then
+
+                    ! Освобождение памяти из-под массива частот периодограммы
+                    deallocate( result%v, stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_v')
+
+                    ! Выделение памяти под массив частот периодограммы
+                    allocate( result%v(0_JP:N_1_JP), stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_v')
+
+                    ! Вычисление шага по частотам
+                    delta_v = 1._RP / (N_2_RP * result%delta_t)
+
+                    ! Заполнение массива частот периодограммы
+
+                    do i = 0_JP, N_1_JP
+
+                         i_RP = real(i, kind=RP)
+                         result%v(i) = i_RP * delta_v
+
+                    enddo
+
+               endif
+
+          else
+
+               ! Выделение памяти под массив частот периодограммы
+               allocate( result%v(0_JP:N_1_JP), stat = stat )
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_v')
+
+               ! Вычисление шага по частотам
+               delta_v = 1._RP / (N_2_RP * result%delta_t)
+
+               ! Заполнение массива частот периодограммы
+
+               do i = 0_JP, N_1_JP
+
+                    i_RP = real(i, kind=RP)
+                    result%v(i) = i_RP * delta_v
+
+               enddo
 
           endif
 
