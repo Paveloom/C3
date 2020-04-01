@@ -22,7 +22,8 @@ implicit none
           integer(JP) :: ih ! Половина от i
           real(RP) :: i_RP ! Овеществление i
 
-          real(RP) :: invert_real ! +1 или -1 в зависимости от типа преобразования
+          real(RP) :: invert_multiplier ! Множитель 2 * pi * invert_real, где invert_real
+                                        ! +1 или -1 в зависимости от типа преобразования
 
           ! Заполнение n_C
           n_C%re = n_d
@@ -50,14 +51,14 @@ implicit none
 
           enddo
 
-          ! Получение типа преобразования Фурье
+          ! Определение типа преобразования Фурье
           if (invert) then
 
-               invert_real = -1._RP
+               invert_multiplier = 2._RP * pi
 
           else
 
-               invert_real = 1._RP
+               invert_multiplier = - 2._RP * pi
 
           endif
 
@@ -69,7 +70,7 @@ implicit none
                i_RP = real(i, kind=RP)
                ih = i / 2_JP
 
-               arg = invert_real * 2._RP * pi / i_RP
+               arg = invert_multiplier / i_RP
 
                tmp%re = cos(arg)
                tmp%im = sin(arg)

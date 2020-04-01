@@ -22,7 +22,7 @@ implicit none
      call s%rem_trend(type='l')
 
      ! Вычисление периодограммы
-     call s%calc_per(use_input=.true.)
+     call s%calc_per()
 
      ! Вычисление коррелограммы
      call s%calc_corr()
