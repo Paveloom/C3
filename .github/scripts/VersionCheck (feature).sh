@@ -67,11 +67,32 @@ function version_check_zip_svg {
 
 }
 
+function check_module_version {
+
+     printf "\nПроверяется версия модуля в следующем файле:\n"
+     echo "$1"
+
+     # Избегание пробелов в аргументе
+     if head -1 "$1" | grep -oq "$CURRENT_TAG"; then
+
+          printf "\nВерсия в этом файле совпадает с текущей.\n"
+
+     else
+
+          printf "\nВерсия в этом файле НЕ совпадает с текущей.\n"
+          ERROR_COUNT=$((ERROR_COUNT+1))
+
+     fi
+
+}
+
 function run_version_checks {
 
      version_check_svg "Mind-карты/SCATS API/SCATS API.svg"
 
      version_check_zip_svg "Архивы/Mind-карты.zip" "Mind-карты/SCATS API/SCATS API.svg"
+
+     check_module_version "Программа/Исходники/SCATS/scats.f90"
 
 }
 
