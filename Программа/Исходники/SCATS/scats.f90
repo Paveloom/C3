@@ -51,10 +51,13 @@ implicit none
      interface
 
           ! Вспомогательная процедура для вызова генератора временного ряда
-          module impure subroutine scats_generate(s)
+          module impure subroutine scats_generate(s, add_trend, add_noise)
           implicit none
 
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
+
+               logical(kind(.true.)), optional, intent(in) :: add_trend ! Добавлять тренд?
+               logical(kind(.true.)), optional, intent(in) :: add_noise ! Добавлять шум?
 
           end subroutine scats_generate
 

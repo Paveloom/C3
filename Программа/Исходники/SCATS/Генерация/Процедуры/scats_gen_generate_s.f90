@@ -58,7 +58,6 @@ implicit none
           r_JP = int(r, kind=JP)
 
           ! Выделение памяти под массивы
-
           if ( allocated(input%t) ) then
 
                if ( .not. size(input%t, kind=IP) .eq. N ) then
@@ -103,37 +102,130 @@ implicit none
 
           endif
 
-          allocate( rand(0:N_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) call scats_gen_log_error('WA_rand')
+          ! Проверка, следует ли добавлять тренд при генерации
+          if ( add_trend ) then
 
-          ! Генерация массива случайных чисел
-          call scats_gen_generate_random_array(N_JP, rand)
+               ! Проверка, следует ли добавлять шум при генерации
+               if ( add_noise ) then
 
-          ! Генерация временного ряда
+                    ! Выделение памяти под массив случайных чисел
+                    allocate( rand(0:N_m1_JP), stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_gen_log_error('WA_rand')
 
-          do k = 0_JP, N_m1_JP
+                    ! Генерация массива случайных чисел
+                    call scats_gen_generate_random_array(N_JP, rand)
 
-               k_RP = real(k, kind=RP)
+                    ! Генерация временного ряда
+                    do k = 0_JP, N_m1_JP
 
-               t = delta_t * k_RP
-               input%t(k) = t
+                         k_RP = real(k, kind=RP)
 
-               c = alpha + beta * t
+                         t = delta_t * k_RP
+                         input%t(k) = t
 
-               do l = 1_JP, r_JP
+                         c = alpha + beta * t
 
-                    c = c + A(l) * cos(2._RP * pi * v(l) * t - phi(l))
+                         do l = 1_JP, r_JP
 
-               enddo
+                              c = c + A(l) * cos(2._RP * pi * v(l) * t - phi(l))
 
-               c = c + rand(k)
+                         enddo
 
-               input%x(k) = c
+                         c = c + rand(k)
 
-          enddo
+                         input%x(k) = c
 
-          deallocate( rand, stat = stat )
-          if ( stat .ne. 0_SP ) call scats_gen_log_error('WD_rand')
+                    enddo
+
+                    deallocate( rand, stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_gen_log_error('WD_rand')
+
+               else
+
+                    ! Генерация временного ряда
+                    do k = 0_JP, N_m1_JP
+
+                         k_RP = real(k, kind=RP)
+
+                         t = delta_t * k_RP
+                         input%t(k) = t
+
+                         c = alpha + beta * t
+
+                         do l = 1_JP, r_JP
+
+                              c = c + A(l) * cos(2._RP * pi * v(l) * t - phi(l))
+
+                         enddo
+
+                         input%x(k) = c
+
+                    enddo
+
+               endif
+
+          else
+
+               ! Проверка, следует ли добавлять шум при генерации
+               if ( add_noise ) then
+
+                    ! Выделение памяти под массив случайных чисел
+                    allocate( rand(0:N_m1_JP), stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_gen_log_error('WA_rand')
+
+                    ! Генерация массива случайных чисел
+                    call scats_gen_generate_random_array(N_JP, rand)
+
+                    ! Генерация временного ряда
+                    do k = 0_JP, N_m1_JP
+
+                         k_RP = real(k, kind=RP)
+
+                         t = delta_t * k_RP
+                         input%t(k) = t
+
+                         c = 0._RP
+
+                         do l = 1_JP, r_JP
+
+                              c = c + A(l) * cos(2._RP * pi * v(l) * t - phi(l))
+
+                         enddo
+
+                         c = c + rand(k)
+
+                         input%x(k) = c
+
+                    enddo
+
+                    deallocate( rand, stat = stat )
+                    if ( stat .ne. 0_SP ) call scats_gen_log_error('WD_rand')
+
+               else
+
+                    ! Генерация временного ряда
+                    do k = 0_JP, N_m1_JP
+
+                         k_RP = real(k, kind=RP)
+
+                         t = delta_t * k_RP
+                         input%t(k) = t
+
+                         c = 0._RP
+
+                         do l = 1_JP, r_JP
+
+                              c = c + A(l) * cos(2._RP * pi * v(l) * t - phi(l))
+
+                         enddo
+
+                         input%x(k) = c
+
+                    enddo
+
+               endif
+
+          endif
 
           end associate
 
