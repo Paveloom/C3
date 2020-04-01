@@ -34,8 +34,8 @@ title = str(argv[4])
 
 if output_name == '-0-':
     custom_path = False
-    if stage == 'no_trend':
-        output_name = 'no_trend'
+    if stage == 'data':
+        output_name = 'data'
 
     if stage == 'per':
         output_name = 'periodogram'
@@ -49,26 +49,34 @@ if output_name == '-0-':
 else:
     custom_path = True
 
+if stage == 'data':
+    xlabel = 'Время'
+    ylabel = 'Значение'
+
+elif stage == 'per':
+    xlabel = 'Частота'
+    ylabel = 'Значение'
+
+elif stage == 'corr':
+    xlabel = 'Время'
+    ylabel = 'Значение'
+
+elif stage == 'w_per':
+    xlabel = 'Частота'
+    ylabel = 'Значение'
+
 if title == '-0-':
-    if stage == 'no_trend':
-        title = 'После извлечения тренда'
-        xlabel = 'Время'
-        ylabel = 'Значение'
+    if stage == 'data':
+        title = 'Исходный временной ряд'
 
     elif stage == 'per':
         title = 'Периодограмма'
-        xlabel = 'Частота'
-        ylabel = 'Значение'
 
     elif stage == 'corr':
         title = 'Коррелограмма'
-        xlabel = 'Время'
-        ylabel = 'Значение'
 
     elif stage == 'w_per':
         title = 'Сглаженная периодограмма'
-        xlabel = 'Частота'
-        ylabel = 'Значение'
 
 # Настройки графиков
 
@@ -81,7 +89,7 @@ rcP["text.usetex"] = True
 
 ## Включение поддержки русского языка
 rcP["text.latex.preamble"] = [r'\usepackage[main=russian,english]{babel}',
-                              r'\usepackage{cmlgc}']
+                              r'\usepackage{cmsrb}']
 
 ## Установка семейства шрифтов для текста внутри математической моды
 rcP['mathtext.fontset'] = 'cm'
@@ -95,7 +103,7 @@ rcP["legend.fontsize"] = 12
 ## Создание пустого списка
 lines = []
 
-if stage == 'no_trend':
+if stage == 'data':
 
     ## Считывание строк с данными
     with open(input_name) as f:
@@ -172,6 +180,9 @@ plt.title(r'\textrm{' + title + '}')
 ## Добавление названий осей
 plt.xlabel(r'\textrm{' + xlabel + '}')
 plt.ylabel(r'\textrm{' + ylabel + '}')
+
+## Показ графика
+plt.show()
 
 ## Сохранение фигуры
 if custom_path:

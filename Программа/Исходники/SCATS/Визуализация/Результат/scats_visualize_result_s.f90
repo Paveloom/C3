@@ -10,11 +10,11 @@ implicit none
           character(300) :: arg1, arg2, arg3, arg4
 
           ! Проверка на разрешенные этапы
-          if ( .not. (stage .eq. 'no_trend' .or. stage .eq. 'per' .or. stage .eq. 'corr' .or. stage .eq. 'w_per') ) then
+          if ( .not. (stage .eq. 'data' .or. stage .eq. 'per' .or. stage .eq. 'corr' .or. stage .eq. 'w_per') ) then
 
-               write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_visualize_result:', 'Указано недопустимый этап в переменной stage,&
-                                                                          & визуализация невозможна. Допустимые значения:&
-                                                                          & no_trend, per, corr, w_per.'
+               write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_visualize_result:', 'Указан недопустимый этап в переменной stage,&
+                                                                            & визуализация невозможна. Допустимые значения:&
+                                                                            & data, per, corr, w_per.'
                stop
 
           endif

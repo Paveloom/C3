@@ -32,10 +32,10 @@ output_name = str(argv[2])
 title = str(argv[3])
 
 if output_name == '-0-':
-    use_basename = True
+    custom_path = True
     output_name = input_name
 else:
-    use_basename = False
+    custom_path = False
 
 if title == '-0-':
     title = 'Исходный временной ряд'
@@ -51,7 +51,7 @@ rcP["text.usetex"] = True
 
 ## Включение поддержки русского языка
 rcP["text.latex.preamble"] = [r'\usepackage[main=russian,english]{babel}',
-                              r'\usepackage{cmlgc}']
+                              r'\usepackage{cmsrb}']
 
 ## Установка семейства шрифтов для текста внутри математической моды
 rcP['mathtext.fontset'] = 'cm'
@@ -91,8 +91,11 @@ plt.title(r'\textrm{' + title + '}')
 plt.xlabel(r'\textrm{Время}')
 plt.ylabel(r'\textrm{Значения ряда}')
 
+## Показ графика
+plt.show()
+
 ## Сохранение фигуры
-if use_basename:
+if custom_path:
     f.savefig("Фигуры/" + basename(output_name) + ".pdf", bbox_inches='tight')
 else:
     f.savefig(output_name + ".pdf", bbox_inches='tight')
