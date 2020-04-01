@@ -1,4 +1,4 @@
-module SCATS ! Модуль, содержащий API алгоритма СКАВР [v1.1.0]
+module SCATS ! Модуль, содержащий API алгоритма СКАВР [v1.2.0]
 use prec_m, only : RP ! Точность вещественных чисел, используемых в программе
 use scats_gen_m, only : gen_type ! Тип, содержащий типы параметров, их настроек и
                                  ! включающий в себя процедуру генерации данных
@@ -51,10 +51,13 @@ implicit none
      interface
 
           ! Вспомогательная процедура для вызова генератора временного ряда
-          module impure subroutine scats_generate(s)
+          module impure subroutine scats_generate(s, add_trend, add_noise)
           implicit none
 
                class( SCATS_API ), intent(inout) :: s ! Экземпляр API модуля
+
+               logical(kind(.true.)), optional, intent(in) :: add_trend ! Добавлять тренд?
+               logical(kind(.true.)), optional, intent(in) :: add_noise ! Добавлять шум?
 
           end subroutine scats_generate
 
