@@ -148,7 +148,7 @@ implicit none
           call scats_do_fft_calculate(X_FFT, N_2_JP, N_2_RP, N_2_log_JP, .false._LP)
 
           ! Вычисление модуля преобразованных значений
-          result%X_FFT_ABS(0:) = X_FFT(0:)%re * X_FFT(0:)%re + X_FFT(0:)%im + X_FFT(0:)%im
+          result%X_FFT_ABS(0:) = X_FFT(0:)%re * X_FFT(0:)%re + X_FFT(0:)%im * X_FFT(0:)%im
 
           ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
           deallocate( X_FFT, stat = stat )
