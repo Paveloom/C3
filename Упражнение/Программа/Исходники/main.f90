@@ -117,7 +117,7 @@ implicit none
      call s%result%write('Файлы/S_2')
 
      ! Визуализация результата
-     call s%visualize%result('Файлы/S_2', stage='per', output_file="Фигуры/S_2", title="Периодограмма без множителя")
+     call s%visualize%result('Файлы/S_2', stage='per', output_file="Фигуры/S_2", title="Периодограмма без множителя", show_sigma=.false.)
 
      ! Общее освобождение памяти
      call s%deallocate()
