@@ -84,7 +84,7 @@ implicit none
                k2 = k * 2
 
                ! Овеществление счетчика
-               k_d = k
+               k_d = real(k, kind=RP)
 
                ! Вычисление аргумента
                arg = pi_delta_t * s%result%v(i) * (4._RP * k_d + 1._RP)
