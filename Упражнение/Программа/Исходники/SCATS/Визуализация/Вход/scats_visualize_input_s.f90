@@ -15,185 +15,44 @@ implicit none
           ! Проверка на наличие второго аргумента
           if ( present(output_file) ) then
 
-               ! Проверка на наличие третьего аргумента
-               if ( present(title) ) then
-
-                    ! Проверка на наличие четвертого аргумента
-                    if ( present(xlim) ) then
-
-                         ! Проверка на наличие пятого аргумента
-                         if ( present(ylim) ) then
-
-                              arg2 = output_file
-                              arg3 = title
-                              arg4 = xlim
-                              arg5 = ylim
-
-                         else
-
-                              arg2 = output_file
-                              arg3 = title
-                              arg4 = xlim
-                              arg5 = '-0-'
-
-                         endif
-
-                    else
-
-                         ! Проверка на наличие пятого аргумента
-                         if ( present(ylim) ) then
-
-                              arg2 = output_file
-                              arg3 = title
-                              arg4 = '-0-'
-                              arg5 = ylim
-
-                         else
-
-                              arg2 = output_file
-                              arg3 = title
-                              arg4 = '-0-'
-                              arg5 = '-0-'
-
-                         endif
-
-                    endif
-
-               else
-
-                    ! Проверка на наличие четвертого аргумента
-                    if ( present(xlim) ) then
-
-                         ! Проверка на наличие пятого аргумента
-                         if ( present(ylim) ) then
-
-                              arg2 = output_file
-                              arg3 = '-0-'
-                              arg4 = xlim
-                              arg5 = ylim
-
-                         else
-
-                              arg2 = output_file
-                              arg3 = '-0-'
-                              arg4 = xlim
-                              arg5 = '-0-'
-
-                         endif
-
-                    else
-
-                         ! Проверка на наличие пятого аргумента
-                         if ( present(ylim) ) then
-
-                              arg2 = output_file
-                              arg3 = '-0-'
-                              arg4 = '-0-'
-                              arg5 = ylim
-
-                         else
-
-                              arg2 = output_file
-                              arg3 = '-0-'
-                              arg4 = '-0-'
-                              arg5 = '-0-'
-
-                         endif
-
-                    endif
-
-               endif
+               arg2 = output_file
 
           else
 
-               ! Проверка на наличие третьего аргумента
-               if ( present(title) ) then
+               arg2 = "-0-"
 
-                    ! Проверка на наличие четвертого аргумента
-                    if ( present(xlim) ) then
+          endif
 
-                         ! Проверка на наличие пятого аргумента
-                         if ( present(ylim) ) then
+          ! Проверка на наличие третьего аргумента
+          if ( present(title) ) then
 
-                              arg2 = '-0-'
-                              arg3 = title
-                              arg4 = xlim
-                              arg5 = ylim
+               arg3 = title
 
-                         else
+          else
 
-                              arg2 = '-0-'
-                              arg3 = title
-                              arg4 = xlim
-                              arg5 = '-0-'
+               arg3 = "-0-"
 
-                         endif
+          endif
 
-                    else
+          ! Проверка на наличие четвертого аргумента
+          if ( present(xlim) ) then
 
-                         ! Проверка на наличие пятого аргумента
-                         if ( present(ylim) ) then
+               arg4 = xlim
 
-                              arg2 = '-0-'
-                              arg3 = title
-                              arg4 = '-0-'
-                              arg5 = ylim
+          else
 
-                         else
+               arg4 = "-0-"
 
-                              arg2 = '-0-'
-                              arg3 = title
-                              arg4 = '-0-'
-                              arg5 = '-0-'
+          endif
 
-                         endif
+          ! Проверка на наличие пятого аргумента
+          if ( present(ylim) ) then
 
-                    endif
+               arg5 = ylim
 
-               else
+          else
 
-                    ! Проверка на наличие четвертого аргумента
-                    if ( present(xlim) ) then
-
-                         ! Проверка на наличие пятого аргумента
-                         if ( present(ylim) ) then
-
-                              arg2 = '-0-'
-                              arg3 = '-0-'
-                              arg4 = xlim
-                              arg5 = ylim
-
-                         else
-
-                              arg2 = '-0-'
-                              arg3 = '-0-'
-                              arg4 = xlim
-                              arg5 = '-0-'
-
-                         endif
-
-                    else
-
-                         ! Проверка на наличие пятого аргумента
-                         if ( present(ylim) ) then
-
-                              arg2 = '-0-'
-                              arg3 = '-0-'
-                              arg4 = '-0-'
-                              arg5 = ylim
-
-                         else
-
-                              arg2 = '-0-'
-                              arg3 = '-0-'
-                              arg4 = '-0-'
-                              arg5 = '-0-'
-
-                         endif
-
-                    endif
-
-               endif
+               arg5 = "-0-"
 
           endif
 

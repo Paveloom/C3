@@ -94,7 +94,7 @@ lines = []
 
 ## Считывание строк с данными
 with open(input_name) as f:
-    for line in islice(f, 7, 11, 3):
+    for line in islice(f, 10, 14, 3):
         lines.append(line)
 
 ## Получение значений массива времени

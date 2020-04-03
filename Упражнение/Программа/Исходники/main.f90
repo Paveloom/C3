@@ -48,9 +48,6 @@ implicit none
      ! Визуализация входных данных
      call s%visualize%input('Файлы/input')
 
-     ! Присваивание значения уровню значимости
-     s%input%q = 0.01d0
-
      ! Вычисление периодограммы
      call s%calc_per(use_input=.true.)
 

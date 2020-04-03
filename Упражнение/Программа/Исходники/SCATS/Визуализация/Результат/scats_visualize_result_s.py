@@ -203,6 +203,11 @@ if stage == 'per' and show_sigma == 'True':
     plt.axhline(y=threshold, color="#635D9E", alpha=0.5, linestyle="--")
     plt.text(x[-1] * 0.915, threshold * 1.075, r'\textrm{' + str((1 - q) * 100) + '\%}', fontsize=12)
 
+## Добавление вертикальной линии на частоте,
+## равной половине частоты Найквиста
+if stage == 'per':
+    plt.axvline(x=0.25, color="#7C40A0", linestyle='--')
+
 ## Добавление заголовка
 plt.title(r'\textrm{' + title + '}')
 
