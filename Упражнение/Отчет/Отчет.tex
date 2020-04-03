@@ -1,0 +1,295 @@
+\documentclass[12pt]{article}
+\usepackage[T2A,T1]{fontenc}
+\usepackage[english, russian]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage{geometry}
+\geometry{a4paper, left=1.2in, right=1in}
+
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\fontsize{21}{18}\bfseries}{\thesection}{1em}{}
+  
+\usepackage[bookmarks=false]{hyperref}
+\hypersetup{pdfstartview={FitH},
+            colorlinks=true,
+            linkcolor=magenta,
+            pdftitle={Отчет по индивидуальному заданию},
+            pdfauthor={Павел Соболев}}
+
+\usepackage{booktabs}
+\usepackage{array}
+            
+\usepackage{multicol}
+            
+\setlength\parindent{0pt}
+
+
+\newcommand{\hl}[1]{(\hyperlink{eq:#1}{#1})}
+
+\newcommand{\s}[2]{\hypertarget{skip:#1}{\vspace{#2pt}}}
+\newcommand{\sd}[1]{\hypertarget{skip:#1}{\vspace{-10pt}}}
+
+\newcommand{\hep}[2]{\vspace{#2pt}\hypertarget{eq:#1}{}\vspace{-#2pt}}
+
+\newcommand{\hs}[1]{\sd{#1}\hep{#1}{18}}
+\newcommand{\he}[1]{\hep{#1}{18}}
+
+\begin{document}
+
+\pagenumbering{Alph}
+\thispdfpagelabel{Title}
+\begin{titlepage}
+
+    \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+    
+    \center
+
+    \ \\[6cm]
+    
+    \textsc{\Large Практикум анализа временных рядов}\\[0.5cm]
+    
+    \HRule\\[0.4cm]
+    
+    {\huge\bfseries Отчет по индивидуальному заданию}\\[0.4cm]
+    
+    \HRule\\[0.5cm]
+    
+    \large
+    \textit{Автор:} Павел \textsc{Соболев}
+    
+    \ \\[0.9cm]
+    \vfill\vfill\vfill
+    
+    {\large\today}
+    
+    \vfill
+    
+\end{titlepage}
+\pagenumbering{arabic}
+
+\subsection*{Часть 1}
+\section*{Постановка и решение задачи}
+\setcounter{section}{1}
+
+\vspace{18pt}
+
+Дан временной ряд $ x_k = x\left(\Delta t k\right), k = 0, 1, \ldots, 2N - 1 $, у которого первое и второе, третье и четвертое и т. д. значения попарно совпадают. Докажите аналитически, что периодограмма такого ряда будет симметрична относительно частоты $ \nu = 0.5 \nu_c = 1/4 \Delta t $. Проиллюстрируйте это свойство с помощью программы СКАВРя.
+
+\subsection{Представление входных данных}
+
+Имеем следующий временной ряд:
+
+\hs{1}
+\begin{gather}
+    x_k = x\left(\Delta t k\right) , \hspace{8pt} k = 0, 1, \ldots, 2N - 1,
+\end{gather}
+
+для которого выполняется следующее свойство:
+
+\hs{2}
+\begin{gather}
+    x_{2k} = x_{2k+1} \hspace{2pt} , \hspace{8pt} k = 0, 1, \ldots, N - 1.
+\end{gather}
+
+Объединяя с \hl{1}, получаем систему:
+
+\hep{3}{8}
+\begin{equation}
+    \begin{cases}
+        x_k = x\left(\Delta t k\right) , \hspace{8pt} k = 0, 1, \ldots, 2N - 1 \\
+        x_{2k} = x_{2k+1} \hspace{2pt} , \hspace{8pt} k = 0, 1, \ldots, N - 1 ,
+    \end{cases}
+\end{equation}
+
+\vspace{5pt}
+
+полностью описывающую входные данные, соответствующие условию задачи.
+
+\subsection{Выполнение преобразования Фурье}
+
+Имеем следующую формулу для вычисления периодограммы Шустера:
+
+\hs{4}
+\begin{gather}
+    D(\nu) = \frac{1}{4 N^2} \left| \sum_{k = 0}^{2 N - 1} x_k e^{-i 2 \pi \nu \Delta t k} \right|^2.
+\end{gather}
+
+Введем следующие обозначения:
+
+\sd{5}
+\begin{gather}
+    X( \nu ) \coloneqq \sum_{k = 0}^{2 N - 1} x_k e^{-i 2 \pi \nu \Delta t k };
+\end{gather}
+
+\s{6}{-20}\hep{6}{10}
+\begin{gather}
+    X_{Re}(\nu) \coloneqq {Re}(X(\nu)) = \sum_{k = 0}^{2 N - 1} x_k \cos(2 \pi \nu \Delta t k);
+\end{gather}
+
+\s{7}{-20}
+\begin{gather}
+    X_{Im}(\nu) \coloneqq {Im}(X(\nu)) = - \sum_{k = 0}^{2 N - 1} x_k \sin(2 \pi \nu \Delta t k).
+\end{gather}
+
+Тогда выражение \hl{4} можно будет переписать как
+
+\hs{8}
+\begin{gather}
+    D(\nu) = \frac{1}{4 N^2} | X(\nu) |^2 = \frac{1}{4 N^2} (X_{Re}^2 + X_{Im}^2).
+\end{gather}
+
+\subsubsection{Вычисление $ X_{Re}^2(\nu) $}
+
+Воспользуемся свойством \hl{2}, характерным исходному временному ряду \hl{3}, и преобразуем выражение \hl{6}:
+
+\hs{9}
+\begin{gather}
+    X_{Re}(\nu) = \sum_{k = 0}^{N - 1} x_{2 k} [ \cos(2 \pi \nu \Delta t (2 k)) + \cos(2 \pi \nu \Delta t (2 k + 1) ].
+\end{gather}
+
+Воспользуемся тригонометрическим тождеством
+
+\sd{10}
+\begin{gather}
+    \cos(\alpha) + \cos(\beta) = 2 \cos \frac{\alpha + \beta}{2} \cos \frac{\alpha - \beta}{2}
+\end{gather}
+
+и преобразуем \hl{9}:
+
+\hs{11}
+\begin{gather}
+\begin{split}
+    X_{Re}(\nu) &= 2 \sum_{k = 0}^{N - 1} x_{2 k} \cos\left( \frac{2 \pi \nu \Delta t (2k + 2k + 1)}{2} \right) \cos\left( \frac{2 \pi \nu \Delta t (2 k - 2 k - 1) }{2} \right) = \\
+    &= 2 \sum_{k = 0}^{N - 1} x_{2 k} \cos( \pi \nu \Delta t (4k + 1) ) \cos( \pi \nu \Delta t) = \\
+    &= 2 \cos( \pi \nu \Delta t) \sum_{k = 0}^{N - 1} x_{2 k} \cos( \pi \nu \Delta t (4k + 1) ).
+\end{split}
+\end{gather}
+
+Возведем \hl{11} в квадрат:
+
+\sd{12}\hep{12}{20}
+\begin{gather}
+    X_{Re}^2(\nu) = 4 \cos^2(\pi \nu \Delta t) \left[ \sum_{k = 0}^{N - 1} x_{2 k} \cos(\pi \nu \Delta t (4 k + 1) ) \right]^2.
+\end{gather}
+
+\subsubsection{Вычисление $ X_{Im}^2(\nu) $}
+
+Аналогично предыдущему пункту получим выражение для $ X_{Im}(\nu) $, используя следующее тригонометрическое тождество:
+
+\sd{13}
+\begin{gather}
+    \sin(\alpha) + \sin(\beta) = 2 \sin \frac{\alpha + \beta}{2} \cos \frac{\alpha - \beta}{2};
+\end{gather}
+
+\s{14}{-20}
+\begin{gather}
+    \begin{split}
+    X_{Im}(\nu) &= - \sum_{k = 0}^{N - 1} x_{2 k} [ \sin(2 \pi \nu (2 k) \Delta t) + \sin(2 \pi \nu (2 k + 1) \Delta t) ] = \\
+    &= - 2 \sum_{k = 0}^{N - 1} x_{2 k} \sin(\pi \nu \Delta t (4k + 1)) \cos(\pi \nu \Delta t) = \\
+    &= - 2 \cos(\pi \nu \Delta t) \sum_{k = 0}^{N - 1} x_{2 k} \sin(\pi \nu \Delta t (4k + 1)).
+    \end{split}
+\end{gather}
+
+Возводя результат в квадрат, получаем:
+
+\hs{15}
+\begin{gather}
+    X_{Im}^2(\nu) = 4 \cos^2(\pi \nu \Delta t) \left[ \sum_{k = 0}^{N - 1} x_{2 k} \sin(\pi \nu \Delta t (4 k + 1) ) \right]^2.
+\end{gather}
+
+\subsubsection{Вычисление $ D(\nu) $}
+
+Воспользуемся полученными выражениями \hl{12} и \hl{15} для вычисления \hl{8}:
+
+\hs{16}
+\begin{gather}
+\begin{split}
+    D(\nu) = \frac{\cos^2(\pi \nu \Delta t)}{N^2} & \left[ \left( \sum_{k = 0}^{N - 1} x_{2 k} \cos(\pi \nu \Delta t (4 k + 1)) \right)^2 + \right. \\
+    & \hspace{7pt} \left. \left( \sum_{k = 0}^{N - 1} x_{2 k} \sin(\pi \nu \Delta t (4 k + 1)) \right)^2\right].
+\end{split}
+\end{gather}
+
+\subsection{Поиск симметрии}
+
+Рассмотрим подробнее суммы в выражении \hl{16}. Введем следующие обозначения:
+
+\sd{17}
+\begin{gather}
+    S_{\cos}(\nu) \coloneqq \sum_{k = 0}^{N - 1} x_{2 k} \cos(\pi \nu \Delta t (4 k + 1));
+\end{gather}
+
+\sd{18}
+\begin{gather}
+    S_{\sin}(\nu) \coloneqq \sum_{k = 0}^{N - 1} x_{2 k} \sin(\pi \nu \Delta t (4 k + 1)).
+\end{gather}
+
+Проверим наличие симметрии относительно частоты $ 0.5 \nu_{c} $, где $ \nu_{c} $ -- частота Найквиста, равная $ 1 / (2 \Delta t) $:
+
+\sd{19}\hep{19}{16.5}
+\begin{gather}
+    \begin{split}
+    S_{\cos}(\nu_{c} - \nu) &= \sum_{k = 0}^{N - 1} x_{2 k} \cos(\pi (\nu_{c} - \nu) \Delta t (4 k + 1)) = \\
+    &= \sum_{k = 0}^{N - 1} x_{2 k} \cos(\frac{\pi}{2} (4 k + 1) - \pi \nu \Delta t (4 k + 1))
+    \end{split}
+\end{gather}
+
+\s{20}{-10}\hep{20}{6}
+\begin{gather}
+    \begin{split}
+    S_{\sin}(\nu_{c} - \nu) &= \sum_{k = 0}^{N - 1} x_{2 k} \sin(\pi (\nu_{c} - \nu) \Delta t (4 k + 1)) = \\
+    &= \sum_{k = 0}^{N - 1} x_{2 k} \sin(\frac{\pi}{2} (4 k + 1) - \pi \nu \Delta t (4 k + 1))
+    \end{split}
+\end{gather}
+
+Используя формулы приведения, упростим выражения \hl{19} и \hl{20}:
+
+\sd{21}
+\begin{gather}
+    S_{\cos}(\nu_{c} - \nu) = \sum_{k = 0}^{N - 1} x_{2 k} \sin(\pi \nu \Delta t (4 k + 1));
+\end{gather}
+
+\s{22}{-10}
+\begin{gather}
+    S_{\sin}(\nu_{c} - \nu) = \sum_{k = 0}^{N - 1} x_{2 k} \cos(\pi \nu \Delta t (4 k + 1)).
+\end{gather}
+
+Заметим следующее:
+
+\sd{23}
+\begin{gather}
+    S_{\cos}(\nu) = S_{\sin}(\nu_{c} - \nu);
+\end{gather}
+
+\s{24}{-20}
+\begin{gather}
+    S_{\sin}(\nu) = S_{\cos}(\nu_{c} - \nu).
+\end{gather}
+
+Отсюда:
+
+\sd{25}
+\begin{gather}
+    S_{\cos}^2(\nu) + S_{\sin}^2(\nu) = S_{\cos}^2(\nu_{c} - \nu) + S_{\sin}^2(\nu_{c} - \nu).
+\end{gather}
+
+Следовательно, значения, получаемые внутри квадратных скобок в выражении \hl{16}, симметричны относительно частоты, равной половине частоты Найквиста. \par
+
+\vspace{\baselineskip}
+
+Однако значения $ D(\nu) $ на частотах $ \nu $ и $ \nu_{c} - \nu $ не будут совпадать полностью вследствие наличия множителя $ \cos^2(\pi \nu \Delta t) / N^2 $, также зависящего от частоты $ \nu $. Это значит, что пики, имеющиеся на частотах меньших половины частоты Найквиста, будут отражены на симметричных относительно нее частотах с меньшей высотой. \par
+
+\vspace{\baselineskip}
+
+Множитель изменения высоты пика можно вычислить как
+
+\sd{26}
+\begin{gather}
+    \Gamma = \frac{\cos^2(\pi (\nu_{c} - \nu) \Delta t) }{\cos^2(\pi \nu \Delta t) } = \frac{\sin^2(\pi \nu \Delta t) }{\cos^2(\pi \nu \Delta t) }.
+\end{gather}
+
+\end{document}
+
