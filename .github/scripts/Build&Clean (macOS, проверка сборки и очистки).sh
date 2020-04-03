@@ -31,7 +31,7 @@ function check_if_succeeded {
 cd Программа/
 
 # Замена текущего make-файла на версию для gmake
-cp ../Make-файлы/gmake Makefile
+mv -f Make-файлы/gmake Makefile
 
 # Проверка на удачную сборку
 check_if_succeeded "gmake"
