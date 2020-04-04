@@ -1,5 +1,5 @@
 [![](https://img.shields.io/badge/GitHub-Paveloom/C3-5DA399.svg)](https://github.com/Paveloom/) [![](https://img.shields.io/badge/license-Unlicense-5DA399.svg)](https://github.com/Paveloom/C3/blob/master/LICENSE.md) <br>
-[![](https://img.shields.io/badge/release-v1.2.1-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.2.1) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC9) [![](https://img.shields.io/badge/requires-python%203.7%2B-critical.svg)](https://www.python.org/downloads/)
+[![](https://img.shields.io/badge/release-v1.3.0-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.3.0) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC9) [![](https://img.shields.io/badge/requires-python%203.7%2B-critical.svg)](https://www.python.org/downloads/)
 
 # Описание
 
