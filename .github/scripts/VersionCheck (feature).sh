@@ -140,6 +140,7 @@ fi
 # Запуск указанных проверок
 run_version_checks
 
+# Проверка числа ошибок
 if [ "$ERROR_COUNT" -gt 0 ]; then
 
      printf "\nЧисло ошибок: $ERROR_COUNT\n\n"
