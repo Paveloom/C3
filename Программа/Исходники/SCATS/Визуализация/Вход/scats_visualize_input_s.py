@@ -78,7 +78,7 @@ rcP["text.usetex"] = True
 
 ## Включение поддержки русского языка
 rcP["text.latex.preamble"] = [r'\usepackage[main=russian,english]{babel}',
-                              r'\usepackage{cmsrb}']
+                              r'\usepackage{cmlgc}']
 
 ## Установка семейства шрифтов для текста внутри математической моды
 rcP['mathtext.fontset'] = 'cm'
@@ -94,7 +94,7 @@ lines = []
 
 ## Считывание строк с данными
 with open(input_name) as f:
-    for line in islice(f, 7, 11, 3):
+    for line in islice(f, 10, 14, 3):
         lines.append(line)
 
 ## Получение значений массива времени
@@ -125,9 +125,6 @@ if use_ylim:
 ## Добавление названий осей
 plt.xlabel(r'\textrm{Время}')
 plt.ylabel(r'\textrm{Значения ряда}')
-
-## Показ графика
-plt.show()
 
 ## Сохранение фигуры
 if use_basename:

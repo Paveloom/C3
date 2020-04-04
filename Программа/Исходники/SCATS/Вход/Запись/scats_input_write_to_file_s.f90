@@ -27,6 +27,10 @@ implicit none
           write( unit, '(a)' ) 'Шаг выборки'
           write( unit, '('//RF//', /)' ) input%delta_t
 
+          ! Запись уровня значимости
+          write( unit, '(a)' ) 'Уровень значимости'
+          write( unit, '('//RF//', /)' ) input%q
+
           ! Запись массива времени
           write( unit, '(a)' ) 'Массив времени'
           write( unit, '(*('//RF//', 3x))' ) input%t
@@ -35,7 +39,6 @@ implicit none
           ! Запись массива значений
           write( unit, '(a)' ) 'Массив значений'
           write( unit, '(*('//RF//', 3x))') input%x
-          write( unit, '()')
 
           ! Закрытие файла
           close( unit = unit, iostat = stat )

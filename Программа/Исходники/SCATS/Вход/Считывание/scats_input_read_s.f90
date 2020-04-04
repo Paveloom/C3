@@ -36,6 +36,13 @@ implicit none
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
+          ! Считывание уровня значимости
+          read( unit = unit, fmt = *, iostat = stat ) input%q
+          if ( stat .ne. 0_SP ) call scats_input_log_error('WR_q', file)
+
+          ! Пропуск двух строк
+          read( unit = unit, fmt = '(/)' )
+
           ! Проверка, выделена ли память под массив времени
           if ( allocated(input%t) ) then
 

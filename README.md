@@ -1,5 +1,5 @@
 [![](https://img.shields.io/badge/GitHub-Paveloom/C3-5DA399.svg)](https://github.com/Paveloom/) [![](https://img.shields.io/badge/license-Unlicense-5DA399.svg)](https://github.com/Paveloom/C3/blob/master/LICENSE.md) <br>
-[![](https://img.shields.io/badge/release-v1.2.1-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.2.1) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC9) [![](https://img.shields.io/badge/requires-python%203.7%2B-critical.svg)](https://www.python.org/downloads/)
+[![](https://img.shields.io/badge/release-v1.3.0-informational.svg)](https://github.com/Paveloom/C3/releases/tag/v1.3.0) [![](https://img.shields.io/badge/platforms-linux,%20macOS-3E6680.svg)](#) [![](https://img.shields.io/badge/requires-gcc%209.1%2B-critical.svg)](https://gcc.gnu.org/wiki/GFortran/News#GCC9) [![](https://img.shields.io/badge/requires-python%203.7%2B-critical.svg)](https://www.python.org/downloads/)
 
 # Описание
 
@@ -14,7 +14,7 @@
 
 Полный список доступных к вызову процедур изображен на [mind-карте интерфейса](https://github.com/Paveloom/C3/blob/master/Mind-карты/SCATS%20API/SCATS%20API.svg).
 
-[Другие варианты make-файлов](https://github.com/Paveloom/C3/tree/master/Make-файлы), [mind-карты](https://github.com/Paveloom/C3/tree/master/Mind-карты) используемых типов, а также [архивы](https://github.com/Paveloom/C3/tree/master/Архивы) с программой, пакетами make-файлов и mind-карт расположены в одноименных директориях. Книга, на основе которой были описаны процедуры этого модуля, доступна к скачиванию / просмотру [здесь](https://github.com/Paveloom/C3/blob/master/Материалы/В.%20В.%20Витязев%20—%20Спектрально-корреляционный%20анализ%20равномерных%20временных%20рядов.pdf).
+[Другие варианты make-файлов](https://github.com/Paveloom/C3/tree/master/Программа/Make-файлы), [mind-карты](https://github.com/Paveloom/C3/tree/master/Mind-карты) используемых типов, а также [архивы](https://github.com/Paveloom/C3/tree/master/Архивы) с программой, пакетами make-файлов и mind-карт расположены в одноименных директориях. Книга, на основе которой были описаны процедуры этого модуля, доступна к скачиванию / просмотру [здесь](https://github.com/Paveloom/C3/blob/master/Материалы/В.%20В.%20Витязев%20—%20Спектрально-корреляционный%20анализ%20равномерных%20временных%20рядов.pdf).
 
 # Использование
 
@@ -29,5 +29,7 @@
 Сборка и запуск из папки с программой производятся с помощью команды _``make``_. Удаление исполняемого файла и объектных файлов из папки [Объектники](https://github.com/Paveloom/C3/tree/master/Программа/Объектники) выполняется с помощью команды _``make clean``_.
 
 Сниппет зависимостей расположен в текущем [make-файле](https://github.com/Paveloom/C3/blob/master/Программа/Makefile?ts=5).
+
+Пример использования модуля для выполнения упражнения, а также соответствующий отчет, расположены в одноименной [директории](https://github.com/Paveloom/C3/tree/master/Упражнение).
 
 Автор: [Павел Соболев](http://paveloom.tk).

@@ -24,10 +24,19 @@ function check_debugging {
 
 }
 
+# Определение функции проверок
+function run_debugging_checks {
+
+   check_debugging "Программа/Makefile"
+   check_debugging "Программа/Make-файлы/gfortran-9"
+   check_debugging "Программа/Make-файлы/gmake"
+
+   check_debugging "Упражнение/Программа/Makefile"
+
+}
+
 # Проверка make-файлов
-check_debugging "Программа/Makefile"
-check_debugging "Make-файлы/gfortran-9"
-check_debugging "Make-файлы/gmake"
+run_debugging_checks
 
 # Проверка числа ошибок
 if [ "$ERROR_COUNT" -gt 0 ]; then

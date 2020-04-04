@@ -93,6 +93,7 @@ function run_version_checks {
      version_check_zip_svg "Архивы/Mind-карты.zip" "Mind-карты/SCATS API/SCATS API.svg"
 
      check_module_version "Программа/Исходники/SCATS/scats.f90"
+     check_module_version "Упражнение/Программа/Исходники/SCATS/scats.f90"
 
 }
 
@@ -139,6 +140,7 @@ fi
 # Запуск указанных проверок
 run_version_checks
 
+# Проверка числа ошибок
 if [ "$ERROR_COUNT" -gt 0 ]; then
 
      printf "\nЧисло ошибок: $ERROR_COUNT\n\n"

@@ -36,6 +36,7 @@ output_name = str(argv[3])
 title = str(argv[4])
 xlim = str(argv[5])
 ylim = str(argv[6])
+show_sigma = str(argv[7])
 
 # Настройки по умолчанию для выходной фигуры
 if output_name == '-0-':
@@ -117,7 +118,7 @@ rcP["text.usetex"] = True
 
 ## Включение поддержки русского языка
 rcP["text.latex.preamble"] = [r'\usepackage[main=russian,english]{babel}',
-                              r'\usepackage{cmsrb}']
+                              r'\usepackage{cmlgc}']
 
 ## Установка семейства шрифтов для текста внутри математической моды
 rcP['mathtext.fontset'] = 'cm'
@@ -198,7 +199,7 @@ f = plt.figure()
 plt.plot(x, y, color="#425378")
 
 ## Добавление порога обнаружения сигнала
-if stage == 'per':
+if stage == 'per' and show_sigma == 'True':
     plt.axhline(y=threshold, color="#635D9E", alpha=0.5, linestyle="--")
     plt.text(x[-1] * 0.915, threshold * 1.075, r'\textrm{' + str((1 - q) * 100) + '\%}', fontsize=12)
 
@@ -216,9 +217,6 @@ if use_ylim:
 ## Добавление названий осей
 plt.xlabel(r'\textrm{' + xlabel + '}')
 plt.ylabel(r'\textrm{' + ylabel + '}')
-
-## Показ графика
-plt.show()
 
 ## Сохранение фигуры
 if custom_path:
