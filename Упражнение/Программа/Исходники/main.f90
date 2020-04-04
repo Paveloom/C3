@@ -146,6 +146,9 @@ implicit none
      ! Запись результата в файл
      call s%result%write('Файлы/Данные/result_noise')
 
+     ! Визуализации исходного ряда с добавленным шумом
+     call s%visualize%result('Файлы/Данные/result_noise', stage='data', output_file="Фигуры/input_noise")
+
      ! Визуализация периодограммы
      call s%visualize%result('Файлы/Данные/result_noise', stage='per', output_file="Фигуры/periodogram_noise")
 
