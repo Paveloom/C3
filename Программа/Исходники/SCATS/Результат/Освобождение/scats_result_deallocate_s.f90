@@ -12,7 +12,7 @@ implicit none
           if ( allocated(result%t) ) then
 
                deallocate( result%t, stat = stat )
-               if ( stat .ne. 0_SP ) call result%log('WD_t')
+               if ( stat .ne. 0_SP ) call scats_result_log_error('WD_t')
 
           endif
 
@@ -20,7 +20,7 @@ implicit none
           if ( allocated(result%x) ) then
 
                deallocate( result%x, stat = stat )
-               if ( stat .ne. 0_SP ) call result%log('WD_x')
+               if ( stat .ne. 0_SP ) call scats_result_log_error('WD_x')
 
           endif
 
@@ -28,7 +28,7 @@ implicit none
           if ( allocated(result%X_FFT_ABS) ) then
 
                deallocate( result%X_FFT_ABS, stat = stat )
-               if ( stat .ne. 0_SP ) call result%log('WD_X_FFT_ABS')
+               if ( stat .ne. 0_SP ) call scats_result_log_error('WD_X_FFT_ABS')
 
           endif
 
@@ -36,7 +36,7 @@ implicit none
           if ( allocated(result%v) ) then
 
                deallocate( result%v, stat = stat )
-               if ( stat .ne. 0_SP ) call result%log('WD_v')
+               if ( stat .ne. 0_SP ) call scats_result_log_error('WD_v')
 
           endif
 
@@ -44,7 +44,7 @@ implicit none
           if ( allocated(result%D) ) then
 
                deallocate( result%D, stat = stat )
-               if ( stat .ne. 0_SP ) call result%log('WD_D')
+               if ( stat .ne. 0_SP ) call scats_result_log_error('WD_D')
 
           endif
 
@@ -52,7 +52,7 @@ implicit none
           if ( allocated(result%c) ) then
 
                deallocate( result%c, stat = stat )
-               if ( stat .ne. 0_SP ) call result%log('WD_c')
+               if ( stat .ne. 0_SP ) call scats_result_log_error('WD_c')
 
           endif
 
@@ -60,7 +60,7 @@ implicit none
           if ( allocated(result%cw) ) then
 
                deallocate( result%cw, stat = stat )
-               if ( stat .ne. 0_SP ) call result%log('WD_cw')
+               if ( stat .ne. 0_SP ) call scats_result_log_error('WD_cw')
 
           endif
 
@@ -68,7 +68,7 @@ implicit none
           if ( allocated(result%Dw) ) then
 
                deallocate( result%Dw, stat = stat )
-               if ( stat .ne. 0_SP ) call result%log('WD_Dw')
+               if ( stat .ne. 0_SP ) call scats_result_log_error('WD_Dw')
 
           endif
 

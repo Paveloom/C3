@@ -38,28 +38,28 @@ implicit none
 
           procedure :: read => scats_gen_params_read ! Процедура для считывания параметров для генерации временного ряда
           procedure :: deallocate => scats_gen_params_deallocate ! Процедура для освобождения памяти из-под параметров
-          procedure, private :: log => scats_gen_params_log_error ! Процедура для вывода ошибок (параметры генерации временного ряда)
 
      end type gen_params_type
 
      interface
 
           ! Процедура для считывания параметров для генерации временного ряда
-          module impure subroutine scats_gen_params_read(gen_params, file)
+          module impure subroutine scats_gen_params_read(gen_params, file, call_stat)
           implicit none
 
                class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
+
                character(*), intent(in) :: file ! Имя файла для считывания
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
 
           end subroutine scats_gen_params_read
 
           ! Процедура для вывода ошибок (параметры генерации временного ряда)
-          module impure subroutine scats_gen_params_log_error(gen_params, error_code, file)
+          module impure subroutine scats_gen_params_log_error(error_code, call_stat, file)
           implicit none
 
-               class ( gen_params_type ), intent(inout) :: gen_params ! Параметры
-
-               character(*), intent(in) :: error_code     ! Код ошибки
+               character(*), intent(in) :: error_code ! Код ошибки
+               logical, intent(inout), optional :: call_stat ! Статусная переменная процедуры
                character(*), intent(in), optional :: file ! Имя файла для считывания
 
           end subroutine scats_gen_params_log_error

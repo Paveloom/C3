@@ -12,8 +12,8 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_result_log_error:', 'Не удалось получить доступ к файлу '//file//'&
                                                                                  & для записи.'
-                    call result%deallocate()
-                    stop
+                    call_stat = .true.
+                    return
 
                case ('WD_t')
 
@@ -67,22 +67,22 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_result_log_error:', 'Массив времени не был размещен.&
                                                                                  & Запись невозможна.'
-                    call result%deallocate()
-                    stop
+                    call_stat = .true.
+                    return
 
                case ('NA_x')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_result_log_error:', 'Массив значений не был размещен.&
                                                                                  & Запись невозможна.'
-                    call result%deallocate()
-                    stop
+                    call_stat = .true.
+                    return
 
                case ('WС')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_result_log_error:', 'Не удалось закрыть файл '//file//'&
                                                                                  & после записи.'
-                    call result%deallocate()
-                    stop
+                    call_stat = .true.
+                    return
 
                case default
 

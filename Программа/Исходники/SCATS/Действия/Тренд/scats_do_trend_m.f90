@@ -15,11 +15,13 @@ implicit none
      interface
 
           ! Процедура для удаления линейного тренда из входных данных
-          module impure subroutine scats_do_trend_remove_linear_trend(input, result)
+          module impure subroutine scats_do_trend_remove_linear_trend(input, result, call_stat)
           implicit none
 
                type( input_type ), intent(inout) :: input ! Входные данные
                type( result_type ), intent(inout) :: result ! Результат
+
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
 
           end subroutine scats_do_trend_remove_linear_trend
 

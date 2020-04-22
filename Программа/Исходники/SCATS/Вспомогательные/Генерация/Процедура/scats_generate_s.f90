@@ -7,7 +7,11 @@ implicit none
      module procedure scats_generate
 
           ! Ответы на вопросы
-          logical(kind(.true.)) :: q1, q2
+          logical :: q1, q2
+
+          ! Статусная переменная процедуры
+          logical :: call_stat
+          call_stat = .false.
 
           ! Проверка, указан ли аргумент add_trend
           if ( .not. present(add_trend) ) then
@@ -32,7 +36,14 @@ implicit none
           endif
 
           ! Вызов процедуры для генерации временного ряда
-          call s%gen%generate(s%input, q1, q2)
+          call s%gen%generate(s%input, q1, q2, call_stat)
+
+          if ( call_stat ) then
+
+               call s%deallocate()
+               stop
+
+          endif
 
      end procedure scats_generate
 

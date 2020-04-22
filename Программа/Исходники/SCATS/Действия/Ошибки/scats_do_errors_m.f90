@@ -10,13 +10,12 @@ implicit none
      interface
 
           ! Процедура для вывода ошибок (действия)
-          module subroutine scats_do_errors_log_error(error_code, input, result)
+          module subroutine scats_do_errors_log_error(error_code, call_stat)
           implicit none
 
                character(*), intent(in) :: error_code ! Код ошибки
 
-               type( input_type ), intent(inout), optional :: input ! Входные данные
-               type( result_type ), intent(inout), optional :: result ! Результат
+               logical, intent(inout) :: call_stat ! Статусная переменная
 
           end subroutine scats_do_errors_log_error
 

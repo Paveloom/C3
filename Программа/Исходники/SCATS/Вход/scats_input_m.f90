@@ -31,9 +31,6 @@ implicit none
           ! Процедура для записи входных данных в файл
           procedure :: write => scats_input_write_to_file
 
-          ! Процедура для вывода ошибок (входные данные)
-          procedure, private :: log => scats_input_log_error
-
      end type input_type
 
      interface
@@ -47,30 +44,35 @@ implicit none
           end subroutine scats_input_deallocate
 
           ! Процедура для вывода ошибок (входные данные)
-          module impure subroutine scats_input_log_error(input, error_code, file)
+          module impure subroutine scats_input_log_error(error_code, file, call_stat)
           implicit none
 
-               class( input_type ), intent(inout) :: input ! Входные данные
                character(*), intent(in) :: error_code ! Код ошибки
                character(*), intent(in), optional :: file ! Имя файла для записи
+
+               logical, intent(inout), optional :: call_stat ! Логическая переменная процедуры
 
           end subroutine scats_input_log_error
 
           ! Процедура для считывания входных данных
-          module impure subroutine scats_input_read(input, file)
+          module impure subroutine scats_input_read(input, file, call_stat)
           implicit none
 
                class( input_type ), intent(inout) :: input ! Входные данные
                character(*), intent(in) :: file ! Файл для записи
+
+               logical, intent(inout) :: call_stat ! Логическая переменная процедуры
 
           end subroutine scats_input_read
 
           ! Процедура для записи входных данных в файл
-          module impure subroutine scats_input_write_to_file(input, file)
+          module impure subroutine scats_input_write_to_file(input, file, call_stat)
           implicit none
 
                class( input_type ), intent(inout) :: input ! Входные данные
                character(*), intent(in) :: file ! Файл для записи
+
+               logical, intent(inout) :: call_stat ! Логическая переменная процедуры
 
           end subroutine scats_input_write_to_file
 

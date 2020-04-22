@@ -13,11 +13,11 @@ implicit none
 
           ! Открытие файла
           open( newunit = unit, file = file, action = 'write', status = 'replace', iostat = stat)
-          if ( stat .ne. 0_SP ) call result%log('WO', file)
+          if ( stat .ne. 0_SP ) then; call scats_result_log_error('WO', file, call_stat); return; endif
 
           ! Проверка, выделена ли памяти под массивы результата
-          if ( .not. allocated(result%t) ) call result%log('NA_t', file)
-          if ( .not. allocated(result%x) ) call result%log('NA_x', file)
+          if ( .not. allocated(result%t) ) then; call scats_result_log_error('NA_t', file, call_stat); return; endif
+          if ( .not. allocated(result%x) ) then; call scats_result_log_error('NA_x', file, call_stat); return; endif
 
           ! Запись размера выборки
           write( unit, '(a)' ) 'Размер выборки'
@@ -105,7 +105,7 @@ implicit none
 
           ! Закрытие файла
           close( unit = unit, iostat = stat )
-          if ( stat .ne. 0_SP ) call result%log('WC', file) ! Проверка на ошибку закрытия файла
+          if ( stat .ne. 0_SP ) then; call scats_result_log_error('WC', file, call_stat); return; endif
 
      end procedure scats_result_write_to_file
 

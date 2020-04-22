@@ -21,7 +21,7 @@ implicit none
           if ( present(input) ) then
 
                ! Проверка, совпадают ли формы входных данных и результата
-               call scats_do_check(input, result)
+               call scats_do_check(input, result, call_stat)
 
                ! Копирование данных из результата
                result%q = input%q
@@ -32,34 +32,8 @@ implicit none
           else
 
                ! Проверка, выделена ли память под массив значений
-               if ( .not. allocated(result%t) ) then
-
-                    if ( present(input) ) then
-
-                         call scats_do_errors_log_error('NA_t', input, result)
-
-                    else
-
-                         call scats_do_errors_log_error('NA_t', result=result)
-
-                    endif
-
-               endif
-
-
-               if ( .not. allocated(result%x) ) then
-
-                    if ( present(input) ) then
-
-                         call scats_do_errors_log_error('NA_x', input, result)
-
-                    else
-
-                         call scats_do_errors_log_error('NA_x', result=result)
-
-                    endif
-
-               endif
+               if ( .not. allocated(result%t) ) then; call scats_do_errors_log_error('NA_t', call_stat); return; endif
+               if ( .not. allocated(result%x) ) then; call scats_do_errors_log_error('NA_x', call_stat); return; endif
 
           endif
 
@@ -82,19 +56,7 @@ implicit none
 
           ! Выделение памяти под массив комплексных значений преобразования Фурье
           allocate( X_FFT(0_JP:N_2_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) then
-
-               if ( present(input) ) then
-
-                    call scats_do_errors_log_error('WA_X_FFT', input, result)
-
-               else
-
-                    call scats_do_errors_log_error('WA_X_FFT', result=result)
-
-               endif
-
-          endif
+          if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_X_FFT', call_stat); return; endif
 
           ! Проверка, выделена ли память под модуль преобразованных значений
           if ( allocated(result%X_FFT_ABS) ) then
@@ -103,35 +65,11 @@ implicit none
 
                     ! Освобождение памяти из-под модуля преобразованных значений
                     deallocate( result%X_FFT_ABS, stat = stat )
-                    if ( stat .ne. 0_SP ) then
-
-                         if ( present(input) ) then
-
-                              call scats_do_errors_log_error('WD_X_FFT_ABS', input, result)
-
-                         else
-
-                              call scats_do_errors_log_error('WD_X_FFT_ABS', result=result)
-
-                         endif
-
-                    endif
+                    if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WD_X_FFT_ABS', call_stat); return; endif
 
                     ! Выделение памяти под модуль преобразованных значений
                     allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) then
-
-                         if ( present(input) ) then
-
-                              call scats_do_errors_log_error('WA_X_FFT_ABS', input, result)
-
-                         else
-
-                              call scats_do_errors_log_error('WA_X_FFT_ABS', result=result)
-
-                         endif
-
-                    endif
+                    if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_X_FFT_ABS', call_stat); return; endif
 
                     ! Копирование вещественного массива значений
                     X_FFT(0_JP:N_m1_JP)%re = result%x(0:)
@@ -150,19 +88,7 @@ implicit none
 
                ! Выделение памяти под модуль преобразованных значений
                allocate( result%X_FFT_ABS(0_JP:N_2_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) then
-
-                    if ( present(input) ) then
-
-                         call scats_do_errors_log_error('WA_X_FFT_ABS', input, result)
-
-                    else
-
-                         call scats_do_errors_log_error('WA_X_FFT_ABS', result=result)
-
-                    endif
-
-               endif
+               if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_X_FFT_ABS', call_stat); return; endif
 
                ! Копирование вещественного массива значений
                X_FFT(0_JP:N_m1_JP)%re = result%x(0:)
@@ -191,35 +117,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений коррелограммы
                     deallocate( result%c, stat = stat )
-                    if ( stat .ne. 0_SP ) then
-
-                         if ( present(input) ) then
-
-                              call scats_do_errors_log_error('WD_c', input, result)
-
-                         else
-
-                              call scats_do_errors_log_error('WD_c', result=result)
-
-                         endif
-
-                    endif
+                    if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WD_c', call_stat); return; endif
 
                     ! Выделение памяти под массив значений коррелограммы
                     allocate( result%c(0_JP:N_m1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) then
-
-                         if ( present(input) ) then
-
-                              call scats_do_errors_log_error('WA_c', input, result)
-
-                         else
-
-                              call scats_do_errors_log_error('WA_c', result=result)
-
-                         endif
-
-                    endif
+                    if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_c', call_stat); return; endif
 
                endif
 
@@ -227,19 +129,7 @@ implicit none
 
                ! Выделение памяти под массив значений коррелограммы
                allocate( result%c(0_JP:N_m1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) then
-
-                    if ( present(input) ) then
-
-                         call scats_do_errors_log_error('WA_c', input, result)
-
-                    else
-
-                         call scats_do_errors_log_error('WA_c', result=result)
-
-                    endif
-
-               endif
+               if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_c', call_stat); return; endif
 
           endif
 
@@ -248,19 +138,7 @@ implicit none
 
           ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
           deallocate( X_FFT, stat = stat )
-          if ( stat .ne. 0_SP ) then
-
-               if ( present(input) ) then
-
-                    call scats_do_errors_log_error('WD_X_FFT', input, result)
-
-               else
-
-                    call scats_do_errors_log_error('WD_X_FFT', result=result)
-
-               endif
-
-          endif
+          if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WD_X_FFT', call_stat); return; endif
 
      end procedure scats_do_correlogram_calculate
 

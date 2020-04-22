@@ -7,13 +7,13 @@ implicit none
      type( SCATS_API ) :: s
 
      ! Считывание параметров для генерации временного ряда
-     call s%gen%params%read("Файлы/gen_params")
+     call s%read_params("Файлы/gen_params")
 
      ! Генерация входных данных (во внутренний объект)
      call s%generate()
 
      ! Запись временного ряда в файл
-     call s%input%write('Файлы/input')
+     call s%write_input('Файлы/input')
 
      ! Визуализация входных данных
      call s%visualize%input('Файлы/input')
@@ -34,7 +34,7 @@ implicit none
      call s%calc_w_per()
 
      ! Запись результата в файл
-     call s%result%write('Файлы/result')
+     call s%write_result('Файлы/result')
 
      ! Визуализация временного ряда после извлечения тренда
      call s%visualize%result('Файлы/result', stage='data',&
