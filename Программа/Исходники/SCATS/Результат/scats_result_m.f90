@@ -39,13 +39,18 @@ implicit none
           ! Процедура для записи результата в файл
           procedure :: write => scats_result_write_to_file
 
+          ! Процедура для вывода ошибок (результат)
+          procedure, private :: log => scats_result_log_error
+
      end type result_type
 
      interface
 
           ! Процедура для вывода ошибок (результат)
-          module impure subroutine scats_result_log_error(error_code, file)
+          module impure subroutine scats_result_log_error(result, error_code, file)
           implicit none
+
+               class( result_type ), intent(inout) :: result ! Результат
 
                character(*), intent(in) :: error_code ! Код ошибки
                character(*), intent(in), optional :: file ! Файл для записи
@@ -64,7 +69,7 @@ implicit none
           module impure subroutine scats_result_write_to_file(result, file)
           implicit none
 
-               class( result_type ), intent(in) :: result ! Результат
+               class( result_type ), intent(inout) :: result ! Результат
                character(*), intent(in) :: file ! Файл для записи
 
           end subroutine scats_result_write_to_file

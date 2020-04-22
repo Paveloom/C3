@@ -25,13 +25,19 @@ implicit none
           ! Процедура для вызова генератора временного ряда
           procedure :: generate => scats_gen_generate
 
+          ! Процедура для вывода ошибок (генерация)
+          procedure, private :: log => scats_gen_log_error
+
      end type gen_type
 
      interface
 
           ! Процедура для вывода ошибок (генерация)
-          module impure subroutine scats_gen_log_error(error_code)
+          module impure subroutine scats_gen_log_error(gen, input, error_code)
           implicit none
+
+               class(gen_type), intent(inout) :: gen ! Экземпляр API генератора
+               type(input_type), intent(inout) :: input ! Входные данные
 
                character(*), intent(in) :: error_code ! Код ошибки
 
@@ -50,7 +56,7 @@ implicit none
           module impure subroutine scats_gen_generate(gen, input, add_trend, add_noise)
           implicit none
 
-               class(gen_type), intent(in) :: gen ! Экземпляр API генератора
+               class(gen_type), intent(inout) :: gen ! Экземпляр API генератора
                type(input_type), intent(inout) :: input ! Входные данные
 
                logical(kind(.true.)), intent(in) :: add_trend ! Добавлять тренд?

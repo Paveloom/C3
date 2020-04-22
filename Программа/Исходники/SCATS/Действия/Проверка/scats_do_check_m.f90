@@ -18,7 +18,7 @@ implicit none
           module impure subroutine scats_do_check(input, result)
           implicit none
 
-               type( input_type ), intent(in) :: input ! Входные данные
+               type( input_type ), intent(inout) :: input ! Входные данные
                type( result_type ), intent(inout) :: result ! Результат
 
           end subroutine scats_do_check

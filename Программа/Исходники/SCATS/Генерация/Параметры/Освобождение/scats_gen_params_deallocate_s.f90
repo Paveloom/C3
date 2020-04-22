@@ -12,7 +12,7 @@ implicit none
           if ( allocated(gen_params%A) ) then
 
                deallocate( gen_params%A, stat = stat )
-               if ( stat .ne. 0_SP ) call scats_gen_params_log_error('WD_A')
+               if ( stat .ne. 0_SP ) call gen_params%log('WD_A')
 
           endif
 
@@ -20,7 +20,7 @@ implicit none
           if ( allocated(gen_params%v) ) then
 
                deallocate( gen_params%v, stat = stat )
-               if ( stat .ne. 0_SP ) call scats_gen_params_log_error('WD_v')
+               if ( stat .ne. 0_SP ) call gen_params%log('WD_v')
 
           endif
 
@@ -28,7 +28,7 @@ implicit none
           if ( allocated(gen_params%phi) ) then
 
                deallocate( gen_params%phi, stat = stat )
-               if ( stat .ne. 0_SP ) call scats_gen_params_log_error('WD_phi')
+               if ( stat .ne. 0_SP ) call gen_params%log('WD_phi')
 
           endif
 

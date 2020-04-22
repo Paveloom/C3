@@ -12,6 +12,7 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось получить доступ к файлу '//file//'&
                                                                                 & для чтения или записи.'
+                    call input%deallocate()
                     stop
 
                case ('WR_N')
@@ -19,6 +20,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось считать значение размера выборки в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
+                    call input%deallocate()
                     stop
 
                case ('WR_delta_t')
@@ -26,6 +28,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось считать значение шага выборки в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
+                    call input%deallocate()
                     stop
 
                case ('WR_q')
@@ -33,6 +36,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось считать значение уровня значимости в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
+                    call input%deallocate()
                     stop
 
                case ('WR_t')
@@ -40,6 +44,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось считать значения массива времени в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
+                    call input%deallocate()
                     stop
 
                case ('WR_x')
@@ -47,18 +52,21 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось считать значения массива значений в&
                                                                                 & файле '//file//'. Проверьте правильность&
                                                                                 & введенных данных.'
+                    call input%deallocate()
                     stop
 
                case ('WA_t')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось выделить память под массив времени&
                                                                                 & для объекта типа input_type.'
+                    call input%deallocate()
                     stop
 
                case ('WA_x')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось выделить память под массив значений&
                                                                                 & для объекта типа input_type.'
+                    call input%deallocate()
                     stop
 
                case ('WD_t')
@@ -77,18 +85,21 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Массив времени не был размещен.&
                                                                                 & Запись невозможна.'
+                    call input%deallocate()
                     stop
 
                case ('NA_x')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Массив значений не был размещен.&
                                                                                 & Запись невозможна.'
+                    call input%deallocate()
                     stop
 
                case ('WС')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_input_log_error:', 'Не удалось закрыть файл '//file//'&
                                                                                 & для чтения или записи.'
+                    call input%deallocate()
                     stop
 
                case default

@@ -12,7 +12,7 @@ implicit none
           if ( allocated(input%t) ) then
 
                deallocate( input%t, stat = stat )
-               if ( stat .ne. 0_SP ) call scats_input_log_error('WD_t')
+               if ( stat .ne. 0_SP ) call input%log('WD_t')
 
           endif
 
@@ -20,7 +20,7 @@ implicit none
           if ( allocated(input%x) ) then
 
                deallocate( input%x, stat = stat )
-               if ( stat .ne. 0_SP ) call scats_input_log_error('WD_x')
+               if ( stat .ne. 0_SP ) call input%log('WD_x')
 
           endif
 

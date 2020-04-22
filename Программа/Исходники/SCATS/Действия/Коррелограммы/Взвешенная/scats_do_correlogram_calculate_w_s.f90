@@ -20,16 +20,16 @@ implicit none
           integer(SP) :: stat ! Статусная переменная
 
           ! Проверка, выделена ли память под массив времени
-          if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
+          if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t', result=result)
 
           ! Проверка, выделена ли память под массив значений коррелограммы
-          if ( .not. allocated(result%c) ) call scats_do_errors_log_error('NA_c')
+          if ( .not. allocated(result%c) ) call scats_do_errors_log_error('NA_c', result=result)
 
           ! Проверка, допустимо ли значение фактора перед N
-          if ( nfactor .lt. 0.1_RP .or. nfactor .gt. 1.0_RP ) call scats_do_errors_log_error('W_nfactor')
+          if ( nfactor .lt. 0.1_RP .or. nfactor .gt. 1.0_RP ) call scats_do_errors_log_error('W_nfactor', result=result)
 
           ! Проверка, допустимо ли значение множителя a
-          if ( a .lt. 0._RP .or. a .gt. 0.25_RP ) call scats_do_errors_log_error('W_a')
+          if ( a .lt. 0._RP .or. a .gt. 0.25_RP ) call scats_do_errors_log_error('W_a', result=result)
 
           ! Вычисление числа N* и его конвертация
           N_s_JP = nint(real(size(result%t, kind=JP), kind=RP) * nfactor)
@@ -45,11 +45,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений взвешенной коррелограммы
                     deallocate( result%cw, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_cw')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_cw', result=result)
 
                     ! Выделение памяти под массив значений взвешенной коррелограммы
                     allocate( result%cw(0_JP:N_m1_s_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_cw')
+                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_cw', result=result)
 
                endif
 
@@ -57,7 +57,7 @@ implicit none
 
                ! Выделение памяти под массив значений взвешенной коррелограммы
                allocate( result%cw(0_JP:N_m1_s_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_cw')
+               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_cw', result=result)
 
           endif
 

@@ -31,6 +31,9 @@ implicit none
           ! Процедура для записи входных данных в файл
           procedure :: write => scats_input_write_to_file
 
+          ! Процедура для вывода ошибок (входные данные)
+          procedure, private :: log => scats_input_log_error
+
      end type input_type
 
      interface
@@ -39,14 +42,15 @@ implicit none
           module impure subroutine scats_input_deallocate(input)
           implicit none
 
-               class( input_type ), intent(inout) :: input
+               class( input_type ), intent(inout) :: input ! Входные данные
 
           end subroutine scats_input_deallocate
 
           ! Процедура для вывода ошибок (входные данные)
-          module impure subroutine scats_input_log_error(error_code, file)
+          module impure subroutine scats_input_log_error(input, error_code, file)
           implicit none
 
+               class( input_type ), intent(inout) :: input ! Входные данные
                character(*), intent(in) :: error_code ! Код ошибки
                character(*), intent(in), optional :: file ! Имя файла для записи
 
@@ -65,7 +69,7 @@ implicit none
           module impure subroutine scats_input_write_to_file(input, file)
           implicit none
 
-               class( input_type ), intent(in) :: input ! Входные данные
+               class( input_type ), intent(inout) :: input ! Входные данные
                character(*), intent(in) :: file ! Файл для записи
 
           end subroutine scats_input_write_to_file

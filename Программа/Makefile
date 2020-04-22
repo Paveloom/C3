@@ -198,8 +198,11 @@
                                          $(obj_path)scats_do_trend_m.o $(obj_path)scats_do_periodogram_m.o \
                                          $(obj_path)scats_do_correlogram_m.o
 
-                    # Процедура для вывода ошибок (действия)
-                    $(obj_path)scats_do_errors_log_error_s.o : $(obj_path)scats_do_errors_m.o
+                    # Вывод ошибок (действия)
+                    $(obj_path)scats_do_errors_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o
+
+                         # Процедура для вывода ошибок (действия)
+                         $(obj_path)scats_do_errors_log_error_s.o : $(obj_path)scats_do_errors_m.o
 
                     # Проверка на совпадение форм входных данных и результата
                     $(obj_path)scats_do_check_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \

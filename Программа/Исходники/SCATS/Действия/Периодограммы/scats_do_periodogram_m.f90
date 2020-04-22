@@ -23,7 +23,7 @@ implicit none
           implicit none
 
                type( result_type ), intent(inout) :: result ! Результат
-               type( input_type ), optional, intent(in) :: input ! Входные данные
+               type( input_type ), optional, intent(inout) :: input ! Входные данные
 
           end subroutine scats_do_periodogram_calculate
 
@@ -31,7 +31,7 @@ implicit none
           module impure subroutine scats_do_periodogram_calculate_w(result)
           implicit none
 
-               type( result_type ) :: result ! Результат
+               type( result_type ), intent(inout) :: result ! Результат
 
           end subroutine scats_do_periodogram_calculate_w
 

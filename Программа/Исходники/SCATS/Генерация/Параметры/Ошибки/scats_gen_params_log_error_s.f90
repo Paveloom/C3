@@ -12,6 +12,7 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось открыть файл '//file//'&
                                                                                      & для чтения.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_N')
@@ -19,6 +20,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение размера выборки в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_delta_t')
@@ -26,6 +28,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение шага выборки в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_q')
@@ -33,6 +36,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение уровня значимости в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_alpha')
@@ -40,6 +44,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение параметра alpha в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_beta')
@@ -47,6 +52,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение параметра beta в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_r')
@@ -54,12 +60,14 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение числа гармонических компонент в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WA_A')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось выделить память под массив амплитуд&
                                                                                      & для объекта типа gen_params_type.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_A')
@@ -67,6 +75,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значения массива амплитуд в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WD_A')
@@ -79,6 +88,7 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось выделить память под массив частот&
                                                                                      & для объекта типа gen_params_type.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_v')
@@ -86,6 +96,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значения массива частот в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WD_v')
@@ -98,6 +109,7 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось выделить память под массив фазовых сдвигов&
                                                                                      & для объекта типа gen_params_type.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WR_phi')
@@ -105,6 +117,7 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значения массива фазовых сдвигов в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WD_phi')
@@ -118,12 +131,14 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение отношения «сигнал к шуму» в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
+                    call gen_params%deallocate()
                     stop
 
                case ('WС')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось закрыть файл '//file//'&
                                                                                      & для чтения.'
+                    call gen_params%deallocate()
                     stop
 
                case default
