@@ -53,11 +53,14 @@
 
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -Warray-temporaries -Wcharacter-truncation -Wconversion-extra \
-                  -Wimplicit-interface -Wimplicit-procedure -Wintrinsics-std \
-                  -Wreal-q-constant -Wsurprising -Wunderflow -Walign-commons \
-                  -Wfunction-elimination -Wrealloc-lhs -Wrealloc-lhs-all \
-                  -fbacktrace -ffree-line-length-0 -fcheck=all \
-                  -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2018
+                  -Wimplicit-interface -Wimplicit-procedure -Wintrinsics-std -Wreal-q-constant \
+                  -Wsurprising -Wunderflow -Walign-commons -Wfunction-elimination -Wrealloc-lhs \
+                  -Wrealloc-lhs-all -Wstrict-overflow=2 -Wsuggest-attribute=pure -Wconversion \
+                  -Warray-bounds=2 -Wattribute-alias=2 -Wtrampolines -Wshadow -Wunsafe-loop-optimizations \
+                  -Wcast-align=strict -Wdate-time -Wvector-operation-performance -Wdisabled-optimization \
+                  -Wstack-protector -fstack-clash-protection -fstack-protector-all \
+                  -fbacktrace -ffree-line-length-0 -fcheck=all -ffpe-trap=invalid,zero,overflow,underflow \
+                  -pedantic-errors -std=f2018
 
      ## Флаги для финальной сборки
      opt_production := -Ofast -ffree-line-length-0
