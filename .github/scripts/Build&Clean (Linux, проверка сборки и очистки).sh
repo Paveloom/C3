@@ -53,7 +53,7 @@ fi
 cd ../Упражнение/Программа/
 
 # Смена текущего make-файла на make-файл для gfortran-9
-cp ../../Make-файлы/gfortran-9 Makefile
+cp ../../Программа/Make-файлы/gfortran-9 Makefile
 
 # Проверка на удачную сборку
 check_if_succeeded "make"
