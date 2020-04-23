@@ -18,21 +18,24 @@ implicit none
      interface
 
           ! Процедура для вычисления коррелограммы
-          module impure subroutine scats_do_correlogram_calculate(result, input)
+          module impure subroutine scats_do_correlogram_calculate(result, call_stat,  input)
           implicit none
 
                type( result_type ), intent(inout) :: result ! Результат
-               type( input_type ), optional, intent(in) :: input ! Входные данные
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
+               type( input_type ), optional, intent(inout) :: input ! Входные данные
 
           end subroutine scats_do_correlogram_calculate
 
           ! Процедура для вычисления взвешенной коррелограммы
-          module impure subroutine scats_do_correlogram_calculate_w(result, nfactor, a)
+          module impure subroutine scats_do_correlogram_calculate_w(result, nfactor, a, call_stat)
           implicit none
 
                type( result_type ), intent(inout) :: result ! Результат
                real(RP), intent(in) :: nfactor ! Множитель перед N (.ge. 0.1 .and. le. 1.0)
                real(RP), intent(in) :: a ! Множитель a весовой функции
+
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
 
           end subroutine scats_do_correlogram_calculate_w
 

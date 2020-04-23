@@ -15,11 +15,13 @@ implicit none
      interface
 
           ! Процедура для проверки на совпадение форм входных данных и результата
-          module impure subroutine scats_do_check(input, result)
+          module impure subroutine scats_do_check(input, result, call_stat)
           implicit none
 
-               type( input_type ), intent(in) :: input ! Входные данные
+               type( input_type ), intent(inout) :: input ! Входные данные
                type( result_type ), intent(inout) :: result ! Результат
+
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
 
           end subroutine scats_do_check
 

@@ -49,15 +49,18 @@
      pattern := f90
 
      ## Режим отладки (при значении true использует флаги opt_debug, при другом значении — opt_production)
-     debugging := false
+     debugging := true
 
      ## Флаги для отладки
      opt_debug := -Og -g -Wall -Wextra -Warray-temporaries -Wcharacter-truncation -Wconversion-extra \
-                  -Wimplicit-interface -Wimplicit-procedure -Wintrinsics-std \
-                  -Wreal-q-constant -Wsurprising -Wunderflow -Walign-commons \
-                  -Wfunction-elimination -Wrealloc-lhs -Wrealloc-lhs-all \
-                  -fbacktrace -ffree-line-length-0 -fcheck=all \
-                  -ffpe-trap=invalid,zero,overflow,underflow -pedantic-errors -std=f2018
+                  -Wimplicit-interface -Wimplicit-procedure -Wintrinsics-std -Wreal-q-constant \
+                  -Wsurprising -Wunderflow -Walign-commons -Wfunction-elimination -Wrealloc-lhs \
+                  -Wrealloc-lhs-all -Wstrict-overflow=2 -Wsuggest-attribute=pure -Wconversion \
+                  -Warray-bounds=2 -Wattribute-alias=2 -Wtrampolines -Wshadow -Wunsafe-loop-optimizations \
+                  -Wcast-align=strict -Wdate-time -Wvector-operation-performance -Wdisabled-optimization \
+                  -Wstack-protector -fstack-clash-protection -fstack-protector-all \
+                  -fbacktrace -ffree-line-length-0 -fcheck=all -ffpe-trap=invalid,zero,overflow,underflow \
+                  -pedantic-errors -std=f2018
 
      ## Флаги для финальной сборки
      opt_production := -Ofast -ffree-line-length-0
@@ -79,8 +82,10 @@
 
      ## Указание поддиректорий в директории с исходными файлами (всегда в окончании прямой слеш), относящихся к модулю
      module_subs := Визуализация/ Визуализация/Вход/ Визуализация/Результат/ \
-                    Вспомогательные/Освобождение/ Вспомогательные/Генерация/ Вспомогательные/Действия/Тренд/ \
+                    Вспомогательные/Освобождение/ Вспомогательные/Генерация/Процедура/ Вспомогательные/Генерация/Параметры/ \
+                    Вспомогательные/Генерация/Настройки/ Вспомогательные/Действия/Тренд/ \
                     Вспомогательные/Действия/Периодограммы/ Вспомогательные/Действия/Коррелограммы/ \
+                    Вспомогательные/Вход/ Вспомогательные/Результат/ \
                     Вход/ Вход/Освобождение/ Вход/Ошибки/ Вход/Запись/ Вход/Считывание/ \
                     Генерация/ Генерация/Процедуры/ Генерация/Ошибки/ \
                     Генерация/Параметры/ Генерация/Параметры/Ошибки/ Генерация/Параметры/Считывание/ \
@@ -108,6 +113,18 @@
                                $(obj_path)scats_visualize_m.o $(obj_path)scats_result_m.o \
                                $(obj_path)scats_do_m.o $(obj_path)prec_m.o
 
+               # Вспомогательная процедура для считывания параметров генератора
+               $(obj_path)scats_read_params_s.o : $(obj_path)scats.o
+
+               # Вспомогательная процедура для считывания настроек считывания параметров
+               $(obj_path)scats_read_gen_settings_s.o : $(obj_path)scats.o
+
+               # Вспомогательная процедура для считывания входных данных
+               $(obj_path)scats_read_input_s.o : $(obj_path)scats.o
+
+               # Вспомогательная процедура для записи входных данных в файл
+               $(obj_path)scats_write_input_s.o : $(obj_path)scats.o
+
                # Вспомогательная процедура для вызова генератора временного ряда
                $(obj_path)scats_generate_s.o : $(obj_path)scats.o
 
@@ -128,6 +145,9 @@
 
                # Вспомогательная процедура для вычисления сглаженной периодограммы
                $(obj_path)scats_calculate_weighted_periodogram_s.o : $(obj_path)scats.o
+
+               # Вспомогательная процедура для записи результата в файл
+               $(obj_path)scats_write_result_s.o : $(obj_path)scats.o
 
                # Визуализация
                $(obj_path)scats_visualize_input_s.o : $(obj_path)scats_visualize_m.o
@@ -198,8 +218,11 @@
                                          $(obj_path)scats_do_trend_m.o $(obj_path)scats_do_periodogram_m.o \
                                          $(obj_path)scats_do_correlogram_m.o
 
-                    # Процедура для вывода ошибок (действия)
-                    $(obj_path)scats_do_errors_log_error_s.o : $(obj_path)scats_do_errors_m.o
+                    # Вывод ошибок (действия)
+                    $(obj_path)scats_do_errors_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o
+
+                         # Процедура для вывода ошибок (действия)
+                         $(obj_path)scats_do_errors_log_error_s.o : $(obj_path)scats_do_errors_m.o
 
                     # Проверка на совпадение форм входных данных и результата
                     $(obj_path)scats_do_check_m.o : $(obj_path)scats_input_m.o $(obj_path)scats_result_m.o \

@@ -13,10 +13,10 @@ implicit none
 
           ! Открытие файла
           open( newunit = unit, file = file, action = 'write', status = 'replace', iostat = stat)
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WO', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WO', file, call_stat); return; endif
 
-          if ( .not. allocated(input%t) ) call scats_input_log_error('NA_t')
-          if ( .not. allocated(input%x) ) call scats_input_log_error('NA_x')
+          if ( .not. allocated(input%t) ) then; call scats_input_log_error('NA_t', call_stat=call_stat); return; endif
+          if ( .not. allocated(input%x) ) then; call scats_input_log_error('NA_x', call_stat=call_stat); return; endif
 
           ! Запись размера выборки
           write( unit, '(a)' ) 'Размер выборки'
@@ -42,7 +42,7 @@ implicit none
 
           ! Закрытие файла
           close( unit = unit, iostat = stat )
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WC', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WC', file, call_stat); return; endif
 
      end procedure scats_input_write_to_file
 
