@@ -14,14 +14,14 @@ implicit none
 
           ! Открытие файла
           open( newunit = unit, file = file, action = 'read', status = 'old', iostat = stat)
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WO', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WO', file, call_stat); return; endif
 
           ! Пропуск строки
           read( unit = unit, fmt = '()' )
 
           ! Считывание размера выборки
           read( unit = unit, fmt = *, iostat = stat ) N
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WR_N', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WR_N', file, call_stat); return; endif
 
           ! Конвертация
           N_m1 = N - 1_JP
@@ -31,14 +31,14 @@ implicit none
 
           ! Считывание шага выборки
           read( unit = unit, fmt = *, iostat = stat ) input%delta_t
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WR_delta_t', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WR_delta_t', file, call_stat); return; endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
 
           ! Считывание уровня значимости
           read( unit = unit, fmt = *, iostat = stat ) input%q
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WR_q', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WR_q', file, call_stat); return; endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
@@ -50,11 +50,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива времени
                     deallocate( input%t, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_input_log_error('WD_t')
+                    if ( stat .ne. 0_SP ) then; call scats_input_log_error('WD_t'); return; endif
 
                     ! Выделение памяти под массив времени
                     allocate( input%t(0:N_m1), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_input_log_error('WA_t')
+                    if ( stat .ne. 0_SP ) then; call scats_input_log_error('WA_t', call_stat=call_stat); return; endif
 
                endif
 
@@ -62,13 +62,13 @@ implicit none
 
                ! Выделение памяти под массив времени
                allocate( input%t(0:N_m1), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_input_log_error('WA_t')
+               if ( stat .ne. 0_SP ) then; call scats_input_log_error('WA_t', call_stat=call_stat); return; endif
 
           endif
 
           ! Считывание массива времени
           read( unit = unit, fmt = *, iostat = stat ) input%t
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WR_t', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WR_t', file, call_stat); return; endif
 
           ! Пропуск двух строк
           read( unit = unit, fmt = '(/)' )
@@ -80,11 +80,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений
                     deallocate( input%x, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_input_log_error('WD_x')
+                    if ( stat .ne. 0_SP ) then; call scats_input_log_error('WD_x'); return; endif
 
                     ! Выделение памяти под массив значений
                     allocate( input%x(0:N_m1), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_input_log_error('WA_x')
+                    if ( stat .ne. 0_SP ) then; call scats_input_log_error('WA_x', call_stat=call_stat); return; endif
 
                endif
 
@@ -92,17 +92,17 @@ implicit none
 
                ! Выделение памяти под массив значений
                allocate( input%x(0:N_m1), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_input_log_error('WA_x')
+               if ( stat .ne. 0_SP ) then; call scats_input_log_error('WA_x', call_stat=call_stat); return; endif
 
           endif
 
           ! Считывание массива значений
           read( unit = unit, fmt = *, iostat = stat ) input%x
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WR_x', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WR_x', file, call_stat); return; endif
 
           ! Закрытие файла
           close( unit = unit, iostat = stat )
-          if ( stat .ne. 0_SP ) call scats_input_log_error('WC', file)
+          if ( stat .ne. 0_SP ) then; call scats_input_log_error('WC', file, call_stat); return; endif
 
      end procedure scats_input_read
 

@@ -30,10 +30,11 @@ implicit none
      interface
 
           ! Процедура для вывода ошибок (генерация)
-          module impure subroutine scats_gen_log_error(error_code)
+          module impure subroutine scats_gen_log_error(error_code, call_stat)
           implicit none
 
                character(*), intent(in) :: error_code ! Код ошибки
+               logical, intent(inout), optional :: call_stat ! Статусная переменная процедуры
 
           end subroutine scats_gen_log_error
 
@@ -47,14 +48,16 @@ implicit none
           end subroutine scats_gen_generate_random_array
 
           ! Процедура для генерации временного ряда
-          module impure subroutine scats_gen_generate(gen, input, add_trend, add_noise)
+          module impure subroutine scats_gen_generate(gen, input, add_trend, add_noise, call_stat)
           implicit none
 
-               class(gen_type), intent(in) :: gen ! Экземпляр API генератора
+               class(gen_type), intent(inout) :: gen ! Экземпляр API генератора
                type(input_type), intent(inout) :: input ! Входные данные
 
-               logical(kind(.true.)), intent(in) :: add_trend ! Добавлять тренд?
-               logical(kind(.true.)), intent(in) :: add_noise ! Добавлять шум?
+               logical, intent(in) :: add_trend ! Добавлять тренд?
+               logical, intent(in) :: add_noise ! Добавлять шум?
+
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
 
           end subroutine scats_gen_generate
 

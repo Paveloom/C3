@@ -44,16 +44,18 @@ implicit none
      interface
 
           ! Процедура для вывода ошибок (результат)
-          module impure subroutine scats_result_log_error(error_code, file)
+          module impure subroutine scats_result_log_error(error_code, file, call_stat)
           implicit none
 
                character(*), intent(in) :: error_code ! Код ошибки
                character(*), intent(in), optional :: file ! Файл для записи
 
+               logical, intent(inout), optional :: call_stat ! Статусная переменная процедуры
+
           end subroutine scats_result_log_error
 
           ! Процедура для освобождения памяти из-под результата
-          module subroutine scats_result_deallocate(result)
+          module impure subroutine scats_result_deallocate(result)
           implicit none
 
                class( result_type ), intent(inout) :: result ! Результат
@@ -61,11 +63,13 @@ implicit none
           end subroutine scats_result_deallocate
 
           ! Процедура для записи результата в файл
-          module impure subroutine scats_result_write_to_file(result, file)
+          module impure subroutine scats_result_write_to_file(result, file, call_stat)
           implicit none
 
-               class( result_type ), intent(in) :: result ! Результат
+               class( result_type ), intent(inout) :: result ! Результат
                character(*), intent(in) :: file ! Файл для записи
+
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
 
           end subroutine scats_result_write_to_file
 

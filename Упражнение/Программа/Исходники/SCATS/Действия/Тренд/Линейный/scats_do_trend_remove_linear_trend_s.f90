@@ -18,7 +18,8 @@ implicit none
           real(RP) :: N_RP ! Размер выборки (вещественное)
 
           ! Проверка на совпадение форм входных данных и результата
-          call scats_do_check(input, result)
+          call scats_do_check(input, result, call_stat)
+          if ( call_stat ) return
 
           ! Распаковка входных данных
           associate( delta_t => input%delta_t, &

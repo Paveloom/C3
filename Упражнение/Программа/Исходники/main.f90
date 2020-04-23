@@ -32,7 +32,7 @@ implicit none
      ! в отчете или в книжке Витязева
 
      ! Считывание временного ряда из файла
-     call s%input%read('Файлы/Данные/input')
+     call s%read_input('Файлы/Данные/input')
 
      ! Примечание: считываемый временной ряд
      ! был сгенерирован с помощью данного модуля,
@@ -52,7 +52,7 @@ implicit none
      call s%calc_per(use_input=.true.)
 
      ! Запись результата в файл
-     call s%result%write('Файлы/Данные/result')
+     call s%write_result('Файлы/Данные/result')
 
      ! Визуализация периодограммы
      call s%visualize%result('Файлы/Данные/result', stage='per')
@@ -118,14 +118,14 @@ implicit none
      ! чтобы отобразить значения сумм на той же системе частот
 
      ! Запись результата в файл
-     call s%result%write('Файлы/Данные/S_2')
+     call s%write_result('Файлы/Данные/S_2')
 
      ! Визуализация результата
      call s%visualize%result('Файлы/Данные/S_2', stage='per', output_file="Фигуры/S_2", &
                             & title="Периодограмма без множителя", show_sigma=.false.)
 
      ! Считывание белого шума из файла
-     call s%input%read('Файлы/Данные/noise')
+     call s%read_input('Файлы/Данные/noise')
 
      ! Примечание: эти данные также сгенерированы с помощью
      ! данного модуля. Использованные параметры описаны
@@ -144,7 +144,7 @@ implicit none
      call s%calc_per()
 
      ! Запись результата в файл
-     call s%result%write('Файлы/Данные/result_noise')
+     call s%write_result('Файлы/Данные/result_noise')
 
      ! Визуализации исходного ряда с добавленным шумом
      call s%visualize%result('Файлы/Данные/result_noise', stage='data', output_file="Фигуры/input_noise")
@@ -189,7 +189,7 @@ implicit none
      s%result%D(:) = S_2(:)
 
      ! Запись результата в файл
-     call s%result%write('Файлы/Данные/S_2_noise')
+     call s%write_result('Файлы/Данные/S_2_noise')
 
      ! Визуализация результата
      call s%visualize%result('Файлы/Данные/S_2_noise', stage='per', output_file="Фигуры/S_2_noise", &

@@ -19,19 +19,22 @@ implicit none
      interface
 
           ! Процедура для вычисления периодограммы
-          module impure subroutine scats_do_periodogram_calculate(result, input)
+          module impure subroutine scats_do_periodogram_calculate(result, call_stat, input)
           implicit none
 
                type( result_type ), intent(inout) :: result ! Результат
-               type( input_type ), optional, intent(in) :: input ! Входные данные
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
+               type( input_type ), optional, intent(inout) :: input ! Входные данные
 
           end subroutine scats_do_periodogram_calculate
 
           ! Процедура для вычисления сглаженной периодограммы
-          module impure subroutine scats_do_periodogram_calculate_w(result)
+          module impure subroutine scats_do_periodogram_calculate_w(result, call_stat)
           implicit none
 
-               type( result_type ) :: result ! Результат
+               type( result_type ), intent(inout) :: result ! Результат
+
+               logical, intent(inout) :: call_stat ! Статусная переменная процедуры
 
           end subroutine scats_do_periodogram_calculate_w
 

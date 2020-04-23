@@ -26,10 +26,10 @@ implicit none
           integer(SP) :: stat ! Статусная переменная
 
           ! Проверка, выделена ли память под массив времени
-          if ( .not. allocated(result%t) ) call scats_do_errors_log_error('NA_t')
+          if ( .not. allocated(result%t) ) then; call scats_do_errors_log_error('NA_t', call_stat); return; endif
 
           ! Проверка, выделена ли память под массив значений сглаженной коррелограммы
-          if ( .not. allocated(result%cw) ) call scats_do_errors_log_error('NA_cw')
+          if ( .not. allocated(result%cw) ) then; call scats_do_errors_log_error('NA_cw', call_stat); return; endif
 
           ! Определение размера выборки
           N_JP = size(result%t, kind=JP)
@@ -59,11 +59,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива значений сглаженной периодограммы
                     deallocate( result%Dw, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_Dw')
+                    if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WD_Dw', call_stat); return; endif
 
                     ! Выделение памяти под массив значений сглаженной периодограммы
                     allocate( result%Dw(0_JP:N_1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_Dw')
+                    if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_Dw', call_stat); return; endif
 
                endif
 
@@ -71,7 +71,7 @@ implicit none
 
                ! Выделение памяти под массив значений сглаженной периодограммы
                allocate( result%Dw(0_JP:N_1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_Dw')
+               if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_Dw', call_stat); return; endif
 
           endif
 
@@ -82,11 +82,11 @@ implicit none
 
                     ! Освобождение памяти из-под массива частот периодограммы
                     deallocate( result%v, stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_v')
+                    if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WD_v', call_stat); return; endif
 
                     ! Выделение памяти под массив частот периодограммы
                     allocate( result%v(0_JP:N_1_JP), stat = stat )
-                    if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_v')
+                    if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_v', call_stat); return; endif
 
                     ! Вычисление шага по частотам
                     delta_v = 1._RP / (N_2_RP * result%delta_t)
@@ -106,7 +106,7 @@ implicit none
 
                ! Выделение памяти под массив частот периодограммы
                allocate( result%v(0_JP:N_1_JP), stat = stat )
-               if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_v')
+               if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_v', call_stat); return; endif
 
                ! Вычисление шага по частотам
                delta_v = 1._RP / (N_2_RP * result%delta_t)
@@ -124,7 +124,7 @@ implicit none
 
           ! Выделение памяти под массив комплексных значений преобразования Фурье
           allocate( X_FFT(0_JP:N_2_m1_JP), stat = stat )
-          if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WA_X_FFT')
+          if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WA_X_FFT', call_stat); return; endif
 
           ! Копирование вещественного массива значений
           X_FFT(0_JP:N_s_JP-1_JP)%re = result%cw(0:)
@@ -139,7 +139,7 @@ implicit none
 
           ! Освобождение памяти из-под массива комплексных значений преобразования Фурье
           deallocate( X_FFT, stat = stat )
-          if ( stat .ne. 0_SP ) call scats_do_errors_log_error('WD_X_FFT')
+          if ( stat .ne. 0_SP ) then; call scats_do_errors_log_error('WD_X_FFT', call_stat); return; endif
 
      end procedure scats_do_periodogram_calculate_w
 

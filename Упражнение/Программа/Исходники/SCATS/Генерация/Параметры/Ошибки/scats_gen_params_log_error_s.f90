@@ -12,62 +12,62 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось открыть файл '//file//'&
                                                                                      & для чтения.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_N')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение размера выборки в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_delta_t')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение шага выборки в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_q')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение уровня значимости в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_alpha')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение параметра alpha в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_beta')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение параметра beta в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_r')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение числа гармонических компонент в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WA_A')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось выделить память под массив амплитуд&
                                                                                      & для объекта типа gen_params_type.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_A')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значения массива амплитуд в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WD_A')
 
@@ -79,14 +79,14 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось выделить память под массив частот&
                                                                                      & для объекта типа gen_params_type.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_v')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значения массива частот в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WD_v')
 
@@ -98,14 +98,14 @@ implicit none
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось выделить память под массив фазовых сдвигов&
                                                                                      & для объекта типа gen_params_type.'
-                    stop
+                    call_stat = .true.
 
                case ('WR_phi')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значения массива фазовых сдвигов в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WD_phi')
 
@@ -118,13 +118,13 @@ implicit none
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось считать значение отношения «сигнал к шуму» в&
                                                                                      & файле '//file//'. Проверьте правильность&
                                                                                      & введенных данных.'
-                    stop
+                    call_stat = .true.
 
                case ('WС')
 
                     write(*,'(/, 5x, a, /, 5x, a, /)') 'scats_gen_params_log_error:', 'Не удалось закрыть файл '//file//'&
                                                                                      & для чтения.'
-                    stop
+                    call_stat = .true.
 
                case default
 
